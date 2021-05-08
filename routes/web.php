@@ -16,3 +16,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    if (auth()->user()->hasRole('superadmin'))
+    {
+        echo "superadmin";
+    } elseif (auth()->user()->hasRole('admin')) {
+        echo "admin";
+    } elseif (auth()->user()->hasRole('investor')) {
+        echo "investor";
+    } elseif (auth()->user()->hasRole('partner')) {
+        echo "partner";
+    } else {
+        echo "false";
+    }
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';

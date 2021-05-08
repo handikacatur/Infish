@@ -1,0 +1,1 @@
+<img src="{{asset('images/logo/logo-infish.svg')}}" alt="logo-app" class="m-auto h-20">
