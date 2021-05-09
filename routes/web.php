@@ -18,8 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    if (auth()->user()->hasRole('superadmin'))
-    {
+    if (auth()->user()->hasRole('superadmin')) {
         echo "superadmin";
     } elseif (auth()->user()->hasRole('admin')) {
         echo "admin";
