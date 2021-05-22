@@ -10,16 +10,18 @@
     <meta name="author" content="zytheme" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Multi-purpose Makerting html5 landing page">
-    <link href="{{ ASSET('assets/images/favicon/favicon.ico') }}" rel="icon">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/logo/emblem-infish.svg') }}" type="image/x-icon">
 
     <!-- Fonts
     ============================================= -->
-    <link href='{{ URL('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700') }}' rel='stylesheet' type='text/css'>
+    <link href='{{ url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700') }}' rel='stylesheet' type='text/css'>
 
     <!-- Stylesheets
     ============================================= -->
-    <link href="{{ ASSET('assets/css/external.css') }}" rel="stylesheet">
-    <link href="{{ ASSET('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/external.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/fontawesome-free-5.15.3/css/all.min.css')}}" rel="stylesheet" type="text/css">
 

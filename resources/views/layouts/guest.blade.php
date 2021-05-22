@@ -11,16 +11,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ ASSET('assets/images/favicon/favicon.ico') }}" rel="icon">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('images/logo/emblem-infish.svg') }}" type="image/x-icon">
 
     <!-- Fonts
     ============================================= -->
-    <link href='{{ URL('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700') }}' rel='stylesheet' type='text/css'>
+    <link href='{{ url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700') }}' rel='stylesheet' type='text/css'>
 
     <!-- Stylesheets
     ============================================= -->
-    <link href="{{ ASSET('assets/css/external.css') }}" rel="stylesheet">
-    <link href="{{ ASSET('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/external.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
@@ -51,7 +52,7 @@
                     <div class="col-12 col-md-12 col-lg-6">
                         <!--    CONTENT
                         ============================================== -->
-                                {{ $slot }}
+                        {{ $slot }}
                         <!--    END CONTENT
                         ============================================== -->
                     </div>

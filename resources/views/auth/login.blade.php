@@ -16,11 +16,11 @@
             <form class="w-full" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="w-full px-3 mb-4">
-                    <x-label for="email" :value="__('Email')" class="w-full block text-gray-700 text-sm font-bold mb-2 text-center"/>
+                    <x-label for="email" :value="__('Email')" class="w-full block text-gray-700 text-sm font-bold mb-2 text-left h-custom-text-blue"/>
                     <x-input id="email" class="shadow appearance-none block border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="email" name="email" :value="old('email')" required />
                 </div>
                 <div class="w-full px-3">
-                    <x-label for="password" :value="__('Password')" class="block text-gray-700 text-sm font-bold mb-2 text-center"/>
+                    <x-label for="password" :value="__('Password')" class="block text-gray-700 text-sm font-bold mb-2 text-left"/>
                     <x-input id="password" class="shadow appearance-none block border border-red-500 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" required autocomplete="new-password" />
                 </div>
                 <br>
@@ -31,8 +31,8 @@
                         <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                     </label>
                 </div>
-                <div class="w-full block px-3">
-                    <x-button class="w-full h-14 shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-3 rounded">
+                <div class="w-full block px-3 text-center">
+                    <x-button class="w-full h-14 m-auto shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold text-center py-3 rounded">
                         {{ __('Log in')}}
                     </x-button>
                 </div>

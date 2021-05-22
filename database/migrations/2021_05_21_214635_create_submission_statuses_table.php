@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePartnerFishesTable extends Migration
+class CreateSubmissionStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePartnerFishesTable extends Migration
      */
     public function up()
     {
-        Schema::create('partner_fishes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('partner_id');
-            $table->integer('fish_id');
+        Schema::create('submission_statuses', function (Blueprint $table) {
+            $table->smallIncrements('id');
+            $table->string('name', 20);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -29,6 +27,6 @@ class CreatePartnerFishesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partner_fishes');
+        Schema::dropIfExists('submission_statuses');
     }
 }

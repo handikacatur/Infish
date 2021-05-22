@@ -6,16 +6,41 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        <x-application-logo class="block h-10 w-auto text-gray-600" />
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
+                @role('partner')
+                <!-- Navigation Links - Partner -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('company-profile')" :active="request()->routeIs('company-profile')">
+                        {{ __('Profil Usaha') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('sale')" :active="request()->routeIs('sale')">
+                        {{ __('Penjualan') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('submission')" :active="request()->routeIs('submission')">
+                        {{ __('Pengajuan Dana') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('progress')" :active="request()->routeIs('progress')">
+                        {{ __('Perkembangan Usaha') }}
+                    </x-nav-link>
                 </div>
+                @endrole
+                @role('admin')
+                <!-- Navigation Links - Partner -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
+                        {{ __('Transaksi') }}
+                    </x-nav-link>
+                </div>
+                @endrole
             </div>
 
             <!-- Settings Dropdown -->
@@ -34,6 +59,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('faq')">
+                            {{ __('FAQ') }}
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

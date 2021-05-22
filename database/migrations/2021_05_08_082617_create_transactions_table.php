@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('partner_id');
             $table->integer('partner_fish_id');
+            $table->integer('weight');
             $table->bigInteger('amount');
             $table->timestamps();
             $table->softDeletes();

@@ -32,20 +32,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->authenticate();
         $request->session()->regenerate();
-        // if ($request->hasRole('superadmin')){
-        //     echo 'superadmin';
-        // } else if ($request->hasRole('admin')){
-        //     echo 'admin';
-        // } else if ($request->hasRole('investor')){
-        //     echo 'investor';
-        // } else if ($request->hasRole('partner')){
-        //     echo 'mitra';
-        // } else {
-        //     echo 'false';
-        // }
         
-        return redirect()->intended(RouteServiceProvider::HOME);
-        
+        return redirect()->intended(RouteServiceProvider::HOME); 
     }
 
     /**

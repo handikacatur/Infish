@@ -18,7 +18,7 @@
                 </div>
                 <div class="px-3 mb-3">
                     <x-label for="last_name" :value="__('Nama Belakang')" class="block text-gray-700 text-sm font-bold mb-2"/>
-                    <x-input id="last_name"  class="shadow appearance-none border rounded py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="first_name" :value="old('last_name')" required autofocus />
+                    <x-input id="last_name"  class="shadow appearance-none border rounded py-2 px-3 w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="last_name" :value="old('last_name')" required autofocus />
                 </div>
                 <div class="px-3 mb-2">
                     <x-label for="email" :value="__('Email')" class="w-full block text-gray-700 text-sm font-bold mb-2"/>
