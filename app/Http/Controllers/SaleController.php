@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
 use Illuminate\Http\Request;
+use App\Models\Sale;
+use App\Models\Transaction;
 
 class SaleController extends Controller
 {
@@ -22,6 +23,34 @@ class SaleController extends Controller
         ->where('transactions.partner_id', '=', $partnerUser)
         ->whereNull('transactions.deleted_at')
         ->get();
-        return view('partner.sale', ['listData' => $listData]);
+
+        $dataFish = \DB::table('partner_fishes')
+        ->select('partner_fishes.id', 'fishes.name')
+        ->join('fishes', 'partner_fishes.fish_id', '=', 'fishes.id')
+        ->where('partner_fishes.partner_id', '=', $partnerUser)
+        ->whereNull('partner_fishes.deleted_at')
+        ->get();
+
+        return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish]);
+    }
+
+    public function save(Request $request)
+    {
+        $newGetPartner = \DB::table('partners')->where('user_id', '=', \Auth::user()->id)->whereNull('deleted_at')->first();
+        $partnerUser = $newGetPartner->id;
+
+        $request->validate([
+            'weight' => 'required',
+            'amount' => 'required'
+        ]);
+
+        $transaction = new Transaction();
+        $transaction->partner_id = $partnerUser;
+        $transaction->partner_fish_id = $request->fish;
+        $transaction->weight = $request->weight;
+        $transaction->amount = $request->amount;
+        $transaction->save();
+
+        return redirect('sale');
     }
 }

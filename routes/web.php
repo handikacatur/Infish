@@ -49,6 +49,7 @@ Route::group(['middleware' => ['role:partner']], function(){
     Route::post('company-profile/change', [PartnerProfileController::class, 'edit']);
 
     Route::get('sale', [SaleController::class, 'index'])->name('sale');
+    Route::post('sale/save', [SaleController::class, 'save']);
 
     Route::get('submission', [SubmissionController::class, 'index'])->name('submission');
     Route::post('submission/save', [SubmissionController::class, 'save']);

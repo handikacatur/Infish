@@ -1,4 +1,14 @@
 <x-app-layout>
+    <x-slot name="header">
+        <div class="grid grid-cols-2">
+            <div class="text-left">
+                <span class="font-semibold text-xl text-gray-800 leading-tight inline-block align-middle">
+                    {{ __('Data Profil Perusahaan') }}
+                </span>
+            </div>
+        </div>
+    </x-slot>
+
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
@@ -73,23 +83,6 @@
                         <div class="md:w-1/2 px-3">
                             <x-label for="siup" :value="__('SIUP* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
                             <x-input id="siup" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="siup" :value="$dataCompany->siup" required />
-                        </div>
-                    </div>
-                    <hr class="py-3">
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-full px-3">
-                            <x-label for="roi" :value="__('Return on Investment* (ROI) :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="roi" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="roi" :value="$dataPartner->roi" onkeypress="return isNumber(event)" required />
-                        </div>
-                    </div>
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <x-label for="lot_price" :value="__('Harga LOT* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="lot_price" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="lot_price" :value="$dataPartner->lot_price" onkeypress="return isNumber(event)" required />
-                        </div>
-                        <div class="md:w-1/2 px-3">
-                            <x-label for="lot" :value="__('Total LOT* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="lot" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="lot" :value="$dataPartner->lot" onkeypress="return isNumber(event)" required />
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">

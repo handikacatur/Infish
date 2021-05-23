@@ -60,9 +60,6 @@ class PartnerProfileController extends Controller
             'production_value' => 'required|numeric',
             'npwp' => 'required',
             'siup' => 'required',
-            'roi' => 'required|numeric',
-            'lot_price' => 'required|numeric',
-            'lot' => 'required|numeric',
             'description' => 'required'
         ]);
 
@@ -72,22 +69,13 @@ class PartnerProfileController extends Controller
         $date = date('H-i-s');
         $random = \Str::random(5);
 
-        if ($getPartner == NULL)
-        {
-            $partner = new Partner();
-            $partner->user_id = $user;
-            $partner->roi = $request->roi;
-            $partner->lot_price = $request->lot_price;
-            $partner->lot = $request->lot;
-            $partner->status_partner_id = 2;
-            $partner->save();
-        } else {
-            Partner::where('user_id', \Auth::user()->id)->update([
-                'roi' => $request->roi,
-                'lot_price' => $request->lot_price,
-                'lot' => $request->lot
-            ]);
-        }
+        $partner = new Partner();
+        $partner->user_id = $user;
+        $partner->roi = NULL;
+        $partner->lot_price = NULL;
+        $partner->lot = NULL;
+        $partner->status_partner_id = 2;
+        $partner->save();
 
         $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
         $partnerUser = $newGetPartner->id;

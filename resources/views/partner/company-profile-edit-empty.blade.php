@@ -78,22 +78,6 @@
                     <hr class="py-3">
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
-                            <x-label for="roi" :value="__('Return on Investment* (ROI) :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="roi" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="roi" :value="old('company_name')" onkeypress="return isNumber(event)" required />
-                        </div>
-                    </div>
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <x-label for="lot_price" :value="__('Harga LOT* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="lot_price" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="lot_price" :value="old('company_name')" onkeypress="return isNumber(event)" required />
-                        </div>
-                        <div class="md:w-1/2 px-3">
-                            <x-label for="lot" :value="__('Total LOT* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="lot" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="lot" :value="old('company_name')" onkeypress="return isNumber(event)" required />
-                        </div>
-                    </div>
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-full px-3">
                             <x-label for="description" :value="__('Deskripsi* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
                             <x-input id="description" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="description" :value="old('company_name')" required />
                         </div>

@@ -17,8 +17,8 @@ class CreatePartnersTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('roi')->nullable();
-            $table->bigInteger('lot_price');
-            $table->integer('lot');
+            $table->bigInteger('lot_price')->nullable();
+            $table->integer('lot')->nullable();
             $table->smallInteger('status_partner_id');
             $table->timestamps();
             $table->softDeletes();
