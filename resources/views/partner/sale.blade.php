@@ -66,9 +66,9 @@
                 </span>
             </div>
             <div class="text-right">
-                <x-custom-button class="text-right inline-block align-middle modal-open">
+                <button @click="openModal" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Penjualan') }}
-                </x-custom-button>
+                </button>
             </div>
         </div>
     </x-slot>
@@ -83,86 +83,163 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
+    <div class="w-full overflow-hidden rounded-lg shadow-sm border-1">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3">No</th>
+                <th class="px-4 py-3">Tanggal</th>
+                <th class="px-4 py-3">Jenis Ikan</th>
+                <th class="px-4 py-3">Berat</th>
+                <th class="px-4 py-3">Harga</th>
+                <th class="px-4 py-3">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                @foreach ($listData as $item)  
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="px-4 py-3">{{$loop->iteration}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->created_at}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->name}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->weight}}</td>
+                    <td class="px-4 py-3 text-xs">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            @currency($item->amount)
+                        </span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center space-x-4 text-sm">
+                            <a href="{{ url('edit-product') }}">
+                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                </svg>
+                                </button>
+                            </a>
+                            <a href="{{ url('delete-product') }}">
+                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                                </button>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach  
+            </tbody>
+          </table>
+        </div>
+        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+          <span class="flex items-center col-span-3">
+            Showing 21-30 of 100
+          </span>
+          <span class="col-span-2"></span>
+          <!-- Pagination -->
+          <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <nav aria-label="Table navigation">
+              <ul class="inline-flex items-center">
+                <li>
+                  <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
+                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                      <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    1
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    2
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    3
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    4
+                  </button>
+                </li>
+                <li>
+                  <span class="px-3 py-1">...</span>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    8
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    9
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
+                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                      <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </span>
+        </div>
+      </div>
 
-    <div class="pb-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white bg-opacity-90">
-                    <table id="thisTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                        <thead>
-                            <tr>
-                                <th data-priority="1">No</th>
-                                <th data-priority="2">Tanggal</th>
-                                <th data-priority="3">Jenis Ikan</th>
-                                <th data-priority="4">Bobot</th>
-                                <th data-priority="5">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($listData as $item)  
-                            <tr>
-                                <td class="text-center">{{$loop->iteration}}</td>
-                                <td class="text-center">{{$item->created_at}}</td>
-                                <td class="text-center">{{$item->name}}</td>
-                                <td class="text-center">{{$item->weight}}</td>
-                                <td class="text-center">{{$item->amount}}</td>
-                            </tr>
+      
+<div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">
+        <!-- Modal body -->
+        <div class="mt-4 mb-6">
+            <!-- Modal title -->
+            <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Data Penjualan</p>
+            <!-- Modal description -->            
+            <form action="{{url('sale/save')}}" method="POST">
+                @csrf
+                <div class="mt-3 p-3">
+                    <div>
+                        <x-label for="partner" :value="__('Mitra :')"/>
+                        <x-label for="partner" class="block mt-1 w-full font-bold" :value="Auth::user()->name"/>
+                    </div>
+                    <div class="mt-3">
+                        <x-label for="fish" :value="__('Jenis Ikan :')"/>
+                        <x-input-select name="fish" class="block mt-1 w-full p-2 border rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            @foreach ($dataFish as $itemFish)
+                            <option value="{{$itemFish->id}}">{{$itemFish->name}}</option>
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Modal-->
-    <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-8 text-left px-10">
-                <div class="flex justify-between items-center pb-3">
-                    <p class="text-2xl font-bold">Tambah Data Penjualan
-                    </p>
-                    <div class="modal-close cursor-pointer z-50">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
+                        </x-input-select>
+                    </div>
+                    <div class="mt-3">
+                        <x-label for="weight" :value="__('Berat :')" />
+                        <x-input id="weight" class="block mt-1 w-full" type="text" name="weight" :value="old('weight')" onkeypress="return isNumber(event)" required />
+                    </div>
+                    <div class="mt-3">
+                        <x-label for="amount" :value="__('Jumlah :')" />
+                        <x-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" onkeypress="return isNumber(event)" required />
                     </div>
                 </div>
-                <hr>
-                <form action="{{url('sale/save')}}" method="POST">
-                    @csrf
-                    <div class="mt-3 p-3">
-                        <div>
-                            <x-label for="partner" :value="__('Mitra :')"/>
-                            <x-label for="partner" class="block mt-1 w-full font-bold" :value="Auth::user()->name"/>
-                        </div>
-                        <div class="mt-3">
-                            <x-label for="fish" :value="__('Jenis Ikan :')"/>
-                            <x-input-select name="fish" class="block mt-1 w-full p-2 border rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @foreach ($dataFish as $itemFish)
-                                <option value="{{$itemFish->id}}">{{$itemFish->name}}</option>
-                                @endforeach
-                            </x-input-select>
-                        </div>
-                        <div class="mt-3">
-                            <x-label for="weight" :value="__('Berat :')" />
-                            <x-input id="weight" class="block mt-1 w-full" type="number" name="weight" :value="old('weight')" onkeypress="return isNumber(event)" required />
-                        </div>
-                        <div class="mt-3">
-                            <x-label for="amount" :value="__('Jumlah :')" />
-                            <x-input id="amount" class="block mt-1 w-full" type="number" name="amount" :value="old('amount')" onkeypress="return isNumber(event)" required />
-                        </div>
-                    </div>
-                    <div class="flex justify-end pt-2">
-                        <x-custom-button class="px-4 bg">
-                            <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
-                        </x-custom-button>
-                    </div>
-                </form>
-            </div>
+                <div class="flex justify-end pt-2">
+                    <x-custom-button class="px-4 bg">
+                        <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
+                    </x-custom-button>
+                </div>
+            </form>
         </div>
+        <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+            <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                Cancel
+            </button>
+        </footer>
     </div>
+</div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
