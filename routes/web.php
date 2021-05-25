@@ -51,6 +51,9 @@ Route::group(['middleware' => ['role:partner']], function(){
 
     Route::get('sale', [SaleController::class, 'index'])->name('sale');
     Route::post('sale/save', [SaleController::class, 'save']);
+    Route::post('edit-sale/{sale}/change', [SaleController::class, 'edit']);
+    Route::patch('update-sale/{sale}/patch', [SaleController::class, 'put']);
+    Route::delete('delete-sale/{sale}/drop', [SaleController::class, 'destroy']);
 
     Route::get('submission', [SubmissionController::class, 'index'])->name('submission');
     Route::post('submission/save', [SubmissionController::class, 'save']);

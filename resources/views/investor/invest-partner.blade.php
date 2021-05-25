@@ -6,9 +6,9 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
-                <div class="md:flex mb-6">
+                <div class="flex mb-6">
                     <div class="grid grid-cols-2 m-auto px-3 mb-6 md:mb-0">
                         @foreach ($listData as $itemData)
                         <div class="max-w-3xl m-3 bg-white p-5 rounded-md tracking-wide shadow-lg">
