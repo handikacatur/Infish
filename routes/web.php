@@ -11,6 +11,7 @@ use App\Http\Controllers\PartnerProfileController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\InvestationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +41,7 @@ Route::group(['middleware' => ['role:admin']], function(){
 });
 
 Route::group(['middleware' => ['role:investor']], function(){
-    
+    Route::get('invest-partner', [InvestationController::class, 'index'])->name('invest-partner');
 });
 
 Route::group(['middleware' => ['role:partner']], function(){
@@ -57,21 +58,5 @@ Route::group(['middleware' => ['role:partner']], function(){
     Route::get('progress', [ProgressController::class, 'index'])->name('progress');
     Route::post('progress/save', [ProgressController::class, 'save']);
 });
-
-
-/* Route::get('/dashboard', function () {
-    if (auth()->user()->hasRole('superadmin')) {
-        echo "superadmin";
-    } elseif (auth()->user()->hasRole('admin')) {
-        echo "admin";
-    } elseif (auth()->user()->hasRole('investor')) {
-        echo "investor";
-    } elseif (auth()->user()->hasRole('partner')) {
-        echo "partner";
-    } else {
-        echo "false";
-    }
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard'); */
 
 require __DIR__.'/auth.php';

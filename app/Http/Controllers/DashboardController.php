@@ -20,7 +20,7 @@ class DashboardController extends Controller
         } elseif (\Auth::user()->hasRole('admin')) {
             return view('admin.dashboard');
         } elseif (\Auth::user()->hasRole('investor')) {
-            return "investor";
+            return view('investor.dashboard');
         } elseif (\Auth::user()->hasRole('partner')) {
             return view('partner.dashboard');
         }

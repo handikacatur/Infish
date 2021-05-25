@@ -31,13 +31,24 @@
                 </div>
                 @endrole
                 @role('admin')
-                <!-- Navigation Links - Partner -->
+                <!-- Navigation Links - Admin -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('transaction')" :active="request()->routeIs('transaction')">
                         {{ __('Transaksi') }}
+                    </x-nav-link>
+                </div>
+                @endrole
+                @role('investor')
+                <!-- Navigation Links - Admin -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('invest-partner')" :active="request()->routeIs('invest-partner')">
+                        {{ __('Mitra Perikanan') }}
                     </x-nav-link>
                 </div>
                 @endrole
