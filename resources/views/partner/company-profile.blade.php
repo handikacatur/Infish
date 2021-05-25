@@ -1,55 +1,36 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profil Usaha') }}
+        </h2>
+    </x-slot>
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 px-4 my-3">
+            <div class="px-4 py-3 mb-3">
 
                 @if ($statusPartner->status_partner_id == '1')
                 {{-- verified --}}
-                <div class="bg-gray-100 border-green-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around | hover:bg-green-400 dark:hover:bg-green-600 hover:border-transparent | transition-colors duration-500">
-                    
-                    <div class="h-16 h-16 object-cover">
-                        <i class="fa fa-check-circle object-cover" style="font-size: 400%;"></i>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p>
-                        <p class="text-black dark:text-gray-100 text-justify font-semibold italic">Terverifikasi</p>
-                    </div>
+                <div class="bg-gray-100 border-green-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-2 border-solid rounded-3xl border-2 | flex justify-start | hover:bg-green-400 dark:hover:bg-green-600 hover:border-transparent | transition-colors duration-500">
+                    {{-- <p class="ml-2 text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p> --}}
+                    <p class="ml-2 text-black dark:text-gray-100 text-justify font-semibold italic"><i class="fa fa-check-circle"></i> Terverifikasi</p>
                 </div>
                 @elseif ($statusPartner->status_partner_id == '2')
                 {{-- waiting --}}
-                <div class="bg-gray-100 border-blue-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around | hover:bg-blue-400 dark:hover:bg-blue-600 hover:border-transparent | transition-colors duration-500">
-                    
-                    <div class="h-16 h-16 object-cover">
-                        <i class="fa fa-clock object-cover" style="font-size: 400%;"></i>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p>
-                        <p class="text-black dark:text-gray-100 text-justify font-semibold italic">Menunggu Persetujuan</p>
-                    </div>
+                <div class="bg-gray-100 border-blue-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-2 border-solid rounded-3xl border-2 | flex justify-start | hover:bg-blue-400 dark:hover:bg-blue-600 hover:border-transparent | transition-colors duration-500">
+                    {{-- <p class="ml-2 text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p> --}}
+                    <p class="ml-2 text-black dark:text-gray-100 text-justify font-semibold italic"><i class="fa fa-clock"></i> Sedang menunggu persetujuan</p>
                 </div>
                 @elseif ($statusPartner->status_partner_id == '3')
                 {{-- banned --}}
-                <div class="bg-gray-100 border-red-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around | hover:bg-red-400 dark:hover:bg-red-600 hover:border-transparent | transition-colors duration-500">
-                    
-                    <div class="h-16 h-16 object-cover">
-                        <i class="fa fa-times-circle object-cover" style="font-size: 400%;"></i>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p>
-                        <p class="text-black dark:text-gray-100 text-justify font-semibold italic">Ditolak</p>
-                    </div>
+                <div class="bg-gray-100 border-red-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-2 border-solid rounded-3xl border-2 | flex justify-start | hover:bg-red-400 dark:hover:bg-red-600 hover:border-transparent | transition-colors duration-500">
+                    {{-- <p class="ml-2 text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p> --}}
+                    <p class="ml-2 text-black dark:text-gray-100 text-justify font-semibold italic"><i class="fa fa-times-circle"></i> Permohonan tidak disetujui</p>
                 </div>
                 @else
                 {{-- not verified --}}
-                <div class="bg-gray-100 border-yellow-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around | hover:bg-yellow-400 dark:hover:bg-yellow-600 hover:border-transparent | transition-colors duration-500">
-                    
-                    <div class="h-16 h-16 object-cover">
-                        <i class="fa fa-info-circle object-cover" style="font-size: 400%;"></i>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p>
-                        <p class="text-black dark:text-gray-100 text-justify font-semibold italic">Belum Terverifikasi</p>
-                    </div>
+                <div class="bg-gray-100 border-yellow-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-2 border-solid rounded-3xl border-2 | flex justify-start | hover:bg-yellow-400 dark:hover:bg-yellow-600 hover:border-transparent | transition-colors duration-500">
+                    {{-- <p class="ml-2 text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p> --}}
+                    <p class="ml-2 text-black dark:text-gray-100 text-justify font-semibold italic"><i class="fa fa-info-circle"></i> Permohonan belum diverifikasi</p>
                 </div>
                 @endif
 

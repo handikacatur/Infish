@@ -31,8 +31,7 @@
       <script src="assets/js/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Document Title
-    ============================================= -->
+    <!-- Document Title    ============================================= -->
     <title>Infish</title>
 </head>
 
@@ -60,7 +59,7 @@
                             </li>
                             <li><a data-scroll="scrollTo" href="#reviews">Mitra</a>
                             </li>
-                            <li><a data-scroll="scrollTo" href="#clients">Login</a>
+                            <li><a href="{{ url('/login') }}" href="#clients">Login</a>
                             </li>
                         </ul>
                     </div>
