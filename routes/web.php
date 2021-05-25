@@ -42,6 +42,11 @@ Route::group(['middleware' => ['role:admin']], function(){
 
 Route::group(['middleware' => ['role:investor']], function(){
     Route::get('invest-partner', [InvestationController::class, 'index'])->name('invest-partner');
+    Route::post('detail-investation/{detail}/detail', [InvestationController::class, 'detail']);
+    Route::post('invest/{check}/check', [InvestationController::class, 'investCheck']);
+    Route::post('go-invest/{invest}/go', [InvestationController::class, 'invest']);
+
+    Route::get('transaction-investation', [InvestationController::class, 'transaction'])->name('transaction-investation');
 });
 
 Route::group(['middleware' => ['role:partner']], function(){

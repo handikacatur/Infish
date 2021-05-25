@@ -49,11 +49,14 @@
                             </div>
                             <hr class="my-5">
                             <div class="-mx-3 my-3 md:flex">
-                                <div class="md:w-full px-3">
-                                    <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
-                                        <i class="fa fa-eye"></i> {{ __('Lihat Mitra')}}
-                                    </x-button>
-                                </div>
+                                <form action="{{url('/detail-investation')}}/{{$itemData->id}}/detail" method="POST" class="m-auto">
+                                    @csrf
+                                    <div class="md:w-full px-3">
+                                        <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
+                                            <i class="fa fa-eye"></i> {{ __('Lihat Mitra')}}
+                                        </x-button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                         @endforeach
