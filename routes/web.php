@@ -40,8 +40,9 @@ Route::group(['middleware' => ['role:admin']], function(){
     Route::get('transaction', [TransactionController::class, 'index'])->name('transaction');
     Route::post('transaction/save', [TransactionController::class, 'save']);
 
-    Route::get('confirm-partner', [ConfirmController::class, 'confirimPartner'])->name('confirm-partner');
-    Route::post('confirm-partner/{partner}/confirm', [ConfirmController::class, 'confirimPartner']);
+    Route::get('confirm-partner', [ConfirmController::class, 'confirmPartner'])->name('confirm-partner');
+    Route::post('confirm-partner/{partner}/partner', [ConfirmController::class, 'actionPartner']);
+    Route::patch('confirm-partner/{partner}/patch', [ConfirmController::class, 'patchPartner']);
 });
 
 Route::group(['middleware' => ['role:investor']], function(){
