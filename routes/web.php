@@ -12,6 +12,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\InvestationController;
+use App\Http\Controllers\ConfirmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,9 @@ Route::group(['middleware' => ['role:superadmin']], function(){
 Route::group(['middleware' => ['role:admin']], function(){
     Route::get('transaction', [TransactionController::class, 'index'])->name('transaction');
     Route::post('transaction/save', [TransactionController::class, 'save']);
+
+    Route::get('confirm-partner', [ConfirmController::class, 'confirimPartner'])->name('confirm-partner');
+    Route::post('confirm-partner/{partner}/confirm', [ConfirmController::class, 'confirimPartner']);
 });
 
 Route::group(['middleware' => ['role:investor']], function(){
