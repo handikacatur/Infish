@@ -47,6 +47,6 @@ class ConfirmController extends Controller
             'status_partner_id' => $request->status
         ]);
 
-        return redirect('invest-partner');
+        return redirect('confirm-partner');
     }
 }

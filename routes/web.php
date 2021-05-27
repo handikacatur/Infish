@@ -13,6 +13,7 @@ use App\Http\Controllers\SubmissionController;
 use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\InvestationController;
 use App\Http\Controllers\ConfirmController;
+use App\Http\Controllers\DetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,13 @@ Route::group(['middleware' => ['role:admin']], function(){
     Route::post('transaction/save', [TransactionController::class, 'save']);
 
     Route::get('confirm-partner', [ConfirmController::class, 'confirmPartner'])->name('confirm-partner');
+    Route::get('confirm-progress', [ConfirmController::class, 'confirmProgress'])->name('confirm-progress');
     Route::post('confirm-partner/{partner}/partner', [ConfirmController::class, 'actionPartner']);
     Route::patch('confirm-partner/{partner}/patch', [ConfirmController::class, 'patchPartner']);
+
+    Route::get('detail-partner', [DetailController::class, 'detailPartner'])->name('detail-partner');
+    Route::post('detail-partner/{partner}/partner', [DetailController::class, 'detailPartnerEdit']);
+    Route::patch('detail-partner/{partner}/patch', [DetailController::class, 'detailPartnerPatch']);
 });
 
 Route::group(['middleware' => ['role:investor']], function(){

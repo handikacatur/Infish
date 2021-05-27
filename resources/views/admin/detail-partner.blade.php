@@ -63,7 +63,7 @@
         <div class="grid grid-cols-2">
             <div class="text-left">
                 <span class="font-semibold text-xl text-gray-800 leading-tight inline-block align-middle">
-                    {{ __('Konfirmasi Mitra') }}
+                    {{ __('Detail Mitra') }}
                 </span>
             </div>
         </div>
@@ -81,8 +81,11 @@
                                 <th data-priority="3">Budidaya</th>
                                 <th data-priority="4">NPWP</th>
                                 <th data-priority="5">SIUP</th>
-                                <th data-priority="6">Status</th>
-                                <th data-priority="7">Aksi</th>
+                                <th data-priority="6">status</th>
+                                <th data-priority="7">ROI</th>
+                                <th data-priority="8">LOT</th>
+                                <th data-priority="9">Harga LOT</th>
+                                <th data-priority="10">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,8 +97,11 @@
                                 <td class="text-center">{{$itemPartner->npwp}}</td>
                                 <td class="text-center">{{$itemPartner->siup}}</td>
                                 <td class="text-center">{{$itemPartner->name}}</td>
+                                <td class="text-center">{{$itemPartner->roi}}%</td>
+                                <td class="text-center">{{$itemPartner->lot}}</td>
+                                <td class="text-center">{{$itemPartner->lot_price}}</td>
                                 <td class="text-center">
-                                    <form action="{{url('/confirm-partner')}}/{{$itemPartner->id}}/partner" method="POST" class="m-auto">
+                                    <form action="{{url('/detail-partner')}}/{{$itemPartner->id}}/partner" method="POST" class="m-auto">
                                         @csrf
                                         <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
                                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
