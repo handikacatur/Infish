@@ -55,11 +55,11 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="active"><a data-scroll="scrollTo" href="#hero">home</a>
                             </li>
-                            <li><a data-scroll="scrollTo" href="#feature2">Fitur</a>
+                            <li><a data-scroll="scrollTo" href="#about">Fitur</a>
                             </li>
-                            <li><a data-scroll="scrollTo" href="#reviews">Mitra</a>
+                            <li><a data-scroll="scrollTo" href="#clients">Mitra</a>
                             </li>
-                            <li><a href="{{ url('/login') }}" href="#clients">Login</a>
+                            <li><a href="{{ url('/login') }}">Login</a>
                             </li>
                         </ul>
                     </div>

@@ -26,7 +26,7 @@
         <!-- #slider end -->
         <!-- Feature #1
 ============================================= -->
-        <section id="feature1" class="section feature feature-center bg-white">
+        <section id="about" class="section feature feature-center bg-white">
             <div class="container px-20">
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-6 offset-lg-3">
