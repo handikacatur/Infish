@@ -7,52 +7,44 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-5">
-                <div class="flex mb-6">
-                    <div class="grid grid-cols-2 m-auto px-3 mb-6 md:mb-0">
+            <div class="overflow-hidden shadow-sm sm:rounded-lg p-5">
+                <div class="flex flex-wrap mb-6 md:items-center">
                         @foreach ($listData as $itemData)
-                        <div class="max-w-3xl m-3 bg-white p-5 rounded-md tracking-wide shadow-lg">
-                            <div id="header" class="flex"> 
-                                <img alt="mountain" class="w-56 rounded-md border-2 border-gray-300 object-cover" src="{{asset('images/upload/companyProfile/')}}/{{$itemData->image}}" />
-                                <div id="body" class="flex flex-col ml-5">
-                                    <h4 id="name" class="text-xl font-semibold mb-2">{{Str::limit($itemData->cultivation, $limit=20, $end="...")}}</h4>
-                                    <p id="job" class="text-gray-800 mt-2">{{Str::limit($itemData->cultivation, $limit=27, $end="...")}}</p>
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>Jenis Ikan</td>
-                                                <td>:</td>
-                                                <td>[get-Fish]</td>
-                                            </tr>
-                                            <tr>
-                                                <td>ROI</td>
-                                                <td>:</td>
-                                                <td>{{$itemData->roi}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LOT</td>
-                                                <td>:</td>
-                                                <td>{{$itemData->lot}}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Harga LOT</td>
-                                                <td>:</td>
-                                                <td>{{$itemData->lot_price}}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <div class="flex mt-5">
-                                    <img alt="avatar" class="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
-                                    <p class="ml-3">{{$itemData->company_name}}</p>
-                                    </div>
-                                </div>
+                        <div class="max-w-xs rounded overflow-hidden shadow-lg my-2 mx-3 flex-shrink-1">
+                            <img class="w-full min-h-10 h-28 object-cover" src="{{asset('images/upload/companyProfile/')}}/{{$itemData->image}}" alt="{{$itemData->company_name}}">
+                            <div class="px-6 py-4">
+                              <div class="font-bold text-xl mb-2">{{Str::limit($itemData->cultivation, $limit=20, $end="...")}}</div>
+                              <p class="text-grey-darker text-base"><p class="ml-3">{{$itemData->company_name}}</p></p>
+                              <table class="text-grey-darker text-base">
+                                    <tbody>
+                                        <tr>
+                                            <td>Jenis Ikan</td>
+                                            <td>:</td>
+                                            <td>[get-Fish]</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ROI</td>
+                                            <td>:</td>
+                                            <td>{{$itemData->roi}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>LOT</td>
+                                            <td>:</td>
+                                            <td>{{$itemData->lot}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Harga LOT</td>
+                                            <td>:</td>
+                                            <td>{{$itemData->lot_price}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <hr class="my-5">
-                            <div class="-mx-3 my-3 md:flex">
+                            <div class="px-6 py-4">                                  
                                 <form action="{{url('/detail-investation')}}/{{$itemData->id}}/detail" method="POST" class="m-auto">
                                     @csrf
-                                    <div class="md:w-full px-3">
-                                        <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
+                                    <div class="md:w-full inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">
+                                        <x-button class="px-5 py-2 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
                                             <i class="fa fa-eye"></i> {{ __('Lihat Mitra')}}
                                         </x-button>
                                     </div>
@@ -60,7 +52,6 @@
                             </div>
                         </div>
                         @endforeach
-                    </div>
                 </div>
             </div>
         </div>

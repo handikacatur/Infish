@@ -97,7 +97,7 @@
                                 @csrf
                                 <div class="md:w-full px-3">
                                     <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
-                                        <i class="fa fa-coins"></i> {{ __('Invest')}}
+                                        <i class="fa fa-coins"></i> &nbsp; {{ __('Tambahkan investasi')}}
                                     </x-button>
                                 </div>
                             </form>

@@ -140,7 +140,7 @@
         <!-- #feature2 end -->
         <!-- Clients Section
 ============================================= -->
-        <section id="clients" class="section clients clients-carousel bg-white">
+        <section id="clients" class="section bg-white">
             <div class="container px-20">
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
@@ -149,43 +149,49 @@
                                 Kabupaten/Kota yang telah menjadi Mitra
                             </h2>
                         </div>
+                        <div class="grid grid-cols-2 gap-2 place-items-center ">
+                                <img class="h-28" src="{{ asset('images/logo/logo-banyuwangi.png')}}" alt="client">
+                                <img class="h-28" src="{{ asset('images/logo/logo-jember.png')}}" alt="client">
+                        </div>
+                        <!-- carousel
                         <div class="carousel carousel-dots owl-carousel" data-slide="5" data-slide-res="2"
                             data-autoplay="true" data-nav="false" data-dots="false" data-space="30" data-loop="true"
                             data-speed="800">
-                            <!-- Client #1 -->
+                            
                             <div class="client">
-                                <img class="center-block" src="assets/images/clients/1.png" alt="client">
+                                <img class="center-block w-10 h-20" src="{{ asset('images/logo/logo-banyuwangi.png')}}" alt="client">
                             </div>
 
-                            <!-- Client #2 -->
+                            
                             <div class="client">
                                 <img class="center-block" src="assets/images/clients/2.png" alt="client">
                             </div>
 
-                            <!-- Client #3 -->
+                            
                             <div class="client">
                                 <img class="center-block" src="assets/images/clients/3.png" alt="client">
                             </div>
 
-                            <!-- Client #4 -->
+                            
                             <div class="client">
                                 <img class="center-block" src="assets/images/clients/4.png" alt="client">
                             </div>
 
-                            <!-- Client #5 -->
+                            
                             <div class="client">
                                 <img class="center-block" src="assets/images/clients/5.png" alt="client">
                             </div>
-                            <!-- Client #3 -->
+                            
                             <div class="client">
                                 <img class="center-block" src="assets/images/clients/3.png" alt="client">
                             </div>
 
-                            <!-- Client #4 -->
+                            
                             <div class="client">
                                 <img class="center-block" src="assets/images/clients/4.png" alt="client">
                             </div>
                         </div>
+                        -->
                     </div>
                     <!-- .col-md-12 end -->
                 </div>
