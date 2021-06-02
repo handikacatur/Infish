@@ -42,9 +42,16 @@ Route::group(['middleware' => ['role:admin']], function(){
     Route::post('transaction/save', [TransactionController::class, 'save']);
 
     Route::get('confirm-partner', [ConfirmController::class, 'confirmPartner'])->name('confirm-partner');
-    Route::get('confirm-progress', [ConfirmController::class, 'confirmProgress'])->name('confirm-progress');
     Route::post('confirm-partner/{partner}/partner', [ConfirmController::class, 'actionPartner']);
     Route::patch('confirm-partner/{partner}/patch', [ConfirmController::class, 'patchPartner']);
+
+    Route::get('confirm-progress', [ConfirmController::class, 'confirmProgress'])->name('confirm-progress');
+    Route::post('confirm-progress/{progress}/progress', [ConfirmController::class, 'actionProgress']);
+    Route::patch('confirm-progress/{progress}/patch', [ConfirmController::class, 'patchProgress']);
+
+    Route::get('confirm-submission', [ConfirmController::class, 'confirmSubmission'])->name('confirm-submission');
+    Route::post('confirm-submission/{submission}/submission', [ConfirmController::class, 'actionSubmission']);
+    Route::patch('confirm-submission/{submission}/patch', [ConfirmController::class, 'patchSubmission']);
 
     Route::get('detail-partner', [DetailController::class, 'detailPartner'])->name('detail-partner');
     Route::post('detail-partner/{partner}/partner', [DetailController::class, 'detailPartnerEdit']);
