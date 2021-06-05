@@ -103,7 +103,7 @@
                     <td class="px-4 py-3">{{$loop->iteration}}</td>
                     <td class="px-4 py-3 text-sm">{{$item->created_at}}</td>
                     <td class="px-4 py-3 text-sm">{{$item->name}}</td>
-                    <td class="px-4 py-3 text-sm">{{$item->weight}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->weight}} ton</td>
                     <td class="px-4 py-3 text-xs">
                         <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                             @currency($item->amount)
@@ -198,51 +198,51 @@
       </div>
 
       
-<div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
-    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+        <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">
         <!-- Modal body -->
-        <div class="mt-4 mb-6">
-            <!-- Modal title -->
-            <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Data Penjualan</p>
-            <!-- Modal description -->            
-            <form action="{{url('sale/save')}}" method="POST">
-                @csrf
-                <div class="mt-3 p-3">
-                    <div>
-                        <x-label for="partner" :value="__('Mitra :')"/>
-                        <x-label for="partner" class="block mt-1 w-full font-bold" :value="Auth::user()->name"/>
+            <div class="mt-4 mb-6">
+                <!-- Modal title -->
+                <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Data Penjualan</p>
+                <!-- Modal description -->            
+                <form action="{{url('sale/save')}}" method="POST">
+                    @csrf
+                    <div class="mt-3 p-3">
+                        <div>
+                            <x-label for="partner" :value="__('Mitra :')"/>
+                            <x-label for="partner" class="block mt-1 w-full font-bold" :value="Auth::user()->name"/>
+                        </div>
+                        <div class="mt-3">
+                            <x-label for="fish" :value="__('Jenis Ikan :')"/>
+                            <x-input-select name="fish" class="block mt-1 w-full p-2 border rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                @foreach ($dataFish as $itemFish)
+                                <option value="{{$itemFish->id}}">{{$itemFish->name}}</option>
+                                @endforeach
+                            </x-input-select>
+                        </div>
+                        <div class="mt-3">
+                            <x-label for="weight" :value="__('Berat (Ton) :')" />
+                            <x-input id="weight" class="block mt-1 w-full" type="text" name="weight" :value="old('weight')" onkeypress="return isNumber(event)" required />
+                        </div>
+                        <div class="mt-3">
+                            <x-label for="amount" :value="__('Jumlah (Rp.) :')" />
+                            <x-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" onkeypress="return isNumber(event)" required />
+                        </div>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="fish" :value="__('Jenis Ikan :')"/>
-                        <x-input-select name="fish" class="block mt-1 w-full p-2 border rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            @foreach ($dataFish as $itemFish)
-                            <option value="{{$itemFish->id}}">{{$itemFish->name}}</option>
-                            @endforeach
-                        </x-input-select>
+                    <div class="flex justify-end pt-2">
+                        <x-custom-button class="px-4 bg">
+                            <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
+                        </x-custom-button>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="weight" :value="__('Berat :')" />
-                        <x-input id="weight" class="block mt-1 w-full" type="text" name="weight" :value="old('weight')" onkeypress="return isNumber(event)" required />
-                    </div>
-                    <div class="mt-3">
-                        <x-label for="amount" :value="__('Jumlah :')" />
-                        <x-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" onkeypress="return isNumber(event)" required />
-                    </div>
-                </div>
-                <div class="flex justify-end pt-2">
-                    <x-custom-button class="px-4 bg">
-                        <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
-                    </x-custom-button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
+                <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                    Cancel
+                </button>
+            </footer>
         </div>
-        <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
-            <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
-                Cancel
-            </button>
-        </footer>
     </div>
-</div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

@@ -23,6 +23,11 @@
                     <hr class="py-3">
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
+                            <img class="w-75 m-auto rounded-md mb-3" src="{{asset('images/upload/companyProfile')}}/{{$dataCompany->image}}" alt="company-cover" />
+                        </div>
+                    </div>
+                    <div class="-mx-3 md:flex mb-6">
+                        <div class="md:w-full px-3">
                             <x-label for="company_name" :value="__('Nama Perusahaan* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
                             <x-input id="company_name" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="company_name" :value="$dataCompany->company_name" required />
                         </div>
@@ -47,16 +52,6 @@
                         <div class="md:w-full px-3">
                             <x-label for="culvitation" :value="__('Jenis Budidaya* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
                             <x-input id="culvitation" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="culvitation" :value="$dataCompany->cultivation" required />
-                        </div>
-                    </div>
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-full px-3">
-                            <x-label for="fish" :value="__('Jenis Ikan* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input-select name="fish" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3">
-                                @foreach ($dataFish as $itemFish)
-                                <option value="{{$itemFish->id}}">{{$itemFish->name}}</option>
-                                @endforeach
-                            </x-input-select>
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -107,7 +102,7 @@
                                         <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         <p class='text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider text-center'>Upload foto produk<br>Maksimal 2 foto</p>
                                     </div>
-                                    <x-input type='file' class="hidden" name="product[]" multiple :value="old('productImage')"/>
+                                    <x-input type='file' class="hidden" name="product[]" multiple/>
                                 </label>
                             </div>
                         </div>

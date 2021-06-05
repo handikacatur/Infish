@@ -149,9 +149,11 @@
                                 Kabupaten/Kota yang telah menjadi Mitra
                             </h2>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 place-items-center ">
-                                <img class="h-28" src="{{ asset('images/logo/logo-banyuwangi.png')}}" alt="client">
+                        <div class="grid grid-cols-4 gap-4 place-items-center ">
                                 <img class="h-28" src="{{ asset('images/logo/logo-jember.png')}}" alt="client">
+                                <img class="h-28" src="{{ asset('images/logo/logo-bondowoso.png')}}" alt="client">
+                                <img class="h-28" src="{{ asset('images/logo/logo-banyuwangi.png')}}" alt="client">
+                                <img class="h-28" src="{{ asset('images/logo/logo-lumajang.png')}}" alt="client">
                         </div>
                         <!-- carousel
                         <div class="carousel carousel-dots owl-carousel" data-slide="5" data-slide-res="2"

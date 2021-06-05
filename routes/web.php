@@ -72,6 +72,9 @@ Route::group(['middleware' => ['role:partner']], function(){
     Route::post('company-profile/save', [PartnerProfileController::class, 'save']);
     Route::post('company-profile/change', [PartnerProfileController::class, 'edit']);
 
+    Route::post('company-profile/save-fish', [PartnerProfileController::class, 'saveFish']);
+    Route::delete('company-profile/{partnerFish}/dropFish', [PartnerProfileController::class, 'dropFish']);
+
     Route::get('sale', [SaleController::class, 'index'])->name('sale');
     Route::post('sale/save', [SaleController::class, 'save']);
     Route::post('edit-sale/{sale}/change', [SaleController::class, 'edit']);

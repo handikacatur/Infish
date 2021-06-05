@@ -93,7 +93,11 @@
                             <tr>
                                 <td class="text-center">{{$loop->iteration}}</td>
                                 <td class="text-center">{{$item->created_at}}</td>
-                                <td class="text-center">{{$item->amount}}</td>
+                                <td class="text-center">
+                                    <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                        @currency($item->amount)
+                                    </span>
+                                </td>
                                 <td class="text-center">{{$item->description}}</td>
                                 <td class="text-center">{{$item->name}}</td>
                             </tr>
