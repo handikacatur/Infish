@@ -82,12 +82,12 @@
                                     <tr>
                                         <td>Bank Penerima</td>
                                         <td class="px-5">:</td>
-                                        <td><b>Mandiri</b></td>
+                                        <td><b>BCA</b></td>
                                     </tr>
                                     <tr>
                                         <td>No Rekening Penerima</td>
                                         <td class="px-5">:</td>
-                                        <td><b>003-38769-238762</b></td>
+                                        <td><b>0240407566</b></td>
                                     </tr>
                                     <tr>
                                         <td>a/n</td>

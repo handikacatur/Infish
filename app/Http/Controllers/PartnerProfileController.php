@@ -34,7 +34,7 @@ class PartnerProfileController extends Controller
             $getPartnerProfile = \DB::table('partner_profiles')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->first();
             return view('partner.company-profile', ['statusPartner' => $getPartnerStatus, 'dataPartnerProfile' => $getPartnerProfile, 'getFishPartner' => $getFish, 'getPureFish' => $getPureFish]);
         } else {
-            return view('partner.company-profile-empty');
+            return view('partner.company-profile-empty',['statusPartner' => $getPartnerStatus]);
         }
 
     }
