@@ -21,7 +21,14 @@ class InvestationController extends Controller
         ->where('partners.status_partner_id', '=', 1)
         ->whereNull('partners.deleted_at')
         ->get();
-        return view('investor.invest-partner', ['listData' => $listData]);
+
+        $listDataFish = \DB::table('partner_fishes')
+        ->select('partner_fishes.id', 'partner_fishes.partner_id', 'fishes.name')
+        ->join('fishes', 'partner_fishes.fish_id', '=', 'fishes.id')
+        ->whereNull('partner_fishes.deleted_at')
+        ->get();
+
+        return view('investor.invest-partner', ['listData' => $listData, 'listDataFish' => $listDataFish]);
     }
 
     public function detail(Partner $detail)

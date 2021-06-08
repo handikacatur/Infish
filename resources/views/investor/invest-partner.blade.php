@@ -14,13 +14,19 @@
                             <img class="w-full min-h-10 h-28 object-cover" src="{{asset('images/upload/companyProfile/')}}/{{$itemData->image}}" alt="{{$itemData->company_name}}">
                             <div class="px-6 py-4">
                               <div class="font-bold text-xl mb-2">{{Str::limit($itemData->cultivation, $limit=20, $end="...")}}</div>
-                              <p class="text-grey-darker text-base"><p class="ml-3">{{$itemData->company_name}}</p></p>
+                              <p class="text-grey-darker text-base text-center">{{$itemData->company_name}}</p>
                               <table class="text-grey-darker text-base">
                                     <tbody>
                                         <tr>
                                             <td>Jenis Ikan</td>
                                             <td>:</td>
-                                            <td>[get-Fish]</td>
+                                            <td>
+                                                @foreach ($listDataFish as $itemDataFish)
+                                                    @if ($itemDataFish->partner_id == $itemData->id)
+                                                        {{$itemDataFish->name}},
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>ROI</td>

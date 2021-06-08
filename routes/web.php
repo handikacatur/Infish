@@ -14,6 +14,9 @@ use App\Http\Controllers\ProgressController;
 use App\Http\Controllers\InvestationController;
 use App\Http\Controllers\ConfirmController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\ProfileAdminController;
+use App\Http\Controllers\ProfileInvestorController;
+use App\Http\Controllers\MasterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +59,15 @@ Route::group(['middleware' => ['role:admin']], function(){
     Route::get('detail-partner', [DetailController::class, 'detailPartner'])->name('detail-partner');
     Route::post('detail-partner/{partner}/partner', [DetailController::class, 'detailPartnerEdit']);
     Route::patch('detail-partner/{partner}/patch', [DetailController::class, 'detailPartnerPatch']);
+
+    Route::get('edit-profile-admin', [ProfileAdminController::class, 'editProfile']);
+    Route::get('edit-profile-form-admin', [ProfileAdminController::class, 'editProfileForm']);
+    Route::post('edit-profile-admin/update', [ProfileAdminController::class, 'updateProfile']);
+    Route::post('edit-profile-admin/password', [ProfileAdminController::class, 'passwordProfile']);
+
+    Route::get('master-fish', [MasterController::class, 'indexFish'])->name('master-fish');
+    Route::post('master-fish/save', [MasterController::class, 'saveFish']);
+    Route::delete('master-fish/{fish}/drop', [MasterController::class, 'dropFish']);
 });
 
 Route::group(['middleware' => ['role:investor']], function(){
@@ -65,6 +77,11 @@ Route::group(['middleware' => ['role:investor']], function(){
     Route::post('go-invest/{invest}/go', [InvestationController::class, 'invest']);
 
     Route::get('transaction-investation', [InvestationController::class, 'transaction'])->name('transaction-investation');
+
+    Route::get('edit-profile-investor', [ProfileInvestorController::class, 'editProfile']);
+    Route::get('edit-profile-form-investor', [ProfileInvestorController::class, 'editProfileForm']);
+    Route::post('edit-profile-investor/update', [ProfileInvestorController::class, 'updateProfile']);
+    Route::post('edit-profile-investor/password', [ProfileInvestorController::class, 'passwordProfile']);
 });
 
 Route::group(['middleware' => ['role:partner']], function(){
