@@ -93,6 +93,11 @@ class InvestationController extends Controller
             $investation->invest_status_id = 2;
             $investation->proof = $random.$date.$request->file('image')->getClientOriginalName();
             $investation->save();
+
+            Partner::where('id', $invest->id)->update([
+                'lot' => (int)$invest->lot - (int)$request->req_lot
+            ]);
+
         } else {
             return redirect('invest-partner');
         }
