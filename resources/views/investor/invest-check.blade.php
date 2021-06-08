@@ -33,18 +33,18 @@
                                         <td>Slot Dibeli</td>
                                         <td class="px-5">:</td>
                                         <td><b>
-                                            <x-input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="req_lot" required /> 
+                                            <x-input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="req_lot" id="lot" required/> 
                                         </b></td>
                                     </tr>
                                     <tr>
                                         <td>Biaya admin</td>
                                         <td class="px-5">:</td>
-                                        <td><b>Rp.2.500</b></td>
+                                        <td><b id="biayaAdmin">Rp.2.500</b></td>
                                     </tr>
                                     <tr>
                                         <td>Total</td>
                                         <td class="px-5">:</td>
-                                        <td><b>2500</b></td>
+                                        <td><b id="total">Rp.2.500</b></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -124,4 +124,38 @@
             </form>
         </div>
     </div>
+
+    <script type="text/javascript" src="{{ asset('assets\js\jquery-3.3.1.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+            $("#lot").change( function() {
+                if (document.getElementById("lot").value > @php echo $getPartner->lot; @endphp){
+                    alert("Jumlah lot yang dibeli tidak boleh melebihi lot yang tersedia!");
+                    document.getElementById("lot").value = null;
+                    
+                }else{
+                    var biayaAdmin  = 2500;
+                    var harga       = @php echo $getPartner->lot_price; @endphp ;
+                    var slot        = document.getElementById("lot").value;
+                    
+                    jumlah = (parseInt(slot) * parseInt(harga) ) + parseInt(biayaAdmin);
+
+                    var	number_string = jumlah.toString(),
+                    sisa 	= number_string.length % 3,
+                    rupiah 	= number_string.substr(0, sisa),
+                    ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                        
+                    if (ribuan) {
+                        separator = sisa ? '.' : '';
+                        rupiah += separator + ribuan.join('.');
+                    }
+
+                    $("#total").html("<b>Rp." + rupiah + "</b>"); 
+                }
+            });
+
+        });
+
+    </script>
 </x-app-layout>
