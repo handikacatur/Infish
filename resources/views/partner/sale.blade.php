@@ -73,18 +73,7 @@
         </div>
     </x-slot>
 
-    <div class="pt-12 pb-5">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="overflow-hidden m-auto sm:rounded-lg">
-                <div class="rounded shadow-xl m-auto overflow-hidden md:w-1/2 " x-data="{stockTicker:stockTicker()}" x-init="stockTicker.renderChart()">
-                    <div class="flex px-5 pb-4 pt-8 bg-indigo-500 text-white items-center">
-                        <canvas id="chart" class="w-full"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-    <div class="w-full overflow-hidden rounded-lg shadow-sm border-1">
+    <div class="w-full mt-12 overflow-hidden rounded-lg shadow-sm border-1">
         <div class="w-full overflow-x-auto">
           <table class="w-full whitespace-no-wrap">
             <thead>
@@ -195,7 +184,11 @@
             </nav>
           </span>
         </div>
-      </div>
+    </div>
+
+    <div class="pt-12 pb-5">
+        <div id="chart-container"></div>
+    </div> 
 
       
     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
@@ -309,92 +302,54 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script>
-        Number.prototype.m_formatter = function() {
-            return this > 999999 ? (this / 1000000).toFixed(1) + 'M' : this
-        };
-        let stockTicker = function(){
-            return {
-                stockFullName: 'SW Limited.',
-                stockShortName: 'ASX:SFW',
-                price: {
-                    current: 2.320,
-                    open: 2.230,
-                    low: 2.215,
-                    high: 2.325,
-                    cap: 93765011,
-                    ratio: 20.10,
-                    dividend: 1.67
-                },
-                chartData: {
-                    labels: ['10:00','','','','12:00','','','','2:00','','','','4:00'],
-                    data: [2.23,2.215,2.22,2.25,2.245,2.27,2.28,2.29,2.3,2.29,2.325,2.325,2.32],
-                },
-                renderChart: function(){
-                    let c = false;
-        
-                    Chart.helpers.each(Chart.instances, function(instance) {
-                        if (instance.chart.canvas.id == 'chart') {
-                            c = instance;
-                        }
-                    });
-        
-                    if(c) {
-                        c.destroy();
-                    }
-        
-                    let ctx = document.getElementById('chart').getContext('2d');
-        
-                    let chart = new Chart(ctx, {
-                        type: "line",
-                        data: {
-                            labels: this.chartData.labels,
-                            datasets: [
-                                {
-                                    label: '',
-                                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                    borderColor: "rgba(255, 255, 255, 1)",
-                                    pointBackgroundColor: "rgba(255, 255, 255, 1)",
-                                    data: this.chartData.data,
-                                },
-                            ],
-                        },
-                        layout: {
-                            padding: {
-                                right: 10
-                            }
-                        },
-                        options: {
-                            legend: {
-                                display: false,
-                            },
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        fontColor: "rgba(255, 255, 255, 1)",
-                                    },
-                                    gridLines: {
-                                        display: false,
-                                    },
-                                }],
-                                xAxes: [{
-                                    ticks: {
-                                        fontColor: "rgba(255, 255, 255, 1)",
-                                    },
-                                    gridLines: {
-                                        color: "rgba(255, 255, 255, .2)",
-                                        borderDash: [5, 5],
-                                        zeroLineColor: "rgba(255, 255, 255, .2)",
-                                        zeroLineBorderDash: [5, 5]
-                                    },
-                                }]
-                            }
-                        }
-                    });
+        var datas = <?php echo json_encode($dataPenjualan) ?>
+
+        Highcharts.chart('chart-container', {
+            title:{
+                text:'Data Penjualan Ikan'
+            },
+            subtitle: {
+                text: 'Data Penjualan Ikan Setiap Bulan Tahun 2021'
+            },
+            xAxis: {
+                categories:['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
+            },
+            yAxis: {
+                title: {
+                    text : 'Banyak Penjualan'
                 }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series:{
+                    allowPointSelect: true
+                }
+            },
+            series:[{
+                name: 'Banyaknya',
+                data: datas
+            }],
+            responsive:{
+                rules:[{
+                    condition:{
+                        maxWidth:500
+                    },
+                    chartOptions:{
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
             }
-        }
+        });
     </script>
 </x-app-layout>

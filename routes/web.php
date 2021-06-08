@@ -86,6 +86,10 @@ Route::group(['middleware' => ['role:partner']], function(){
 
     Route::get('progress', [ProgressController::class, 'index'])->name('progress');
     Route::post('progress/save', [ProgressController::class, 'save']);
+
+    Route::get('edit-profile', [PartnerProfileController::class, 'editProfile'])->name('edit-profile');
+    Route::get('edit-profile-form', [PartnerProfileController::class, 'formEditProfile']);
+    Route::post('edit-profile/update', [PartnerProfileController::class, 'updateProfile']);
 });
 
 require __DIR__.'/auth.php';

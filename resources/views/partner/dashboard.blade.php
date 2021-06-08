@@ -133,4 +133,62 @@
             </div>
         </div>
     </div>
+
+    <div class="py-12">
+        <div id="chart-container"></div>
+    </div>
+    {{-- {{dd($dataPenjualan)}} --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script> --}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script>
+        var datas = <?php echo json_encode($dataPenjualan) ?>
+
+        Highcharts.chart('chart-container', {
+            title:{
+                text:'Data Penjualan Ikan'
+            },
+            subtitle: {
+                text: 'Data Penjualan Ikan Setiap Bulan Tahun 2021'
+            },
+            xAxis: {
+                categories:['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des']
+            },
+            yAxis: {
+                title: {
+                    text : 'Banyak Penjualan'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+            plotOptions: {
+                series:{
+                    allowPointSelect: true
+                }
+            },
+            series:[{
+                name: 'Banyaknya',
+                data: datas
+            }],
+            responsive:{
+                rules:[{
+                    condition:{
+                        maxWidth:500
+                    },
+                    chartOptions:{
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
+    </script>
+
 </x-app-layout>

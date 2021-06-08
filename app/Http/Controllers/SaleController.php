@@ -31,7 +31,34 @@ class SaleController extends Controller
         ->whereNull('partner_fishes.deleted_at')
         ->get();
 
-        return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish]);
+        $penjualanCount = Transaction::select(\DB::raw('COUNT(*) as count'))
+        ->whereYear('created_at', date('Y'))
+        ->whereNull('deleted_at')
+        ->where('partner_id', '=', $partnerUser)
+        ->groupBy(\DB::raw("Month(created_at)"))
+        ->pluck('count');
+
+        /* $penjualanCount = Transaction::select(\DB::raw('SUM(amount) as sum'))
+        ->whereYear('created_at', date('Y'))
+        ->whereNull('deleted_at')
+        ->where('partner_id', '=', $partnerUser)
+        ->groupBy(\DB::raw("Month(created_at)"))
+        ->pluck('sum'); */
+        /* dd($penjualanCount); */
+
+        $penjualanBulan = Transaction::select(\DB::raw('Month(created_at) as month'))
+        ->whereYear('created_at', date('Y'))
+        ->whereNull('deleted_at')
+        ->where('partner_id', '=', $partnerUser)
+        ->groupBy(\DB::raw("Month(created_at)"))
+        ->pluck('month');
+
+        $dataPenjualan = array(0,0,0,0,0,0,0,0,0,0,0,0);
+        foreach ($penjualanBulan as $index => $month) {
+            $dataPenjualan[$month] = $penjualanCount[$index];
+        }
+
+        return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish], compact('dataPenjualan'));
     }
 
     public function save(Request $request)

@@ -150,14 +150,14 @@
                                 <tr>
                                     <td>Jumlah Produksi</td>
                                     <td>:</td>
-                                    <td><b>{{$dataPartnerProfile->amount_of_production}} ton</b></td>
+                                    <td><b>{{$getWeight}} ton</b></td>
                                 </tr>
                                 <tr>
                                     <td>Nilai Produksi</td>
                                     <td>:</td>
                                     <td><b>
                                         <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                            @currency($dataPartnerProfile->production_value)
+                                            @currency($getAmount)
                                         </span>
                                     </b></td>
                                 </tr>

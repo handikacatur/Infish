@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
+use App\Models\Transaction;
+
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -33,7 +35,34 @@ class DashboardController extends Controller
             $getSubmission = \DB::table('submissions')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->count();
             $submissionAmount = \DB::table('submissions')->where('partner_id', '=', $partnerUser)->where('status_submission', '=', '1')->whereNull('deleted_at')->sum('amount');
 
-            return view('partner.dashboard', ['statusPartner' => $getPartnerStatus, 'getPartnerProfile' => $getPartnerProfile, 'getAmount' => $getAmount, 'getProgress' => $getProgress, 'getSubmission' => $getSubmission, 'submissionAmount' => $submissionAmount]);
+            $penjualanCount = Transaction::select(\DB::raw('COUNT(*) as count'))
+            ->whereYear('created_at', date('Y'))
+            ->whereNull('deleted_at')
+            ->where('partner_id', '=', $partnerUser)
+            ->groupBy(\DB::raw("Month(created_at)"))
+            ->pluck('count');
+
+            /* $penjualanCount = Transaction::select(\DB::raw('SUM(amount) as sum'))
+            ->whereYear('created_at', date('Y'))
+            ->whereNull('deleted_at')
+            ->where('partner_id', '=', $partnerUser)
+            ->groupBy(\DB::raw("Month(created_at)"))
+            ->pluck('sum'); */
+            /* dd($penjualanCount); */
+
+            $penjualanBulan = Transaction::select(\DB::raw('Month(created_at) as month'))
+            ->whereYear('created_at', date('Y'))
+            ->whereNull('deleted_at')
+            ->where('partner_id', '=', $partnerUser)
+            ->groupBy(\DB::raw("Month(created_at)"))
+            ->pluck('month');
+
+            $dataPenjualan = array(0,0,0,0,0,0,0,0,0,0,0,0);
+            foreach ($penjualanBulan as $index => $month) {
+                $dataPenjualan[$month] = $penjualanCount[$index];
+            }
+
+            return view('partner.dashboard', ['statusPartner' => $getPartnerStatus, 'getPartnerProfile' => $getPartnerProfile, 'getAmount' => $getAmount, 'getProgress' => $getProgress, 'getSubmission' => $getSubmission, 'submissionAmount' => $submissionAmount], compact('dataPenjualan'));
         }
     }
     
