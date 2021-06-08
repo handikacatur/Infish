@@ -8,6 +8,7 @@ use App\Models\Fish;
 use App\Models\PartnerProfile;
 use App\Models\PartnerFish;
 use App\Models\Partner;
+use App\Models\User;
 
 class PartnerProfileController extends Controller
 {
@@ -257,5 +258,30 @@ class PartnerProfileController extends Controller
             'phone_number' => 'required|numeric',
             'email' => 'required|email'
         ]);
+
+        $profile = User::find(\Auth::user()->id);
+        $profile->name = $request->full_name;
+        $profile->phone = $request->phone_number;
+        $profile->email = $request->email;
+        $profile->save();
+
+        return redirect('edit-profile');
+    }
+
+    public function passwordProfile(Request $request)
+    {
+        $request->validate([
+            'new_password' => 'Required_with:confirm_password|same:confirm_password|min:8',
+            'confirm_password' => 'min:8',
+            'old_password' => 'Required'
+        ]);
+
+        if (\Hash::check($request->old_password, \Auth::user()->password)) {
+            $profile = User::find(\Auth::user()->id);
+            $profile->password = bcrypt($request->new_password);
+            $profile->save();
+        }
+
+        return redirect('edit-profile');
     }
 }

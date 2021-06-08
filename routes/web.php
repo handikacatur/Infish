@@ -90,6 +90,7 @@ Route::group(['middleware' => ['role:partner']], function(){
     Route::get('edit-profile', [PartnerProfileController::class, 'editProfile'])->name('edit-profile');
     Route::get('edit-profile-form', [PartnerProfileController::class, 'formEditProfile']);
     Route::post('edit-profile/update', [PartnerProfileController::class, 'updateProfile']);
+    Route::post('edit-profile/password', [PartnerProfileController::class, 'passwordProfile']);
 });
 
 require __DIR__.'/auth.php';

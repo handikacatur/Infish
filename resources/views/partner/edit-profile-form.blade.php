@@ -39,7 +39,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                 <h3 class="font-bold text-gray-900 text-xl text-center my-3">Ubah Password</h3>
-                <form action="{{url('company-profile/save')}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('edit-profile/password')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
