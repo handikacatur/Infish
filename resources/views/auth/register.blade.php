@@ -55,7 +55,7 @@
               </div>
 
               <a class="my-4 mx-3 block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{ route('login') }}">
-                  {{ __('Already registered?') }}
+                  {{ __('Sudah Pernah Mendaftar ?') }}
               </a>
             </form>
           </div>

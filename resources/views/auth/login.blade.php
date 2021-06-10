@@ -36,6 +36,9 @@
                         {{ __('Log in')}}
                     </x-button>
                 </div>
+                <a class="my-4 mx-3 block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{ route('register') }}">
+                    {{ __('Belum Punya Akun ?') }}
+                </a>
                 @if (Route::has('password.request'))
                 <div class="w-full my-3 content-center">
                     <a class="px-3 align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{ route('password.request') }}">
