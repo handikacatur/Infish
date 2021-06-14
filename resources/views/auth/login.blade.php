@@ -42,7 +42,7 @@
                 @if (Route::has('password.request'))
                 <div class="w-full my-3 content-center">
                     <a class="px-3 align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Lupa password?') }}
                     </a>
                 </div>
                 @endif
