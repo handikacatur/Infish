@@ -5,145 +5,119 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 m-auto">
-                <!-- 1 card -->
-                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                    <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-pink-500 left-4 -top-6">
-                        @if ($statusPartner->status_partner_id == '1')
-                            <i class="fa fa-check-circle"></i>
-                        @elseif ($statusPartner->status_partner_id == '2')
-                            <i class="fa fa-clock-o"></i>
-                        @elseif ($statusPartner->status_partner_id == '3')
-                            <i class="fa fa-times-circle"></i>
-                        @else
-                            <i class="fa fa-question-circle"></i>
-                        @endif
-                    </div>
-                    <div class="mt-8">
-                        <p class="text-xl font-semibold my-2">Status Perusahaan</p>
-                        <div class="flex space-x-2 text-gray-400 text-sm">
-                            <i class="fa fa-address-card"></i>
-                            @if ($statusPartner->status_partner_id == '1')
-                                <p>Tereverifikasi</p>
-                            @elseif ($statusPartner->status_partner_id == '2')
-                                <p>Sedang menunggu persetujuan</p>
-                            @elseif ($statusPartner->status_partner_id == '3')
-                                <p>Permohonan tidak disetujui</p>
-                            @else
-                                <p>Permohonan belum diverifikasi</p>
-                            @endif
-                        </div>
-                        <div class="flex space-x-2 text-gray-400 text-sm my-3">
-                            <i class="fa fa-desktop"></i>
-                            <p>{{$getPartnerProfile->company_name}}</p>
-                        </div>
-                        <div class="border-t-2"></div>
-                        <div class="flex justify-between">
-                            <a href="{{url('company-profile')}}" class="m-auto">
-                                <button class="py-2 px-4 bg-pink-500 text-white font-semibold rounded-lg shadow-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 m-auto mt-5">
-                                    Lihat Detail
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- 2 card -->
-                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                    <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-green-500 left-4 -top-6">
-                        <i class="fa fa-coins"></i>
-                    </div>
-                    <div class="mt-8">
-                        <p class="text-xl font-semibold my-2">Penjualan</p>
-                        <div class="flex space-x-2 text-gray-400 text-sm">
-                            <i class="fa fa-dollar-sign"></i>
-                            <p>Total Penjualan :</p>
-                        </div>
-                        <div class="flex space-x-2 text-gray-400 text-sm my-3">
-                            <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">@currency($getAmount)</span>
-                        </div>
-                        <div class="border-t-2 "></div>
-                        <div class="flex justify-between">
-                            <a href="{{url('sale')}}" class="m-auto">
-                                <button class="py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 m-auto mt-5">
-                                    Lihat Detail
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- 3 card -->
-                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                    <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-blue-500 left-4 -top-6">
-                        <i class="fa fa-chart-line"></i>
-                    </div>
-                    <div class="mt-8">
-                        <p class="text-xl font-semibold my-2">Perkembangan</p>
-                        <div class="flex space-x-2 text-gray-400 text-sm">
-                            <i class="fa fa-briefcase"></i>
-                            <p>{{$getProgress}} Perkembangan</p> 
-                        </div>
-                        <div class="flex space-x-2 text-gray-400 text-sm my-3">
-                            <i class="fa fa-clock"></i>
-                            <p>2 Bulan Terakhir</p> 
-                        </div>
-                        <div class="border-t-2 "></div>
-                        <div class="flex justify-between">
-                            <a href="{{url('progress')}}" class="m-auto">
-                                <button class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 m-auto mt-5">
-                                    Lihat Detail
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-        
-                 <!-- 4 card -->
-                <div class="relative bg-white py-6 px-6 rounded-3xl w-64 my-4 shadow-xl">
-                    <div class=" text-white flex items-center absolute rounded-full py-4 px-4 shadow-xl bg-yellow-500 left-4 -top-6">
-                        <!-- svg  -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-                        </svg>
-                    </div>
-                    <div class="mt-8">
-                        <p class="text-xl font-semibold my-2">Pengajuan Dana</p>
-                        <div class="flex space-x-2 text-gray-400 text-sm">
-                            <i class="fa fa-magic"></i>
-                            <p>{{$getSubmission}} Total Pengajuan Dana</p> 
-                        </div>
-                        <div class="flex space-x-2 text-gray-400 text-sm my-3">
-                            <i class="fa fa-gem"></i>
-                            <p>@currency($submissionAmount) Dana Disetujui</p> 
-                        </div>
-                        <div class="border-t-2 "></div>
-                        <div class="flex justify-between">
-                            <a href="{{url('submission')}}" class="m-auto">
-                                <button class="py-2 px-4 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 m-auto mt-5">
-                                    Lihat Detail
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="flex sm:flex-col flex-col-reverse ">
+    <div class="grid gap-4 mb-2 md:grid-cols-2 xl:grid-cols-4 my-5 w-full"> 
+        <!-- Card 1 -->
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+          <div class="p-3 mr-1 text-orange-500 rounded-full">
+            @if ($statusPartner->status_partner_id == '1')
+                    <i class="fa fa-check fa-2x text-green-600 bg-green-100 rounded-full px-1 py-1"></i>
+                @elseif ($statusPartner->status_partner_id == '2')
+                    <i class="fa fa-clock-o fa-2x text-blue-600 bg-blue-100 rounded-full px-1 py-1"></i>
+                @elseif ($statusPartner->status_partner_id == '3')
+                    <i class="fa fa-times-circle fa-2x text-red-600 bg-red-100 rounded-full px-1 py-1"></i>
+                @else
+                    <i class="fa fa-question-circle fa-2x text-yellow-600 bg-yellow-100 rounded-full px-1 py-1"></i>
+                @endif
+          </div>
+          <div class="w-full">
+            <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+              Status Perusahaan
+            </p>
+            <p class="text-sm font-semibold text-gray-700 dark:text-gray-200">
+                {{-- <i class="fa fa-address-card"></i> --}}
+                @if ($statusPartner->status_partner_id == '1')
+                    <p class="px-7 rounded-full bg-green-100 text-green-700 font-semibold">Terverifikasi</p>
+                @elseif ($statusPartner->status_partner_id == '2')
+                    <p class="px-7 rounded-full bg-blue-100 text-blue-700">Sedang menunggu persetujuan</p>
+                @elseif ($statusPartner->status_partner_id == '3')
+                    <p class="px-7 rounded-full bg-red-100 text-red-700">Permohonan tidak disetujui</p>
+                @else
+                    <p class="px-7 rounded-full bg-yellow-100 text-yellow-700">Permohonan belum diverifikasi</p>
+                @endif
+            </p>
+            <hr class="my-2 w-full">
+            <a href="{{route('company-profile')}}" class="m-auto text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <button class="w-full py-1 px-2 bg-blue-500 text-white font-light rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 m-auto mt-1">
+                    Lihat Detail
+                </button>
+            </a>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+          <div class="p-3 mr-1 text-orange-500 rounded-full">
+              <i class="fas fa-money-bill-wave-alt fa-lg text-green-600 bg-green-100 rounded-full px-2 py-3"></i>
+          </div>
+          <div class="w-full">
+            <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+              Penjualan
+            </p>
+            <p class="text-md font-semibold text-gray-700 dark:text-gray-200">
+              Rp 46,760.89
+            </p>
+            <hr class="my-2 w-full">
+            <a href="{{url('sale')}}" class="m-auto text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <button class="w-full py-1 px-2 bg-blue-500 text-white font-light rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 m-auto mt-1">
+                    Lihat Detail
+                </button>
+            </a>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+          <div class="p-3 mr-1 text-orange-500 rounded-full">
+              <i class="fas fa-coins fa-lg text-blue-600 bg-blue-100 rounded-full px-2 py-3"></i>
+          </div>
+          <div class="w-full">
+            <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+                Perkembangan
+            </p>
+            <p class="text-msm font-semibold text-gray-700 dark:text-gray-200">
+                <i class="fa fa-briefcase"></i>
+                {{$getProgress}}&nbsp;Perkembangan
+            </p>
+            <hr class="my-2 w-full">
+            <a href="{{url('progress')}}" class="m-auto text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <button class="w-full py-1 px-2 bg-blue-500 text-white font-light rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 m-auto mt-1">
+                    Lihat Detail
+                </button>
+            </a>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+          <div class="p-3 mr-1 text-orange-500 rounded-full">
+            <i class="fas fa-chart-line fa-lg text-yellow-600 bg-yellow-100 rounded-full px-2 py-3"></i>
+          </div>
+          <div class="w-full">
+            <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+                Pengajuan Dana
+            </p>
+            <p class="text-xs font-semibold text-gray-700 dark:text-gray-200">
+                <i class="fa fa-magic"></i>
+                {{$getSubmission}}&nbsp;Total Pengajuan Dana
+            </p>
+            <hr class="my-2 w-full">
+            <a href="{{url('submission')}}" class="m-auto text-sm font-semibold text-gray-700 dark:text-gray-200">
+                <button class="w-full py-1 px-2 bg-blue-500 text-white font-light rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-opacity-75 m-auto mt-1">
+                    Lihat Detail
+                </button>
+          </div>
         </div>
     </div>
 
-    <div class="py-12">
-        <div id="chart-container"></div>
+    <div class="w-full mt-5">
+        <div id="chart-container" class="w-full" style="width:75vw;"></div>
     </div>
+</div>
     {{-- {{dd($dataPenjualan)}} --}}
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/6.0.6/highcharts.js" charset="utf-8"></script> --}}
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script>
-        var datas = <?php echo json_encode($dataPenjualan) ?>
+        var datas = {{ json_encode($dataPenjualan) }}
 
         Highcharts.chart('chart-container', {
             title:{
@@ -177,7 +151,7 @@
             responsive:{
                 rules:[{
                     condition:{
-                        maxWidth:500
+                        maxWidth:100
                     },
                     chartOptions:{
                         legend: {
@@ -190,5 +164,57 @@
             }
         });
     </script>
+<script>
+    //     const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nov', 'Des'];
+    //     const data = {
+    //         labels: labels,
+    //         datasets: [{
+    //             label: 'Banyak Penjualan',
+    //             backgroundColor: 'rgb(255, 99, 132)',
+    //             borderColor: 'rgb(255, 99, 132)',
+    //             data: {{ json_encode($dataPenjualan) }},
+    //         }]
+    //     };
 
+    //     const config = {
+    //         type: 'line',
+    //         data: data,
+    //         options: {
+    //             responsive: true,
+    //             plugins: {
+    //                 title: {
+    //                     display: true,
+    //                     text: 'Data Penjualan Ikan Setiap Bulan Tahun 2021'
+    //                 },
+    //             },
+    //             interaction: {
+    //                 intersect: false,
+    //             },
+    //             scales: {
+    //                 x: {
+    //                     display: true,
+    //                     title: {
+    //                         display: true
+    //                     }
+    //                 },
+    //                 y: {
+    //                     display: true,
+    //                     title: {
+    //                         display: true,
+    //                         text: 'Value'
+    //                     },
+    //                     suggestedMin: -10,
+    //                     suggestedMax: 200,
+    //                     min:0,
+    //                     max:10
+    //                 }
+    //             }
+    //         },
+    //     };
+
+    //     var myChart = new Chart(
+    //         document.getElementById('myChart'),
+    //         config
+    //     );
+    </script>
 </x-app-layout>

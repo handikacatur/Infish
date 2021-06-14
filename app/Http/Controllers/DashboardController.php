@@ -34,7 +34,7 @@ class DashboardController extends Controller
             $getProgress = \DB::table('progress')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->count();
             $getSubmission = \DB::table('submissions')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->count();
             $submissionAmount = \DB::table('submissions')->where('partner_id', '=', $partnerUser)->where('status_submission', '=', '1')->whereNull('deleted_at')->sum('amount');
-
+            
             $penjualanCount = Transaction::select(\DB::raw('COUNT(*) as count'))
             ->whereYear('created_at', date('Y'))
             ->whereNull('deleted_at')
