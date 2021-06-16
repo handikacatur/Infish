@@ -206,6 +206,14 @@
                             </div>
                         </div>
                     </div>
+                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700w-full">
+                        <form action="{{url('company-profile/change')}}" method="POST">
+                        @csrf
+                            <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
+                                <i class="fa fa-pencil-alt"></i> {{ __('Ubah')}}
+                            </x-button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="w-full">
