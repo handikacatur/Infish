@@ -1,63 +1,4 @@
 <x-app-layout>
-    <x-slot name="extraCSS">
-        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
-        <style>
-            .dataTables_wrapper select,
-            .dataTables_wrapper .dataTables_filter input {
-                color: #4a5568; 			
-                padding-left: 1rem; 		
-                padding-right: 1rem; 		
-                padding-top: .5rem; 		
-                padding-bottom: .5rem;
-                line-height: 1.25;
-                border-width: 2px;
-                border-radius: .25rem; 		
-                border-color: #edf2f7;
-                background-color: #edf2f7;
-            }
-
-            table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-                background-color: #ebf4ff;
-            }
-            
-            .dataTables_wrapper .dataTables_paginate .paginate_button		{
-                font-weight: 700;
-                border-radius: .25rem;
-                border: 1px solid transparent;
-            }
-            
-            .dataTables_wrapper .dataTables_paginate .paginate_button.current	{
-                color: #fff !important;
-                box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-                font-weight: 700;
-                border-radius: .25rem;
-                background: #1b4b94 !important;
-                border: 1px solid transparent;
-            }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button:hover		{
-                color: #fff !important;				/*text-white*/
-                box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);	 /*shadow*/
-                font-weight: 700;
-                border-radius: .25rem;
-                background: #1b4b94 !important;
-                border: 1px solid transparent;
-            }
-            
-            table.dataTable.no-footer {
-                border-bottom: 1px solid #e2e8f0;
-                margin-top: 0.75em;
-                margin-bottom: 0.75em;
-            }
-            
-            /*Change colour of responsive icon*/
-            table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
-                background-color: #1b4b94 !important;
-            }
-            
-        </style>
-    </x-slot>
     <x-slot name="header">
         <div class="grid grid-cols-2">
             <div class="text-left">
@@ -67,7 +8,7 @@
             </div>
             <div class="text-right">
                 <button @click="openModal" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Penjualan') }}
+                    <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Penjualan Laporan Penjualan') }}
                 </button>
             </div>
         </div>
@@ -87,9 +28,9 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                @foreach ($listData as $item)  
+                @foreach ($listData as $key => $item)  
                 <tr class="text-gray-700 dark:text-gray-400">
-                    <td class="px-4 py-3">{{$loop->iteration}}</td>
+                    <td class="px-4 py-3">{{$listData->firstItem() + $key}}</td>
                     <td class="px-4 py-3 text-sm">{{$item->created_at}}</td>
                     <td class="px-4 py-3 text-sm">{{$item->name}}</td>
                     <td class="px-4 py-3 text-sm">{{$item->weight}} ton</td>
@@ -124,66 +65,7 @@
             </tbody>
           </table>
         </div>
-        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-          <span class="flex items-center col-span-3">
-            Showing 21-30 of 100
-          </span>
-          <span class="col-span-2"></span>
-          <!-- Pagination -->
-          <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-            <nav aria-label="Table navigation">
-              <ul class="inline-flex items-center">
-                <li>
-                  <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
-                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                      <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    </svg>
-                  </button>
-                </li>
-                <li>
-                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                    1
-                  </button>
-                </li>
-                <li>
-                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                    2
-                  </button>
-                </li>
-                <li>
-                  <button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple">
-                    3
-                  </button>
-                </li>
-                <li>
-                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                    4
-                  </button>
-                </li>
-                <li>
-                  <span class="px-3 py-1">...</span>
-                </li>
-                <li>
-                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                    8
-                  </button>
-                </li>
-                <li>
-                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                    9
-                  </button>
-                </li>
-                <li>
-                  <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
-                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                      <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    </svg>
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </span>
-        </div>
+        {{ $listData->links() }}
     </div>
 
     <div class="pt-12 pb-5">
@@ -196,16 +78,12 @@
         <!-- Modal body -->
             <div class="mt-4 mb-6">
                 <!-- Modal title -->
-                <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Data Penjualan</p>
+                <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Laporan Penjualan</p>
                 <!-- Modal description -->            
                 <form action="{{url('sale/save')}}" method="POST">
                     @csrf
                     <div class="mt-3 p-3">
                         <div>
-                            <x-label for="partner" :value="__('Mitra :')"/>
-                            <x-label for="partner" class="block mt-1 w-full font-bold" :value="Auth::user()->name"/>
-                        </div>
-                        <div class="mt-3">
                             <x-label for="fish" :value="__('Jenis Ikan :')"/>
                             <x-input-select name="fish" class="block mt-1 w-full p-2 border rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 @foreach ($dataFish as $itemFish)
@@ -218,21 +96,22 @@
                             <x-input id="weight" class="block mt-1 w-full" type="text" name="weight" :value="old('weight')" onkeypress="return isNumber(event)" required />
                         </div>
                         <div class="mt-3">
-                            <x-label for="amount" :value="__('Jumlah (Rp.) :')" />
+                            <x-label for="amount" :value="__('Harga (Rp.) :')" />
                             <x-input id="amount" class="block mt-1 w-full" type="text" name="amount" :value="old('amount')" onkeypress="return isNumber(event)" required />
                         </div>
                     </div>
                     <div class="flex justify-end pt-2">
-                        <x-custom-button class="px-4 bg">
+                        <x-custom-button class="px-4 bg-purple-700">
                             <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
                         </x-custom-button>
+                        <button @click="closeModal" class="w-full ml-2 px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
             <footer class="flex flex-col items-center justify-end px-6 py-3 -mx-6 -mb-4 space-y-4 sm:space-y-0 sm:space-x-6 sm:flex-row bg-gray-50 dark:bg-gray-800">
-                <button @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
-                    Cancel
-                </button>
+                
             </footer>
         </div>
     </div>
