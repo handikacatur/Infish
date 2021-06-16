@@ -94,7 +94,10 @@
                         <hr class="w-full mb-3">
                         <div class="flex flex-col px-2">
                             <div class="font-medium mb-2">Informasi Kontak</div>
-                            
+                            <div>
+                                <span class="text-sm text-gray-500">Alamat:</span> 
+                                 <p class="text-md">{{$dataPartnerProfile->address}}</p>
+                             </div>
                             <div>
                                <span class="text-sm text-gray-500">Nomor telepon:</span> 
                                 <p class="text-md">{{$dataPartnerProfile->phone_number}}</p>
@@ -103,13 +106,13 @@
                                <span class="text-sm text-gray-500">Nomor telepon Alternatif:</span> 
                                 <p class="text-md">{{$dataPartnerProfile->alternate_number}}</p>
                             </div>
-                            <div>
+                            {{-- <div>
                                <span class="text-sm text-gray-500">Media sosial:</span>
 
-                            </div>
+                            </div> --}}
                             <hr class="w-full my-2">
                             <div>
-                               <span class="font-medium text-gray-500">DESKRIPSI PERUSAHAAN</span> 
+                                <div class="font-medium mb-2">Deskripsi Perusahaan</div> 
                                 <p class="text-md">{{$dataPartnerProfile->description}}</p>
                             </div>
                         </div>
@@ -124,7 +127,7 @@
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
                                     Luas
                                 </p>
-                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">{{$dataPartnerProfile->wide}}&#13217;</p>
+                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">{{$dataPartnerProfile->wide}} m<sup>3<sup></p>
                             </div>
                             <div>
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
@@ -148,17 +151,17 @@
                                 <tbody>
                                     <tr>
                                         <td>Pemilik</td>
-                                        <td>:</td>
+                                        <td>&nbsp;:&nbsp;</td>
                                         <td> {{Auth::user()->name}}</td>
                                     </tr>
                                     <tr>
                                         <td>Jenis Budidaya</td>
-                                        <td>:</td>
+                                        <td>&nbsp;:&nbsp;</td>
                                         <td> {{$dataPartnerProfile->cultivation}}</td>
                                     </tr>
                                     <tr>
                                         <td>Jenis Ikan</td>
-                                        <td>:</td>
+                                        <td>&nbsp;:&nbsp;</td>
                                         <td>
                                             @foreach ($getFishPartner as $itemFish)
                                                 {{$itemFish->name}},
@@ -167,13 +170,13 @@
                                     </tr>
                                     <tr>
                                         <td>NPWP</td>
-                                        <td>:</td>
+                                        <td>&nbsp;:&nbsp;</td>
                                         <td> {{$dataPartnerProfile->npwp}}</td>
                                     </tr>
                                     <tr>
                                         <td>SIUP</td>
-                                        <td>:</td>
-                                        <td> {{$dataPartnerProfile->siup}}></td>
+                                        <td>&nbsp;:&nbsp;</td>
+                                        <td> {{$dataPartnerProfile->siup}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -185,28 +188,28 @@
                     <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700w-full">
                         <div class="flex flex-col py-6 px-4 text-gray-800 flex items-center justify-center">
                             <p class="font-semibold text-md mb-4">Presentase Saham Terbeli</p>
-                            <p class="font-semibold text-sm mb-4">50%</p>
+                            <p class="font-semibold text-sm mb-4">{{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%</p>
                             <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
-                                <div class="w-1/2 h-full text-center text-xs text-white bg-purple-500 rounded-full">
+                                <div class="h-full text-center text-xs text-white bg-purple-500 rounded-full" style="width: {{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%;">
                                 </div>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
                             <div class="flex flex-col">
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">Sisa Lembar Saham</p>
-                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">150 Lembar</p>
+                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">{{$newGetPartner->lot*100}} Lembar</p>
                             </div>
                             <div class="flex flex-col">
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">Harga per Lembar</p>
-                                <p class="font-bold text-md pb-4 text-green-400 dark:text-white text-center">Rp. 200.000</p>
+                                <p class="font-bold text-md pb-4 text-green-400 dark:text-white text-center">@currency($newGetPartner->lot_price)</p>
                             </div>
                             <div class="flex flex-col">
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">Return of Interest</p>
-                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">10%</p>
+                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">{{$newGetPartner->roi}}%</p>
                             </div>
                         </div>
                     </div>
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700w-full">
+                    <div class="shadow-lg my-5 rounded-2xl bg-white dark:bg-gray-700w-full">
                         <form action="{{url('company-profile/change')}}" method="POST">
                         @csrf
                             <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
@@ -217,7 +220,7 @@
                 </div>
             </div>
             <div class="w-full">
-                <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
+                <div class="mb-4 mx-0">
                     <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
                         <div class="flex flex-col mt-2 bg-white px-8 py-6 rounded-xl space-y-5 items-left">
                             <div class="grid grid-cols-2">
@@ -249,13 +252,47 @@
                                             <form action="{{url('/company-profile')}}/{{$itemFishPartner->id}}/dropFish" method="POST" class="m-auto">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete" onclick="return confirm('Hapus Data ?')">
+                                                <button class="m-auto flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete" onclick="return confirm('Hapus Data ?')">
                                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                                                     </svg>
                                                 </button>
                                             </form>
                                         </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full">
+                <div class="mb-4 mx-0">
+                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
+                        <div class="flex flex-col mt-2 bg-white px-8 py-6 rounded-xl space-y-5 items-left">
+                            <div class="grid grid-cols-2">
+                                <div class="text-left">
+                                    <span class="font-semibold text-xl text-gray-800 leading-tight inline-block align-middle">
+                                        {{ __('Data Gambar Partner') }}
+                                    </span>
+                                </div>
+                            </div>
+                            <table id="thisTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
+                                <thead>
+                                    <tr>
+                                        <th data-priority="1">No</th>
+                                        <th data-priority="2">Gambar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($getPartnerImages as $itemImagePartner)  
+                                    <tr>
+                                        <td class="text-center">{{$loop->iteration}}</td>
+                                        <td class="text-center"><center>
+                                            <img class="w-52 my-1 rounded-md" src="{{asset('images/upload/productPartner')}}/{{$itemImagePartner->product_image}}" alt="company-cover" />
+                                        </center></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
