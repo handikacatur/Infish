@@ -84,6 +84,7 @@ class ConfirmController extends Controller
 
         Partner::where('id', $partner->id)->update([
             'lot' => $request->lot,
+            'lot_price' => $request->lot,
             'lot_price' => $request->lot_price,
             'roi' => $request->roi,
             'status_partner_id' => $request->status

@@ -39,7 +39,10 @@ class PartnerProfileController extends Controller
             $getAmount = number_format($getNilaiProduksi / 12, 2, '.', '');
 
             $getPartnerProfile = \DB::table('partner_profiles')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->first();
-            return view('partner.company-profile', ['statusPartner' => $getPartnerStatus, 'dataPartnerProfile' => $getPartnerProfile, 'getFishPartner' => $getFish, 'getPureFish' => $getPureFish, 'getWeight' => $getWeight, 'getAmount' => $getAmount]);
+
+            $partnerImages = \DB::table('partner_images')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->get();
+
+            return view('partner.company-profile', ['statusPartner' => $getPartnerStatus, 'dataPartnerProfile' => $getPartnerProfile, 'getFishPartner' => $getFish, 'getPureFish' => $getPureFish, 'getWeight' => $getWeight, 'getAmount' => $getAmount, 'getPartnerImages' => $partnerImages, 'newGetPartner' => $newGetPartner]);
         } else {
             return view('partner.company-profile-empty',['statusPartner' => $getPartnerStatus]);
         }
@@ -83,14 +86,6 @@ class PartnerProfileController extends Controller
         $date = date('H-i-s');
         $random = \Str::random(5);
 
-        $partner = new Partner();
-        $partner->user_id = $user;
-        $partner->roi = NULL;
-        $partner->lot_price = NULL;
-        $partner->lot = NULL;
-        $partner->status_partner_id = 2;
-        $partner->save();
-
         $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
         $partnerUser = $newGetPartner->id;
         $getPartnerFishes = \DB::table('partner_fishes')->select('id')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->first();
@@ -103,14 +98,17 @@ class PartnerProfileController extends Controller
             $partnerFish->fish_id = $request->fish;
             $partnerFish->save();
         }
-        /*  else {
-            PartnerFish::where('partner_id', $partnerUser)->update([
-                'fish_id' => $request->fish
-            ]);
-        } */
 
         if ($getPartnerProfile == NULL)
         {
+            $partner = new Partner();
+            $partner->user_id = $user;
+            $partner->roi = NULL;
+            $partner->lot_price = NULL;
+            $partner->lot = NULL;
+            $partner->status_partner_id = 2;
+            $partner->save();
+
             $partnerProfile = new PartnerProfile();
             $partnerProfile->partner_id = $partner->id;
             $partnerProfile->company_name = $request->company_name;
@@ -147,8 +145,16 @@ class PartnerProfileController extends Controller
                 }
             }
         } else {
+            $checkChange = \DB::table('partner_profiles')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->first();
+            if($checkChange->npwp != $request->npwp || $checkChange->siup != $request->siup || $checkChange->wide != $request->wide || $checkChange->company_name != $request->company_name)
+            {
+                Partner::where('id', $partnerUser)->update([
+                    'status_partner_id' => 2,
+                ]);
+            }
+
             if($request->file('image'))
-            {                
+            {     
                 $request->file('image')->move('images/upload/companyProfile', $random.$date.$request->file('image')->getClientOriginalName());
                 PartnerProfile::where('partner_id', $partnerUser)->update([
                     'company_name' => $request->company_name,
@@ -157,8 +163,6 @@ class PartnerProfileController extends Controller
                     'alternate_number' => $request->opsional_number,
                     'cultivation' => $request->culvitation,
                     'wide' => $request->wide,
-                    /* 'amount_of_production' => $request->production_amount,
-                    'production_value' => $request->production_value, */
                     'npwp' => $request->npwp,
                     'siup' => $request->siup,
                     'description' => $request->description,
@@ -185,8 +189,6 @@ class PartnerProfileController extends Controller
                     'alternate_number' => $request->opsional_number,
                     'cultivation' => $request->culvitation,
                     'wide' => $request->wide,
-                    /* 'amount_of_production' => $request->production_amount,
-                    'production_value' => $request->production_value, */
                     'npwp' => $request->npwp,
                     'siup' => $request->siup,
                     'description' => $request->description
