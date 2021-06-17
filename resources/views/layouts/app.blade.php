@@ -14,6 +14,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/extern.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{asset('assets/css/dropzone.min.css')}}">
         @isset($extraCSS)
             {{$extraCSS}}
         @endisset
