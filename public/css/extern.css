@@ -5,3 +5,12 @@ body {
 .h-custom-curve{border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;}
 
 .h-custom-text-blue{color: #664ffa;}
+
+.additional-photo-shaper {
+    max-width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+}
