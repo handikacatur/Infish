@@ -67,7 +67,7 @@
         <div class="flex flex-col flex-wrap sm:flex-row mt-5">
             <div class="w-full sm:w-1/2 xl:w-1/3">
                 <div class="mb-4">
-                    <div class="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+                    <div class="shadow-md rounded-md p-4 bg-white dark:bg-gray-700 w-full">
                         <div class="flex items-center justify-between mb-2">
                             <div class="flex items-center">
                                 <span class="rounded-xl relative p-2">
@@ -103,10 +103,10 @@
                                <span class="text-sm text-gray-500">Nomor telepon Alternatif:</span> 
                                 <p class="text-md">{{$dataPartnerProfile->alternate_number}}</p>
                             </div>
-                            <div>
+                            <!-- <div>
                                <span class="text-sm text-gray-500">Media sosial:</span>
 
-                            </div>
+                            </div> -->
                             <hr class="w-full my-2">
                             <div>
                                <span class="font-medium text-gray-500">DESKRIPSI PERUSAHAAN</span> 
@@ -118,7 +118,7 @@
             </div>
             <div class="w-full sm:w-1/2 xl:w-2/3">
                 <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
+                    <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
                         <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
                             <div class="flex flex-col">
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
@@ -136,13 +136,13 @@
                                 <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
                                     Harga Produksi
                                 </p>
-                                <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center">@currency($getAmount),00-</p>
+                                <p class="font-bold text-md pb-4 text-green-400 dark:text-white text-center">@currency($getAmount),00-</p>
                             </div>
                           </div>
                     </div>
                 </div>
                 <div class="mb-4 sm:ml-4 xl:mr-4">
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
+                    <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
                         <div class="py-8 px-4 text-gray-800 flex items-center justify-center border-b-2 border-gray-100">
                             <table>
                                 <tbody>
@@ -182,12 +182,12 @@
                     </div>
                 </div>
                 <div class="mb-4 sm:ml-4 xl:mr-4">
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700w-full">
+                    <div class="shadow-md rounded-md bg-white dark:bg-gray-700w-full">
                         <div class="flex flex-col py-6 px-4 text-gray-800 flex items-center justify-center">
-                            <p class="font-semibold text-md mb-4">Presentase Saham Terbeli</p>
+                            <p class="font-semibold text-md mb-4">Persentase Saham Terbeli</p>
                             <p class="font-semibold text-sm mb-4">50%</p>
                             <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
-                                <div class="w-1/2 h-full text-center text-xs text-white bg-purple-500 rounded-full">
+                                <div class="w-1/2 h-full text-center text-xs text-white bg-blue-400 rounded-full">
                                 </div>
                             </div>
                         </div>
@@ -206,11 +206,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700w-full">
+                </div>
+                <div class="mb-4 sm:ml-4 xl:mr-4">
+                    <div class="shadow-md rounded-md bg-white dark:bg-gray-700w-full">
                         <form action="{{url('company-profile/change')}}" method="POST">
                         @csrf
-                            <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
-                                <i class="fa fa-pencil-alt"></i> {{ __('Ubah')}}
+                            <x-button class="px-24 py-4 bg-blue-400 rounded-md text-white text-sm font-bold focus:border-transparent hover:bg-blue-500 w-full">
+                                 {{ __('ubah profil')}} <i class="fa fa-pencil-alt"></i>
                             </x-button>
                         </form>
                     </div>
@@ -218,7 +220,7 @@
             </div>
             <div class="w-full">
                 <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
-                    <div class="shadow-lg rounded-2xl bg-white dark:bg-gray-700 w-full">
+                    <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
                         <div class="flex flex-col mt-2 bg-white px-8 py-6 rounded-xl space-y-5 items-left">
                             <div class="grid grid-cols-2">
                                 <div class="text-left">
