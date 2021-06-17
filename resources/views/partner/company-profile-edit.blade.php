@@ -16,13 +16,6 @@
                     @csrf
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
-                            <x-label for="owner" :value="__('Pemilik :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="owner" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="disable" name="owner" :value="auth()->user()->name" disabled required />
-                        </div>
-                    </div>
-                    <hr class="py-3">
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-full px-3">
                             <img class="w-75 m-auto rounded-md mb-3" src="{{asset('images/upload/companyProfile')}}/{{$dataCompany->image}}" alt="company-cover" />
                         </div>
                     </div>
@@ -83,7 +76,8 @@
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
                             <x-label for="description" :value="__('Deskripsi* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="description" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="description" :value="$dataCompany->description" required />
+                            <!-- <x-input id="description" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="description" :value="$dataCompany->description" required /> -->
+                            <x-text-area id="description" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" name="description" :value="$dataCompany->description" required ></x-text-area>
                         </div>
                     </div>
                     <hr class="py-3">
@@ -110,8 +104,8 @@
                     <hr class="py-3">
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
-                            <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
-                                <i class="fa fa-save"></i> {{ __('Simpan')}}
+                            <x-button class="px-24 py-4 bg-blue-400 rounded-md text-white text-sm focus:border-transparent hover:bg-blue-500 w-full">
+                                {{ __('Simpan')}}
                             </x-button>
                         </div>
                     </div>
