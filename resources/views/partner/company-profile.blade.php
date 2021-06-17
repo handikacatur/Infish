@@ -188,9 +188,9 @@
                     <div class="shadow-md rounded-md bg-white dark:bg-gray-700w-full">
                         <div class="flex flex-col py-6 px-4 text-gray-800 flex items-center justify-center">
                             <p class="font-semibold text-md mb-4">Persentase Saham Terbeli</p>
-                            <p class="font-semibold text-sm mb-4">50%</p>
+                            <p class="font-semibold text-sm mb-4">{{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%</p>
                             <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
-                                <div class="w-1/2 h-full text-center text-xs text-white bg-blue-400 rounded-full">
+                                <div class="h-full text-center text-xs text-white bg-blue-400 rounded-full" style="width: {{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%">
                                 </div>
                             </div>
                         </div>
