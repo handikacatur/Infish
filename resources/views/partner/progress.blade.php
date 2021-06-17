@@ -67,68 +67,75 @@
                 </span>
             </div>
             <div class="text-right">
-                <x-custom-button class="text-right inline-block align-middle modal-open">
-                    <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Perkembangan') }}
-                </x-custom-button>
+                <button @click="openModal" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Laporan Perkembangan') }}
+                </button>
             </div>
         </div>
     </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white bg-opacity-90">
-                    <table id="thisTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                        <thead>
-                            <tr>
-                                <th data-priority="1">No</th>
-                                <th data-priority="2">Tanggal</th>
-                                <th data-priority="3">Deskripsi</th>
-                                <th data-priority="4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($listData as $item)  
-                            <tr>
-                                <td class="text-center">{{$loop->iteration}}</td>
-                                <td class="text-center">{{$item->created_at}}</td>
-                                <td class="text-center">{{$item->description}}</td>
-                                <td class="text-center">{{$item->name}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    
+    <div class="w-full mt-12 overflow-hidden rounded-lg shadow-sm border-1">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3">No</th>
+                <th class="px-4 py-3">Tanggal</th>
+                <th class="px-4 py-3">Deskripsi</th>
+                <th class="px-4 py-3">Bukti Fisik</th>
+                <th class="px-4 py-3">Bukti Nota Pembelian</th>
+                <th class="px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                @foreach ($listData as $key => $item)  
+                <tr class="text-gray-700 dark:text-gray-400">
+                    {{-- <td class="px-4 py-3">{{$listData->firstItem() + $key}}</td> --}}
+                    <td class="px-4 py-3">{{$loop->iteration}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->created_at}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->description}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->proof_physic}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->proof_purchase}}</td>
+                    <td class="px-4 py-3 text-sm">{{$item->name}}</td>
+                </tr>
+                @endforeach  
+            </tbody>
+          </table>
         </div>
+        {{ $listData->links() }}
     </div>
 
     <!--Modal-->
-    <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-8 text-left px-10">
-                <div class="flex justify-between items-center pb-3">
-                    <p class="text-2xl font-bold">Tambah Daftar Kelompok</p>
-                    <div class="modal-close cursor-pointer z-50">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <hr>
-                <form action="{{url('progress/save')}}" method="POST">
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+        <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">
+        <!-- Modal body -->
+            <div class="mt-4 mb-6">
+                <!-- Modal title -->
+                <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Tambah Laporan Penjualan</p>
+                <!-- Modal description -->            
+                <form action="{{url('progress/save')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mt-3 p-3">
-                        <div class="mt-3">
+                        <div>
                             <x-label for="description" :value="__('Deskripsi / Keterangan :')" />
                             <x-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required />
                         </div>
+                        <div class="mt-3">
+                            <x-label for="proof_physic" :value="__('Foto Bukti Fisik :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
+                            <x-input id="proof_physic" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="file" name="proof_physic"/>
+                        </div>
+                        <div class="mt-3">
+                            <x-label for="proof_purchase" :value="__('Foto Bukti Pembelian (Nota)* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
+                            <x-input id="proof_purchase" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="file" name="proof_purchase"/>
+                        </div>
                     </div>
                     <div class="flex justify-end pt-2">
-                        <x-custom-button class="px-4 bg">
-                            <i class="fa fa-save"></i>&nbsp; {{ __('Ajukan') }}
+                        <x-custom-button class="px-4 bg-purple-700">
+                            <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
                         </x-custom-button>
+                        <button @click="closeModal" class="w-full ml-2 px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
