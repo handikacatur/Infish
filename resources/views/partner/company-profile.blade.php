@@ -1,5 +1,8 @@
 <x-app-layout>
     <x-slot name="extraCSS">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
         <style>
@@ -66,14 +69,24 @@
 
         <div class="flex flex-col flex-wrap sm:flex-row mt-5">
             <div class="w-full sm:w-1/2 xl:w-1/3">
-                <div class="mb-4">
-                    <div class="shadow-md rounded-md p-4 bg-white dark:bg-gray-700 w-full">
+                <div class="mb-4 w-96 m-auto">
+                    <div class="w-full shadow-md rounded-md p-4 bg-white dark:bg-gray-700">
                         <div class="flex items-center justify-between mb-2">
-                            <div class="flex items-center">
-                                <span class="rounded-xl relative p-2">
+                            {{-- <div class="flex items-center"> --}}
+                                <div class="owl-carousel owl-theme">
+                                    <div class="w-full">
+                                        <img class="w-full rounded-md object-contain" src="{{asset('images/upload/companyProfile')}}/{{$dataPartnerProfile->image}}" alt="company-cover" />
+                                    </div>
+                                    @foreach ($getPartnerImages as $itemImagePartner)
+                                    <div class="w-full">
+                                        <img class="w-full rounded-md object-contain" src="{{asset('images/upload/productPartner')}}/{{$itemImagePartner->product_image}}" alt="company-cover" />
+                                    </div>
+                                    @endforeach
+                                </div>
+                                {{-- <span class="rounded-xl relative p-2">
                                     <img class="w-full rounded-md" src="{{asset('images/upload/companyProfile')}}/{{$dataPartnerProfile->image}}" alt="company-cover" />
-                                </span>
-                            </div>
+                                </span> --}}
+                            {{-- </div> --}}
                         </div>
                         <div class="flex flex-col items-center mb-4">
                             <span class="px-2 py-1 font-semibold text-md">{{$dataPartnerProfile->company_name}}</span>
@@ -222,7 +235,7 @@
                 </div>
             </div>
             <div class="w-full">
-                <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
+                <div class="mb-4">
                     <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
                         <div class="flex flex-col mt-2 bg-white px-8 py-6 rounded-xl space-y-5 items-left">
                             <div class="grid grid-cols-2">
@@ -338,6 +351,7 @@
     </div>
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script>
@@ -350,10 +364,22 @@
                 .responsive.recalc();
         } );
     </script>
-    <script>
+    {{-- <script>
         document.addEventListener( 'DOMContentLoaded', function () {
             new Splide( '.splide' ).mount();
         } );
         new Splide( '.splide' ).mount();
+    </script> --}}
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                margin:10,
+                responsive:{
+                    600:{
+                        items:1
+                    }
+                }
+            });
+        });
     </script>
 </x-app-layout>
