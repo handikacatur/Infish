@@ -92,13 +92,13 @@
                         <div class="mt-5 mx-2 w-full">
                             <x-label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" :value="__('Foto pendukung lainnya* :')"/>
                             <div class='flex items-center justify-center w-full'>
-                                <!-- <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
-                                    <div class='flex flex-col items-center justify-center pt-7'>
+                                <label for="additional-photos" class='flex flex-col border-4 border-dashed w-full hover:bg-gray-100 hover:border-purple-300 group'>
+                                    <div id="additional-photo-wrapper" class='flex flex-col sm:flex-row items-center justify-center flex-wrap p-7'>
                                         <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        <p class='text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider text-center'>Upload foto produk<br>Maksimal 2 foto</p>
+                                        <p class='text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider text-center'>Foto pendukung lain</p>
                                     </div>
-                                </label> -->
-                                <x-input type='file' name="product[]" multiple/>
+                                </label>
+                                <x-input id="additional-photos" class="hidden" type='file' name="file" multiple/>
                             </div>
                         </div>
                     </div>
@@ -124,5 +124,30 @@
             }
             return true;
         }
+
+        const additionalPhotos = document.querySelector('#additional-photos');
+
+        additionalPhotos.addEventListener('change', (e) => {
+            const file = e.target.files;
+            const wrapper = document.querySelector('#additional-photo-wrapper');
+            wrapper.classList.remove('justify-center');
+            wrapper.classList.add('justify-evenly');
+            wrapper.innerHTML = '';
+
+            if (file) {
+                for (let i=0; i<file.length; i++) {
+                    const div = document.createElement('div');
+                    div.classList.add('additional-photo-shaper');
+
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file[i]);
+                    img.style.Width = '70px';
+
+                    div.appendChild(img)
+
+                    wrapper.appendChild(div);
+                }
+            }
+        });
     </script>
 </x-app-layout>
