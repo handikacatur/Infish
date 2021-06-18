@@ -69,9 +69,9 @@
 
         <div class="flex flex-col flex-wrap sm:flex-row mt-5">
             <div class="w-full sm:w-1/2 xl:w-1/3">
-                <div class="mb-4 w-96 m-auto">
-                    <div class="w-full shadow-md rounded-md p-4 bg-white dark:bg-gray-700">
-                        <div class="flex items-center justify-between mb-2">
+                <div class="mb-4 w-96 m-auto w-full">
+                    <div class="md:w-full xl:w-11/12 shadow-md rounded-md p-4 bg-white dark:bg-gray-700">
+                        <div class="w-full flex items-center justify-between mb-2">
                             {{-- <div class="flex items-center"> --}}
                                 <div class="owl-carousel owl-theme">
                                     <div class="w-full">
