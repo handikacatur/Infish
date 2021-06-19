@@ -17,6 +17,7 @@ use App\Http\Controllers\DetailController;
 use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileInvestorController;
 use App\Http\Controllers\MasterController;
+use App\Http\Controllers\DepositPartnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,9 @@ Route::group(['middleware' => ['role:partner']], function(){
     Route::get('edit-profile-form', [PartnerProfileController::class, 'formEditProfile']);
     Route::post('edit-profile/update', [PartnerProfileController::class, 'updateProfile']);
     Route::post('edit-profile/password', [PartnerProfileController::class, 'passwordProfile']);
+
+    Route::get('deposit-partner', [DepositPartnerController::class, 'index']);
+    Route::post('deposit-partner/save', [DepositPartnerController::class, 'save']);
 });
 
 require __DIR__.'/auth.php';

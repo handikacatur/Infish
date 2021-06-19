@@ -22,7 +22,7 @@ class SaleController extends Controller
         ->join('fishes', 'transactions.partner_fish_id', '=', 'fishes.id')
         ->where('transactions.partner_id', '=', $partnerUser)
         ->whereNull('transactions.deleted_at')
-        ->paginate(2);
+        ->paginate(5);
 
         $dataFish = \DB::table('partner_fishes')
         ->select('partner_fishes.id', 'fishes.name')

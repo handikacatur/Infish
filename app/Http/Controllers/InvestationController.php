@@ -88,7 +88,7 @@ class InvestationController extends Controller
             $investation->bank_target_id = 6;
             $investation->bank_sender_id = $request->sender;
             $investation->transfer_number = $request->transfer_number;
-            $investation->amount = (int)$invest->lot_price * (int)$request->req_lot;
+            $investation->amount = (int)$invest->lot_price * (int)$request->req_lot + 2500;
             $investation->note = 'lorem ipsum dolor sit amet.';
             $investation->invest_status_id = 2;
             $investation->proof = $random.$date.$request->file('image')->getClientOriginalName();

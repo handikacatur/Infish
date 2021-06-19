@@ -23,7 +23,7 @@ class ProgressController extends Controller
         ->join('progress_statuses', 'progress.progress_statuses', '=', 'progress_statuses.id')
         ->where('progress.partner_id', $partnerUser)
         ->whereNull('progress.deleted_at')
-        ->paginate(5);
+        ->paginate(2);
 
         return view('partner.progress', ['listData' => $listData]);
     }

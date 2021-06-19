@@ -31,7 +31,7 @@ class PartnerProfileController extends Controller
             ->join('fishes', 'partner_fishes.fish_id', '=', 'fishes.id')
             ->where('partner_fishes.partner_id', '=', $partnerUser)
             ->whereNull('partner_fishes.deleted_at')
-            ->get();
+            ->paginate(5);
             $getJumlahProduksi = \DB::table('transactions')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->sum('weight');
             $getWeight = number_format($getJumlahProduksi / 12, 2, '.', '');
 
