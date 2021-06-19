@@ -66,7 +66,7 @@ class SubmissionController extends Controller
             $submission->status_submission = 2;
             $submission->save();
     
-            return redirect('submission')->with('submissionSuccess', 'Berhasil Menambahkan Penjualan');
+            return redirect('submission')->with('submissionSuccess', 'Berhasil Melakukan Pengajuan');
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
         }
