@@ -9,6 +9,30 @@
         </h2>
     </x-slot>
 
+    @if (session('failed_control'))   
+    <div class="mt-10 alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300">
+        <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
+            <span class="text-red-500">
+                <svg fill="currentColor"
+                     viewBox="0 0 20 20"
+                     class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </span>
+        </div>
+        <div class="alert-content ml-4">
+            <div class="alert-title font-semibold text-lg text-red-800">
+                Terjadi Kesalahan
+            </div>
+            <div class="alert-description text-sm text-red-600">
+                {{session('failed_control')}}
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="flex flex-col flex-wrap sm:flex-row mt-5">
         <div class="w-full sm:w-1/2 xl:w-1/3">
             <div class="mb-4 w-96 m-auto">
@@ -179,22 +203,28 @@
         </div>
 
         <div class="w-full mt-12 overflow-hidden rounded-lg shadow-sm border-1">
+            <div class="text-right mb-5">
+                <button @click="openModal" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Jenis Ikan ') }}
+                </button>
+            </div>
+
             <div class="w-full overflow-x-auto">
                 <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                    <th class="px-4 py-3">No</th>
-                    <th class="px-4 py-3">Jenis Ikan</th>
-                    <th class="px-4 py-3">Aksi</th>
+                    <th class="text-center px-4 py-3">No</th>
+                    <th class="text-center px-4 py-3">Jenis Ikan</th>
+                    <th class="text-center px-4 py-3">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($getFishPartner as $key => $itemFishPartner)  
                     <tr class="text-gray-700 dark:text-gray-400">
                         {{-- <td class="px-4 py-3">{{$listData->firstItem() + $key}}</td> --}}
-                        <td class="px-4 py-3">{{$getFishPartner->firstItem() + $key}}</td>
-                        <td class="px-4 py-3 text-sm">{{$itemFishPartner->name}}</td>
-                        <td class="px-4 py-3">
+                        <td class="text-center px-4 py-3">{{$getFishPartner->firstItem() + $key}}</td>
+                        <td class="text-center px-4 py-3 text-sm">{{$itemFishPartner->name}}</td>
+                        <td class="text-center px-4 py-3">
                             <form action="{{url('/company-profile')}}/{{$itemFishPartner->id}}/dropFish" method="POST" class="m-auto">
                                 @method('delete')
                                 @csrf
@@ -234,7 +264,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end pt-2 px-3">
-                        <x-custom-button class="px-4 bg mr-2">
+                        <x-custom-button class="px-4 bg mr-2" class="bg-purple-700 hover:bg-purple-900 mr-2">
                             <i class="fa fa-save"></i>&nbsp; {{ __('Simpan') }}
                         </x-custom-button>
                         <button type="button" @click="closeModal" class="w-full px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
@@ -247,6 +277,16 @@
     </div>
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('companySuccess'))
+        <script>
+            swal("Berhasil", "{!! Session::get('companySuccess') !!}", "success",{
+                button: "OK",
+            })
+        </script>
+    @endif
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {

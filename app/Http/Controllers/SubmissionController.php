@@ -49,15 +49,15 @@ class SubmissionController extends Controller
 
     public function save(Request $request)
     {
+        $request->validate([
+            'amount' => 'required | numeric',
+            'description' => 'required'
+        ]);
         try {
             $user = \Auth::user()->id;
             $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
             $partnerUser = $newGetPartner->id;
     
-            $request->validate([
-                'amount' => 'required | numeric',
-                'description' => 'required'
-            ]);
     
             $submission = new Submission();
             $submission->partner_id = $partnerUser;

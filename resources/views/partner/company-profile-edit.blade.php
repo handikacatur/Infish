@@ -14,11 +14,11 @@
             <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                 <form action="{{url('company-profile/save')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <!-- <div class="-mx-3 md:flex mb-6">
+                    <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
                             <img class="w-75 m-auto rounded-md mb-3" src="{{asset('images/upload/companyProfile')}}/{{$dataCompany->image}}" alt="company-cover" />
                         </div>
-                    </div> -->
+                    </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
                             <x-label for="company_name" :value="__('Nama Perusahaan* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
@@ -53,16 +53,6 @@
                             <x-input id="wide" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="wide" :value="$dataCompany->wide" onkeypress="return isNumber(event)" required />
                         </div>
                     </div>
-                    {{-- <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <x-label for="production_amount" :value="__('Jumlah Produksi* (Ton) :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="production_amount" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="production_amount" :value="$dataCompany->amount_of_production" onkeypress="return isNumber(event)" required />
-                        </div>
-                        <div class="md:w-1/2 px-3">
-                            <x-label for="production_value" :value="__('Nilai Produksi* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="production_value" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="production_value" :value="$dataCompany->production_value" onkeypress="return isNumber(event)" required />
-                        </div>
-                    </div> --}}
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                             <x-label for="npwp" :value="__('NPWP* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
@@ -77,7 +67,7 @@
                         <div class="md:w-full px-3">
                             <x-label for="description" :value="__('Deskripsi* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
                             <!-- <x-input id="description" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="description" :value="$dataCompany->description" required /> -->
-                            <x-text-area id="description" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" name="description" :value="$dataCompany->description" required ></x-text-area>
+                            <x-text-area id="description" rows="3" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" name="description" required>{{$dataCompany->description}}</x-text-area>
                         </div>
                     </div>
                     <hr class="py-3">
