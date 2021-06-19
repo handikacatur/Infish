@@ -1,64 +1,4 @@
-<x-app-layout>
-    <x-slot name="extraCSS">
-        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-        <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
-        <style>
-            .dataTables_wrapper select,
-            .dataTables_wrapper .dataTables_filter input {
-                color: #4a5568; 			
-                padding-left: 1rem; 		
-                padding-right: 1rem; 		
-                padding-top: .5rem; 		
-                padding-bottom: .5rem;
-                line-height: 1.25;
-                border-width: 2px;
-                border-radius: .25rem; 		
-                border-color: #edf2f7;
-                background-color: #edf2f7;
-            }
-
-            table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
-                background-color: #ebf4ff;
-            }
-            
-            .dataTables_wrapper .dataTables_paginate .paginate_button		{
-                font-weight: 700;
-                border-radius: .25rem;
-                border: 1px solid transparent;
-            }
-            
-            .dataTables_wrapper .dataTables_paginate .paginate_button.current	{
-                color: #fff !important;
-                box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-                font-weight: 700;
-                border-radius: .25rem;
-                background: #1b4b94 !important;
-                border: 1px solid transparent;
-            }
-
-            .dataTables_wrapper .dataTables_paginate .paginate_button:hover		{
-                color: #fff !important;				/*text-white*/
-                box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);	 /*shadow*/
-                font-weight: 700;
-                border-radius: .25rem;
-                background: #1b4b94 !important;
-                border: 1px solid transparent;
-            }
-            
-            table.dataTable.no-footer {
-                border-bottom: 1px solid #e2e8f0;
-                margin-top: 0.75em;
-                margin-bottom: 0.75em;
-            }
-            
-            /*Change colour of responsive icon*/
-            table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
-                background-color: #1b4b94 !important;
-            }
-            
-        </style>
-    </x-slot>
-    
+<x-app-layout>    
     <x-slot name="header">
         <div class="grid grid-cols-2">
             <div class="text-left">
@@ -67,12 +7,36 @@
                 </span>
             </div>
             <div class="text-right">
-                <x-custom-button class="text-right inline-block align-middle modal-open">
+                <button @click="openModal" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     <i class="fa fa-plus"></i>&nbsp; {{ __('Ajukan Dana') }}
-                </x-custom-button>
+                </button>
             </div>
         </div>
     </x-slot>
+
+    @if (session('failed_control'))   
+    <div class="mt-10 alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300">
+        <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
+            <span class="text-red-500">
+                <svg fill="currentColor"
+                     viewBox="0 0 20 20"
+                     class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </span>
+        </div>
+        <div class="alert-content ml-4">
+            <div class="alert-title font-semibold text-lg text-red-800">
+                Terjadi Kesalahan
+            </div>
+            <div class="alert-description text-sm text-red-600">
+                {{session('failed_control')}}
+            </div>
+        </div>
+    </div>
+    @endif
 
     <div class="mt-10 flex flex-row">
         <div class="relative flex flex-col items-center justify-around p-4 mr-16 w-80 rounded-2xl " style="transform: translate(0px, 0px); opacity: 1;">
@@ -105,55 +69,46 @@
         </div>
     </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white bg-opacity-90">
-                    <table id="thisTable" class="stripe hover" style="width:100%; padding-top: 1em;  padding-bottom: 1em;">
-                        <thead>
-                            <tr>
-                                <th data-priority="1">No</th>
-                                <th data-priority="2">Tanggal</th>
-                                <th data-priority="3">Jumlah</th>
-                                <th data-priority="4">Deskripsi</th>
-                                <th data-priority="5">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($listData as $item)  
-                            <tr>
-                                <td class="text-center">{{$loop->iteration}}</td>
-                                <td class="text-center">{{$item->created_at}}</td>
-                                <td class="text-center">
-                                    <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                        @currency($item->amount)
-                                    </span>
-                                </td>
-                                <td class="text-center">{{$item->description}}</td>
-                                <td class="text-center">{{$item->name}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="w-full mt-12 overflow-hidden rounded-lg shadow-sm border-1">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+              <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="text-center px-4 py-3">No</th>
+                <th class="text-center px-4 py-3">Tanggal</th>
+                <th class="text-center px-4 py-3">Jumlah</th>
+                <th class="text-center px-4 py-3">Deskripsi</th>
+                <th class="text-center px-4 py-3">Status</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                @foreach ($listData as $key => $item)  
+                <tr class="text-gray-700 dark:text-gray-400">
+                    <td class="text-center px-4 py-3">{{$listData->firstItem() + $key}}</td>
+                    <td class="text-center px-4 py-3 text-sm">{{$item->created_at}}</td>
+                    <td class="text-center px-4 py-3 text-sm">
+                        <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                            @currency($item->amount)
+                        </span>
+                    </td>
+                    <td class="text-center px-4 py-3 text-sm">{{$item->description}}</td>
+                    <td class="text-center px-4 py-3 text-sm">{{$item->name}}</td>
+                </tr>
+                @endforeach  
+            </tbody>
+          </table>
         </div>
+        {{ $listData->links() }}
     </div>
 
     <!--Modal-->
-    <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-            <div class="modal-content py-8 text-left px-10">
-                <div class="flex justify-between items-center pb-3">
-                    <p class="text-2xl font-bold">Tambah Daftar Kelompok</p>
-                    <div class="modal-close cursor-pointer z-50">
-                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-                        </svg>
-                    </div>
-                </div>
-                <hr>
+    <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+        <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">
+        <!-- Modal body -->
+            <div class="mt-4 mb-6">
+                <!-- Modal title -->
+                <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">Pengajuan Dana</p>
+                <!-- Modal description -->  
                 <form action="{{url('submission/save')}}" method="POST">
                     @csrf
                     <div class="mt-3 p-3">
@@ -167,9 +122,12 @@
                         </div>
                     </div>
                     <div class="flex justify-end pt-2">
-                        <x-custom-button class="px-4 bg">
-                            <i class="fa fa-save"></i>&nbsp; {{ __('Ajukan') }}
+                        <x-custom-button class="px-4 bg-purple-700">
+                            <i class="fa fa-save"></i>&nbsp; {{ __('Ajukan Dana') }}
                         </x-custom-button>
+                        <button @click="closeModal" class="w-full ml-2 px-5 py-3 text-sm font-medium leading-5 text-white text-gray-700 transition-colors duration-150 border border-gray-300 rounded-lg dark:text-gray-400 sm:px-4 sm:py-2 sm:w-auto active:bg-transparent hover:border-gray-500 focus:border-gray-500 active:text-gray-500 focus:outline-none focus:shadow-outline-gray">
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>
@@ -177,8 +135,15 @@
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('submissionSuccess'))
+        <script>
+            swal("Berhasil", "{!! Session::get('submissionSuccess') !!}", "success",{
+                button: "OK",
+            })
+        </script>
+    @endif
+    
     <script>
         $(document).ready(function() {
             

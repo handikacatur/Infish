@@ -54,8 +54,7 @@
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 @foreach ($listData as $key => $item)  
                 <tr class="text-gray-700 dark:text-gray-400">
-                    {{-- <td class="text-center px-4 py-3">{{$listData->firstItem() + $key}}</td> --}}
-                    <td class="text-center px-4 py-3">{{$loop->iteration}}</td>
+                    <td class="text-center px-4 py-3">{{$listData->firstItem() + $key}}</td>
                     <td class="text-center px-4 py-3 text-sm">{{$item->created_at}}</td>
                     <td class="text-center px-4 py-3 text-sm">{{$item->description}}</td>
                     <td class="text-center px-4 py-3 text-sm">

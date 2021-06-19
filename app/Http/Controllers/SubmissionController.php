@@ -14,53 +14,61 @@ class SubmissionController extends Controller
 
     public function index()
     {
-        $user = \Auth::user()->id;
-        $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
-        $partnerUser = $newGetPartner->id;
-
-        $getSumInvest = \DB::table('invests')
-        ->where('partner_id', $partnerUser)
-        ->where('invest_status_id', 1)
-        ->whereNull('deleted_at')
-        ->sum('amount');
-
-        $getSubmissionDone = \DB::table('submissions')
-        ->where('partner_id', $partnerUser)
-        ->where('status_submission', 1)
-        ->whereNull('deleted_at')
-        ->sum('amount');
-
-        $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
-        $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
-
-        $listData = \DB::table('submissions')
-        ->select('submissions.amount', 'submissions.description', 'submission_statuses.name', 'submissions.created_at')
-        ->join('submission_statuses', 'submissions.status_submission', '=', 'submission_statuses.id')
-        ->where('submissions.partner_id', $partnerUser)
-        ->whereNull('submissions.deleted_at')
-        ->get();
-
-        return view('partner.submission', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone]);
+        try {
+            $user = \Auth::user()->id;
+            $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
+            $partnerUser = $newGetPartner->id;
+    
+            $getSumInvest = \DB::table('invests')
+            ->where('partner_id', $partnerUser)
+            ->where('invest_status_id', 1)
+            ->whereNull('deleted_at')
+            ->sum('amount');
+    
+            $getSubmissionDone = \DB::table('submissions')
+            ->where('partner_id', $partnerUser)
+            ->where('status_submission', 1)
+            ->whereNull('deleted_at')
+            ->sum('amount');
+    
+            $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
+            $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
+    
+            $listData = \DB::table('submissions')
+            ->select('submissions.amount', 'submissions.description', 'submission_statuses.name', 'submissions.created_at')
+            ->join('submission_statuses', 'submissions.status_submission', '=', 'submission_statuses.id')
+            ->where('submissions.partner_id', $partnerUser)
+            ->whereNull('submissions.deleted_at')
+            ->paginate(5);
+    
+            return view('partner.submission', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
+        }
     }
 
     public function save(Request $request)
     {
-        $user = \Auth::user()->id;
-        $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
-        $partnerUser = $newGetPartner->id;
-
-        $request->validate([
-            'amount' => 'required | numeric',
-            'description' => 'required'
-        ]);
-
-        $submission = new Submission();
-        $submission->partner_id = $partnerUser;
-        $submission->amount = $request->amount;
-        $submission->description = $request->description;
-        $submission->status_submission = 2;
-        $submission->save();
-
-        return redirect('submission');
+        try {
+            $user = \Auth::user()->id;
+            $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
+            $partnerUser = $newGetPartner->id;
+    
+            $request->validate([
+                'amount' => 'required | numeric',
+                'description' => 'required'
+            ]);
+    
+            $submission = new Submission();
+            $submission->partner_id = $partnerUser;
+            $submission->amount = $request->amount;
+            $submission->description = $request->description;
+            $submission->status_submission = 2;
+            $submission->save();
+    
+            return redirect('submission')->with('submissionSuccess', 'Berhasil Menambahkan Penjualan');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
+        }
     }
 }
