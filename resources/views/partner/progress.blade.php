@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-slot name="header">
         <div class="grid grid-cols-2">
             <div class="text-left">
@@ -14,30 +13,58 @@
             </div>
         </div>
     </x-slot>
+
+    @if (session('failed_control'))   
+    <div class="mt-10 alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300">
+        <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
+            <span class="text-red-500">
+                <svg fill="currentColor"
+                     viewBox="0 0 20 20"
+                     class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </span>
+        </div>
+        <div class="alert-content ml-4">
+            <div class="alert-title font-semibold text-lg text-red-800">
+                Terjadi Kesalahan
+            </div>
+            <div class="alert-description text-sm text-red-600">
+                {{session('failed_control')}}
+            </div>
+        </div>
+    </div>
+    @endif
     
     <div class="w-full mt-12 overflow-hidden rounded-lg shadow-sm border-1">
         <div class="w-full overflow-x-auto">
           <table class="w-full whitespace-no-wrap">
             <thead>
               <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                <th class="px-4 py-3">No</th>
-                <th class="px-4 py-3">Tanggal</th>
-                <th class="px-4 py-3">Deskripsi</th>
-                <th class="px-4 py-3">Bukti Fisik</th>
-                <th class="px-4 py-3">Bukti Nota Pembelian</th>
-                <th class="px-4 py-3">Status</th>
+                <th class="text-center px-4 py-3">No</th>
+                <th class="text-center px-4 py-3">Tanggal</th>
+                <th class="text-center px-4 py-3">Deskripsi</th>
+                <th class="text-center px-4 py-3">Bukti Fisik</th>
+                <th class="text-center px-4 py-3">Bukti Nota Pembelian</th>
+                <th class="text-center px-4 py-3">Status</th>
               </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                 @foreach ($listData as $key => $item)  
                 <tr class="text-gray-700 dark:text-gray-400">
-                    {{-- <td class="px-4 py-3">{{$listData->firstItem() + $key}}</td> --}}
-                    <td class="px-4 py-3">{{$loop->iteration}}</td>
-                    <td class="px-4 py-3 text-sm">{{$item->created_at}}</td>
-                    <td class="px-4 py-3 text-sm">{{$item->description}}</td>
-                    <td class="px-4 py-3 text-sm">{{$item->proof_physic}}</td>
-                    <td class="px-4 py-3 text-sm">{{$item->proof_purchase}}</td>
-                    <td class="px-4 py-3 text-sm">{{$item->name}}</td>
+                    {{-- <td class="text-center px-4 py-3">{{$listData->firstItem() + $key}}</td> --}}
+                    <td class="text-center px-4 py-3">{{$loop->iteration}}</td>
+                    <td class="text-center px-4 py-3 text-sm">{{$item->created_at}}</td>
+                    <td class="text-center px-4 py-3 text-sm">{{$item->description}}</td>
+                    <td class="text-center px-4 py-3 text-sm">
+                        <img class="w-32 m-auto rounded-md object-contain" src="{{asset('images/upload/progress/proofPhysic')}}/{{$item->proof_physic}}" alt="proof-pyshic" />
+                    </td>
+                    <td class="text-center px-4 py-3 text-sm">
+                        <img class="w-32 m-auto rounded-md object-contain" src="{{asset('images/upload/progress/proofPurchase')}}/{{$item->proof_purchase}}" alt="proof-purchase" />
+                    </td>
+                    <td class="text-center px-4 py-3 text-sm">{{$item->name}}</td>
                 </tr>
                 @endforeach  
             </tbody>
@@ -84,6 +111,21 @@
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('progressSuccess'))
+        <script>
+            swal("Berhasil", "{!! Session::get('progressSuccess') !!}", "success",{
+                button: "OK",
+            })
+        </script>
+    @endif
+    @if (Session::has('progressFailed'))
+        <script>
+            swal("Gagal", "{!! Session::get('progressFailed') !!}", "error",{
+                button: "OK",
+            })
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
             
