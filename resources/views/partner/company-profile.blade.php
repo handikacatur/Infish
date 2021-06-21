@@ -31,6 +31,9 @@
             </div>
         </div>
     </div>
+    @php
+        $request->session()->forget('failed_control');
+    @endphp
     @endif
 
     <div class="flex flex-col flex-wrap sm:flex-row mt-5">
