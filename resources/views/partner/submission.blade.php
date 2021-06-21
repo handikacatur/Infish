@@ -36,36 +36,58 @@
             </div>
         </div>
     </div>
+        @php
+            $request->session()->forget('failed_control');
+        @endphp
     @endif
 
-    <div class="mt-10 flex flex-row">
-        <div class="relative flex flex-col items-center justify-around p-4 mr-16 w-80 rounded-2xl " style="transform: translate(0px, 0px); opacity: 1;">
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-300 rounded-xl -rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-400 rounded-xl rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full transform scale-x-105 scale-y-95 bg-white rounded-xl " style="z-index: -1;"></div>
-            <h3 class="z-10 p-2 text-2xl font-semibold text-purple-900">Investasi Diterima</h3>
-            <div class="z-10 p-2 text-sm text-center text-gray-500 ">@currency($sumInvest)</div>
-        </div>
-        <div class="relative flex flex-col items-center justify-around p-4 mr-16 w-80 rounded-2xl " style="transform: translate(0px, 0px); opacity: 1;">
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-300 rounded-xl -rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-400 rounded-xl rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full transform scale-x-105 scale-y-95 bg-white rounded-xl " style="z-index: -1;"></div>
-            <h3 class="z-10 p-2 text-2xl font-semibold text-purple-900">Investasi Yang Dapat Dicairkan</h3>
-            <div class="z-10 p-2 text-sm text-center text-gray-500 ">@currency($sumInvest-$sumSubmissionDone)</div>
-        </div>
-        <div class="relative flex flex-col items-center justify-around p-4 mr-16 w-80 rounded-2xl " style="transform: translate(0px, 0px); opacity: 1;">
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-300 rounded-xl -rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-400 rounded-xl rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full transform scale-x-105 scale-y-95 bg-white rounded-xl " style="z-index: -1;"></div>
-            <h3 class="z-10 p-2 text-2xl font-semibold text-purple-900">Investasi Dikembalikan</h3>
-            <div class="z-10 p-2 text-sm text-center text-gray-500 ">@currency($sumInvestBack)</div>
-        </div>
-        <div class="relative flex flex-col items-center justify-around p-4 mr-16 w-80 rounded-2xl " style="transform: translate(0px, 0px); opacity: 1;">
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-300 rounded-xl -rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full text-white transform scale-x-105 scale-y-95 bg-purple-400 rounded-xl rotate-2 " style="z-index: -1;"></div>
-            <div class="absolute z-0 w-full h-full transform scale-x-105 scale-y-95 bg-white rounded-xl " style="z-index: -1;"></div>
-            <h3 class="z-10 p-2 text-2xl font-semibold text-purple-900">Pengembalian Bulan Ini</h3>
-            <div class="z-10 p-2 text-sm text-center text-gray-500 ">@currency($sumInvestMonth)</div>
+    
+    <div class="flex flex-col">
+        <div class="grid gap-4 mb-2  xl:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 my-5 w-full"> 
+            <!-- Card 1 -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+                <div class="w-full text-center">
+                    <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+                        Investasi Diterima
+                    </p>
+                    <p class="text-md font-semibold text-gray-700 dark:text-gray-200">
+                        @currency($sumInvest)
+                    </p>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+                <div class="w-full text-center">
+                    <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+                        Investasi yang Dapat Dicairkan
+                    </p>
+                    <p class="text-md font-semibold text-gray-700 dark:text-gray-200">
+                        @currency($sumInvest-$sumSubmissionDone)
+                    </p>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+                <div class="w-full text-center">
+                    <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+                        Investasi Dikembalikan
+                    </p>
+                    <p class="text-md font-semibold text-gray-700 dark:text-gray-200">
+                        @currency($sumInvestBack)
+                    </p>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
+                <div class="w-full text-center">
+                    <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
+                        Pengembalian Bulan Ini
+                    </p>
+                    <p class="text-md font-semibold text-gray-700 dark:text-gray-200">
+                        @currency($sumInvestMonth)
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
