@@ -23,30 +23,38 @@ class DepositPartnerController extends Controller
                 ->whereNull('partner_deposits.deleted_at')
                 ->paginate(5);
         
-                $getSumInvest = \DB::table('invests')
-                ->where('partner_id', $partnerUser)
-                ->where('invest_status_id', 1)
-                ->whereNull('deleted_at')
-                ->sum('amount');
+                if ($newGetPartner->lot_first != NULL) {
+                    $getSumInvest = \DB::table('invests')
+                    ->where('partner_id', $partnerUser)
+                    ->where('invest_status_id', 1)
+                    ->whereNull('deleted_at')
+                    ->sum('amount');
+            
+                    $getSubmissionDone = \DB::table('submissions')
+                    ->where('partner_id', $partnerUser)
+                    ->where('status_submission', 1)
+                    ->whereNull('deleted_at')
+                    ->sum('amount');
+            
+                    $getDepositThisMonth = \DB::table('partner_deposits')
+                    ->select('partner_deposits.*', 'partner_deposit_statuses.name')
+                    ->join('partner_deposit_statuses', 'partner_deposits.status_partner_deposit_id', 'partner_deposit_statuses.id')
+                    ->where('partner_id', $partnerUser)
+                    ->whereMonth('partner_deposits.created_at', Carbon::now()->month)
+                    ->whereNull('partner_deposits.deleted_at')
+                    ->first();
+            
+                    $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
+                    $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
+                } else {
+                    $getSumInvest = 0;
+                    $getSubmissionDone = 0;
+                    $getDepositThisMonth = 0;
+                    $sumInvestback = 0;
+                    $sumInvestMonth = 0;
+                }
         
-                $getSubmissionDone = \DB::table('submissions')
-                ->where('partner_id', $partnerUser)
-                ->where('status_submission', 1)
-                ->whereNull('deleted_at')
-                ->sum('amount');
-        
-                $getDepositThisMonth = \DB::table('partner_deposits')
-                ->select('partner_deposits.*', 'partner_deposit_statuses.name')
-                ->join('partner_deposit_statuses', 'partner_deposits.status_partner_deposit_id', 'partner_deposit_statuses.id')
-                ->where('partner_id', $partnerUser)
-                ->whereMonth('partner_deposits.created_at', Carbon::now()->month)
-                ->whereNull('partner_deposits.deleted_at')
-                ->first();
-        
-                $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
-                $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
-        
-                return view('partner.deposit-partner', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone, 'getDepositThisMonth' => $getDepositThisMonth]);
+                return view('partner.deposit-partner', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone, 'getDepositThisMonth' => $getDepositThisMonth, 'statusPartner' => $newGetPartner]);
             } else {
                 return redirect('dashboard');
             }

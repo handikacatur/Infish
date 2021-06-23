@@ -19,21 +19,29 @@ class SubmissionController extends Controller
         try {
             if ($newGetPartner != NULL) {
                 $partnerUser = $newGetPartner->id;
-        
-                $getSumInvest = \DB::table('invests')
-                ->where('partner_id', $partnerUser)
-                ->where('invest_status_id', 1)
-                ->whereNull('deleted_at')
-                ->sum('amount');
-        
-                $getSubmissionDone = \DB::table('submissions')
-                ->where('partner_id', $partnerUser)
-                ->where('status_submission', 1)
-                ->whereNull('deleted_at')
-                ->sum('amount');
-        
-                $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
-                $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
+                
+                if($newGetPartner->lot_first != NULL)
+                {
+                    $getSumInvest = \DB::table('invests')
+                    ->where('partner_id', $partnerUser)
+                    ->where('invest_status_id', 1)
+                    ->whereNull('deleted_at')
+                    ->sum('amount');
+            
+                    $getSubmissionDone = \DB::table('submissions')
+                    ->where('partner_id', $partnerUser)
+                    ->where('status_submission', 1)
+                    ->whereNull('deleted_at')
+                    ->sum('amount');
+            
+                    $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
+                    $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
+                } else {
+                    $getSumInvest = 0;
+                    $getSubmissionDone = 0;
+                    $sumInvestback = 0;
+                    $sumInvestMonth = 0;
+                }
         
                 $listData = \DB::table('submissions')
                 ->select('submissions.amount', 'submissions.description', 'submission_statuses.name', 'submissions.created_at')
@@ -42,7 +50,7 @@ class SubmissionController extends Controller
                 ->whereNull('submissions.deleted_at')
                 ->paginate(5);
         
-                return view('partner.submission', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone]);
+                return view('partner.submission', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone, 'statusPartner' => $newGetPartner]);
             } else {
                 return redirect('dashboard');
             }

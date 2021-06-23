@@ -6,11 +6,13 @@
                     {{ __('Setoran') }}
                 </span>
             </div>
+            @if ($statusPartner->status_partner_id == 1)
             <div class="text-right">
                 <button @click="openModal" class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                     <i class="fa fa-plus"></i>&nbsp; {{ __('Tambah Setoran') }}
                 </button>
             </div>
+            @endif
         </div>
     </x-slot>
 
