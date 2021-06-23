@@ -28,7 +28,7 @@ class ProgressController extends Controller
                 ->whereNull('progress.deleted_at')
                 ->paginate(5);
     
-                return view('partner.progress', ['listData' => $listData]);
+                return view('partner.progress', ['listData' => $listData, 'statusPartner' => $newGetPartner]);
             } else {
                 return redirect('dashboard');
             }

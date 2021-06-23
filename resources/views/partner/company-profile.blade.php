@@ -36,7 +36,7 @@
     @endphp
     @endif
 
-    <div class="flex flex-col gap-8 flex-wrap sm:flex-row mt-5">
+    <div class="flex flex-col flex-wrap sm:flex-row mt-5">
         <div class="w-full sm:w-1/2 xl:w-1/3">
             <div class="mb-4 w-96 m-auto">
                 <div class="w-full shadow-md rounded-md p-4 bg-white dark:bg-gray-700">
@@ -102,7 +102,7 @@
             </div>
         </div>
         
-        <div class="w-full sm:w-1/2 xl:w-4/5">
+        <div class="w-full sm:w-1/2 xl:w-2/3">
             <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
                 <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
                     <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">

@@ -60,7 +60,7 @@ class SaleController extends Controller
                     $dataPenjualan[$month] = $penjualanCount[$index];
                 }
     
-                return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish], compact('dataPenjualan'));
+                return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish, 'statusPartner' => $newGetPartner], compact('dataPenjualan'));
             } else {
                 return redirect('dashboard');
             }
