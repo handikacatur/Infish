@@ -14,19 +14,24 @@ class ProgressController extends Controller
 
     public function index()
     {
+        $user = \Auth::user()->id;
+        $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
+        
         try {
-            $user = \Auth::user()->id;
-            $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
-            $partnerUser = $newGetPartner->id;
-
-            $listData = \DB::table('progress')
-            ->select('progress.description', 'progress_statuses.name', 'progress.created_at', 'progress.proof_physic', 'progress.proof_purchase')
-            ->join('progress_statuses', 'progress.progress_statuses', '=', 'progress_statuses.id')
-            ->where('progress.partner_id', $partnerUser)
-            ->whereNull('progress.deleted_at')
-            ->paginate(5);
-
-            return view('partner.progress', ['listData' => $listData]);
+            if ($newGetPartner != NULL) {
+                $partnerUser = $newGetPartner->id;
+    
+                $listData = \DB::table('progress')
+                ->select('progress.description', 'progress_statuses.name', 'progress.created_at', 'progress.proof_physic', 'progress.proof_purchase')
+                ->join('progress_statuses', 'progress.progress_statuses', '=', 'progress_statuses.id')
+                ->where('progress.partner_id', $partnerUser)
+                ->whereNull('progress.deleted_at')
+                ->paginate(5);
+    
+                return view('partner.progress', ['listData' => $listData]);
+            } else {
+                return redirect('dashboard');
+            }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
         }

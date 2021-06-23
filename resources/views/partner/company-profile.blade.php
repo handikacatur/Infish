@@ -171,9 +171,20 @@
                 <div class="shadow-md rounded-md bg-white dark:bg-gray-700w-full">
                     <div class="flex flex-col py-6 px-4 text-gray-800 flex items-center justify-center">
                         <p class="font-semibold text-md mb-4">Persentase Saham Terbeli</p>
-                        <p class="font-semibold text-sm mb-4">{{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%</p>
+                        <p class="font-semibold text-sm mb-4">
+                            @if ($newGetPartner->lot == 0)
+                                <p class="font-semibold text-sm mb-4 italic">Prensentase belum diketahui</p>
+                            @else
+                                {{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%
+                            @endif
+                        </p>
                         <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
-                            <div class="h-full text-center text-xs text-white bg-blue-400 rounded-full" style="width: {{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%">
+                            <div class="h-full text-center text-xs text-white bg-blue-400 rounded-full" style="width:
+                            @if ($newGetPartner->lot == 0)
+                                100%
+                            @else
+                                {{100-($newGetPartner->lot/$newGetPartner->lot_first*100)}}%
+                            @endif">
                             </div>
                         </div>
                     </div>

@@ -1,100 +1,241 @@
 <x-app-layout>
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 px-4 my-3">
-                <div class="bg-gray-100 border-yellow-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around | hover:bg-yellow-400 dark:hover:bg-yellow-600 hover:border-transparent | transition-colors duration-500">
-                    
-                    <div class="h-16 h-16 object-cover">
-                        <i class="fa fa-info-circle object-cover" style="font-size: 400%;"></i>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="text-gray-900 dark:text-gray-300 font-semibold">Status Pengusaha</p>
-                        <p class="text-black dark:text-gray-100 text-justify font-semibold italic">Belum Terverifikasi</p>
-                    </div>
-                </div>
+    <x-slot name="extraCSS">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Profil Usaha') }}
+        </h2>
+    </x-slot>
+
+    @if (session('failed_control'))   
+    <div class="mt-10 alert flex flex-row items-center bg-red-200 p-5 rounded border-b-2 border-red-300">
+        <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
+            <span class="text-red-500">
+                <svg fill="currentColor"
+                     viewBox="0 0 20 20"
+                     class="h-6 w-6">
+                    <path fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
+            </span>
+        </div>
+        <div class="alert-content ml-4">
+            <div class="alert-title font-semibold text-lg text-red-800">
+                Terjadi Kesalahan
             </div>
+            <div class="alert-description text-sm text-red-600">
+                {{session('failed_control')}}
+            </div>
+        </div>
+    </div>
+    @php
+        $request->session()->forget('failed_control');
+    @endphp
+    @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-col p-6 bg-white border-b border-gray-200 items-center">
-                    <h3 class="font-bold text-gray-900 text-xl">Profil Pengusaha</h3>
-                    <div class="flex flex-col max-w-3xl bg-white px-8 py-6 rounded-xl space-y-5 items-left">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Nama Perusahaan</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Pemilik</td>
-                                    <td>:</td>
-                                    <td><b>{{Auth::user()->name}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Alamat</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Nomor Telepon</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Nomor Telepon (Alternatif)</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Jenis Budidaya</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Jenis Ikan</td>
-                                    <td>:</td>
-                                    <td>[get-Fish]</td>
-                                </tr>
-                                <tr>
-                                    <td>Luas</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Jumlah Produksi</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Nilai Produksi</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>NPWP</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                                <tr>
-                                    <td>SIUP</td>
-                                    <td>:</td>
-                                    <td><b>Kosong</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
+    <div class="flex flex-col flex-wrap sm:flex-row mt-5">
+        <div class="w-full sm:w-1/2 xl:w-1/3">
+            <div class="mb-4 w-96 m-auto">
+                <div class="w-full shadow-md rounded-md p-4 bg-white dark:bg-gray-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="owl-carousel owl-theme">
+                            <div class="w-full">
+                                {{-- gbr1 --}}
+                                    <svg class="w-full rounded-md object-contain h-52" id="beb8b204-3759-49ce-94f2-7f3d3b03c1ba" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="956.5802" height="472.46788" viewBox="0 0 956.5802 472.46788"><rect x="479.06523" y="508.47142" width="1.99915" height="138.03872" transform="translate(-392.50928 376.40486) rotate(-51.23093)" fill="#e6e6e6"/><rect x="410.71925" y="577.49578" width="138.69111" height="2.00073" transform="translate(-379.03244 218.51137) rotate(-39.09657)" fill="#e6e6e6"/><rect x="817.97404" y="250.89359" width="1.99989" height="316.24125" transform="translate(-138.18168 569.4692) rotate(-50.66761)" fill="#e6e6e6"/><rect x="660.53598" y="408.51435" width="316.87601" height="1.99973" transform="translate(-195.19431 400.53658) rotate(-39.49025)" fill="#e6e6e6"/><path d="M1014.2099,213.76606h-885a7.50271,7.50271,0,0,0-7.5,7.5v457a7.50272,7.50272,0,0,0,7.5,7.5h885a7.53035,7.53035,0,0,0,6.03-3.06,6.56732,6.56732,0,0,0,.95-1.72,7.23422,7.23422,0,0,0,.52-2.72v-457A7.50272,7.50272,0,0,0,1014.2099,213.76606Zm4.5,464.5a4.50681,4.50681,0,0,1-4.5,4.5h-885a4.50681,4.50681,0,0,1-4.5-4.5v-457a4.50677,4.50677,0,0,1,4.5-4.5h885a4.50677,4.50677,0,0,1,4.5,4.5Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><rect x="3" y="38.33008" width="897" height="2" fill="#e6e6e6"/><path d="M1051.65266,625.21642a215.891,215.891,0,0,1-10.08482,59.67912c-.14051.44836-.28775.89-.435,1.3384h-37.63576c.04015-.40154.08034-.84989.12049-1.3384,2.50949-28.84918,16.97756-204.43347-.32124-234.46045C1004.80876,452.871,1054.57036,533.54956,1051.65266,625.21642Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M1048.82867,684.89554c-.31455.44836-.64245.89671-.97705,1.3384h-28.23349c.21415-.38145.46175-.8298.7495-1.3384,4.66433-8.41853,18.46986-33.58708,31.285-59.67912,13.77212-28.03944,26.4066-57.14288,25.34255-67.67606C1077.32311,559.916,1086.85249,632.33666,1048.82867,684.89554Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M667.29015,398.23394h-238a7.00785,7.00785,0,0,1-7-7v-79a7.00786,7.00786,0,0,1,7-7h238a7.00787,7.00787,0,0,1,7,7v79A7.00786,7.00786,0,0,1,667.29015,398.23394Zm-238-91a5.00589,5.00589,0,0,0-5,5v79a5.00588,5.00588,0,0,0,5,5h238a5.00589,5.00589,0,0,0,5-5v-79a5.00589,5.00589,0,0,0-5-5Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M939.29015,625.23394h-238a7.00817,7.00817,0,0,1-7-7v-79a7.00818,7.00818,0,0,1,7-7h238a7.0085,7.0085,0,0,1,7,7v79A7.00849,7.00849,0,0,1,939.29015,625.23394Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M530.29015,511.23394h-101a7.00817,7.00817,0,0,1-7-7v-79a7.00786,7.00786,0,0,1,7-7h101a7.00787,7.00787,0,0,1,7,7v79A7.00818,7.00818,0,0,1,530.29015,511.23394Zm-101-91a5.00589,5.00589,0,0,0-5,5v79a5.00588,5.00588,0,0,0,5,5h101a5.00589,5.00589,0,0,0,5-5v-79a5.00589,5.00589,0,0,0-5-5Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M667.29015,511.23394h-101a7.00817,7.00817,0,0,1-7-7v-79a7.00786,7.00786,0,0,1,7-7h101a7.00787,7.00787,0,0,1,7,7v79A7.00818,7.00818,0,0,1,667.29015,511.23394Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M530.29015,624.23394h-101a7.00817,7.00817,0,0,1-7-7v-79a7.00818,7.00818,0,0,1,7-7h101a7.00818,7.00818,0,0,1,7,7v79A7.00818,7.00818,0,0,1,530.29015,624.23394Zm-101-91a5.00589,5.00589,0,0,0-5,5v79a5.00588,5.00588,0,0,0,5,5h101a5.00589,5.00589,0,0,0,5-5v-79a5.00589,5.00589,0,0,0-5-5Z" transform="translate(-121.7099 -213.76606)" fill="#3f3d56"/><path d="M667.29015,624.23394h-101a7.00817,7.00817,0,0,1-7-7v-79a7.00818,7.00818,0,0,1,7-7h101a7.00818,7.00818,0,0,1,7,7v79A7.00818,7.00818,0,0,1,667.29015,624.23394Zm-101-91a5.00589,5.00589,0,0,0-5,5v79a5.00588,5.00588,0,0,0,5,5h101a5.00589,5.00589,0,0,0,5-5v-79a5.00589,5.00589,0,0,0-5-5Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M938.29015,512.23394h-238a7.00817,7.00817,0,0,1-7-7v-193a7.00786,7.00786,0,0,1,7-7h238a7.00818,7.00818,0,0,1,7,7v193A7.00849,7.00849,0,0,1,938.29015,512.23394Zm-238-205a5.00589,5.00589,0,0,0-5,5v193a5.00588,5.00588,0,0,0,5,5h238a5.00589,5.00589,0,0,0,5-5v-193a5.00589,5.00589,0,0,0-5-5Z" transform="translate(-121.7099 -213.76606)" fill="#3f3d56"/><path d="M977.29015,547.23394h-238a7.00848,7.00848,0,0,1-7-7v-193a7.00818,7.00818,0,0,1,7-7h238a7.00818,7.00818,0,0,1,7,7v193A7.00849,7.00849,0,0,1,977.29015,547.23394Z" transform="translate(-121.7099 -213.76606)" fill="#536dfe"/><path d="M885.44323,499.73384H763.93778a2.47766,2.47766,0,0,1-.45406-.036l57.46648-99.54021a4.02365,4.02365,0,0,1,7.00406,0l38.56722,66.79921,1.84768,3.19635Z" transform="translate(-121.7099 -213.76606)" fill="#fff"/><polygon points="763.733 285.968 722.248 285.968 742.613 256.387 744.079 254.256 744.812 253.191 746.66 256.387 763.733 285.968" opacity="0.2" style="isolation:isolate"/><path d="M953.09658,499.73384H848.00434l20.36482-29.58065,1.46553-2.1309L896.37187,429.473a5.36965,5.36965,0,0,1,7.97059-.47651,4.796,4.796,0,0,1,.38215.47651Z" transform="translate(-121.7099 -213.76606)" fill="#fff"/><circle cx="752.17993" cy="191.96778" r="18" fill="#fff"/><rect x="623.58025" y="140.46788" width="22" height="22" fill="#3f3d56"/><path d="M558.29015,646.23394h-101a7.00817,7.00817,0,0,1-7-7v-79a7.00818,7.00818,0,0,1,7-7h101a7.00818,7.00818,0,0,1,7,7v79A7.00818,7.00818,0,0,1,558.29015,646.23394Z" transform="translate(-121.7099 -213.76606)" fill="#536dfe"/><path d="M519.1213,623.10305h-50.705a1.03438,1.03438,0,0,1-.18948-.015L492.208,581.54928a1.6791,1.6791,0,0,1,2.92284,0L511.22513,609.425l.77105,1.33386Z" transform="translate(-121.7099 -213.76606)" fill="#fff"/><polygon points="397.411 409.337 380.1 409.337 388.598 396.993 389.21 396.104 389.515 395.659 390.286 396.993 397.411 409.337" opacity="0.2" style="isolation:isolate"/><path d="M547.35347,623.10305H503.49782l8.49836-12.34419.61158-.88924,11.07413-16.08684a2.24078,2.24078,0,0,1,3.32617-.19886,2.00131,2.00131,0,0,1,.15948.19886Z" transform="translate(-121.7099 -213.76606)" fill="#fff"/><circle cx="392.59009" cy="370.1102" r="7.51151" fill="#fff"/><rect x="338.58025" y="347.46788" width="16" height="16" fill="#3f3d56"/><path id="f57cf1cd-83f7-4fd3-a8d1-d71a660a6415" data-name="Path 40" d="M221.90813,356.61926a5.94683,5.94683,0,0,0,0,11.892H328.99386a5.94683,5.94683,0,0,0,.19525-11.892q-.09762-.00165-.19525,0Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path id="aee25563-7463-4829-8b3c-d6945ce6dfe7" data-name="Path 40" d="M221.90813,387.61926a5.94683,5.94683,0,0,0,0,11.892H328.99386a5.94683,5.94683,0,0,0,.19525-11.892q-.09762-.00165-.19525,0Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path id="aefa15f9-40e4-4075-8c80-8ab2e97e1ce3" data-name="Path 40" d="M221.90813,418.61926a5.94683,5.94683,0,0,0,0,11.892H328.99386a5.94683,5.94683,0,0,0,.19525-11.892q-.09762-.00165-.19525,0Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path id="a405b459-42e8-4eb5-9988-b9086189387e" data-name="Path 40" d="M221.90813,449.61926a5.94683,5.94683,0,0,0,0,11.892H328.99386a5.94683,5.94683,0,0,0,.19525-11.892q-.09762-.00165-.19525,0Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path id="b32f5175-a272-4d51-9048-0542c511c928" data-name="Path 40" d="M221.90813,480.61926a5.94683,5.94683,0,0,0,0,11.892H328.99386a5.94683,5.94683,0,0,0,.19525-11.892q-.09762-.00165-.19525,0Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path id="b3f78383-4856-4bdc-97c4-b8cb03fde67d" data-name="Path 40" d="M221.90813,511.61926a5.94683,5.94683,0,0,0,0,11.892H328.99386a5.94683,5.94683,0,0,0,.19525-11.892q-.09762-.00165-.19525,0Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M183.6366,373.59688a11,11,0,1,1,11-11A11.01245,11.01245,0,0,1,183.6366,373.59688Zm0-20a9,9,0,1,0,9,9A9.01016,9.01016,0,0,0,183.6366,353.59688Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M183.6366,404.59688a11,11,0,1,1,11-11A11.01245,11.01245,0,0,1,183.6366,404.59688Zm0-20a9,9,0,1,0,9,9A9.01016,9.01016,0,0,0,183.6366,384.59688Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M183.6366,435.56563a11,11,0,1,1,11-11A11.01245,11.01245,0,0,1,183.6366,435.56563Zm0-20a9,9,0,1,0,9,9A9.01016,9.01016,0,0,0,183.6366,415.56563Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M183.6366,466.56563a11,11,0,1,1,11-11A11.01245,11.01245,0,0,1,183.6366,466.56563Zm0-20a9,9,0,1,0,9,9A9.01016,9.01016,0,0,0,183.6366,446.56563Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M183.6366,497.56563a11,11,0,1,1,11-11A11.01245,11.01245,0,0,1,183.6366,497.56563Zm0-20a9,9,0,1,0,9,9A9.01016,9.01016,0,0,0,183.6366,477.56563Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><path d="M183.6366,528.56563a11,11,0,1,1,11-11A11.01245,11.01245,0,0,1,183.6366,528.56563Zm0-20a9,9,0,1,0,9,9A9.01016,9.01016,0,0,0,183.6366,508.56563Z" transform="translate(-121.7099 -213.76606)" fill="#e6e6e6"/><circle cx="61.9267" cy="148.83082" r="5" fill="#536dfe"/><circle cx="61.9267" cy="210.83082" r="5" fill="#536dfe"/><circle cx="61.9267" cy="241.83082" r="5" fill="#536dfe"/><path d="M629.27781,480.34049l1.62056,12.15421a8.53072,8.53072,0,0,0,10.97829,7.02183h0a8.53074,8.53074,0,0,0,4.52229-12.96029l-7.27178-10.648-14.2816-37.92011,14.77406-19.20629-17.23641-7.387-14.2816,25.11592Z" transform="translate(-121.7099 -213.76606)" fill="#ffb8b8"/><path d="M618.44349,412.37978l24.62345,9.35691,6.01167-16.6991a9.991,9.991,0,0,0-4.47474-12.0766h0a9.99106,9.99106,0,0,0-12.75916,2.491Z" transform="translate(-121.7099 -213.76606)" fill="#536dfe"/><path d="M601.20708,645.81005l32.25574.78607,18.961-123.9033c17.98786,32.76373,32.254,76.42815,44.81467,125.08711l28.07073-6.4021c-7.82107-51.78336-22.15437-98.45659-43.82974-139.36871l.98494-28.07073-44.81467-6.89456a20.33193,20.33193,0,0,0-3.59444,2.15583C608.73294,488.05676,605.45521,572.97153,601.20708,645.81005Z" transform="translate(-121.7099 -213.76606)" fill="#2f2e41"/><path d="M704.62555,686.1925l10.781-1.34762-1.42407-12.934c4.3734,8.79906,9.95976,12.64081,16.67311,11.87648a8.40756,8.40756,0,0,0,6.90434-5.78367h0a8.57533,8.57533,0,0,0,.24044-.87215,5.29047,5.29047,0,0,0-3.43529-5.92687c-8.05329-3.20957-10.25235-17.81288-12.01063-33.27414l-13.29666,2.46234.49247,11.32679C701.96783,662.70092,701.74793,673.68808,704.62555,686.1925Z" transform="translate(-121.7099 -213.76606)" fill="#2f2e41"/><path d="M608.10164,686.1925l10.781-1.34762-1.42407-12.934c4.3734,8.79906,9.95976,12.64081,16.67311,11.87648a8.40757,8.40757,0,0,0,6.90434-5.78367h0a8.57533,8.57533,0,0,0,.24044-.87215,5.29047,5.29047,0,0,0-3.43529-5.92687c-8.05329-3.20957-10.25235-17.81288-12.01063-33.27414l-13.29666,2.46234.49247,11.32679C605.44392,662.70092,605.224,673.68808,608.10164,686.1925Z" transform="translate(-121.7099 -213.76606)" fill="#2f2e41"/><circle cx="545.79432" cy="157.16325" r="17.4676" fill="#ffb8b8"/><path d="M633.21756,404.50028l23.146-3.93976,11.81925-19.69875-16.74394-10.83432C648.16368,381.35852,641.7011,392.87167,633.21756,404.50028Z" transform="translate(-121.7099 -213.76606)" fill="#ffb8b8"/><path d="M635.3138,468.749,681.972,479.848c3.59427-29.2063,2.37818-54.75579-6.16024-74.73891A21.77528,21.77528,0,0,0,661.2883,392.681h0l-19.69859-.98494h0a22.68,22.68,0,0,0-12.49716,24.11934C636.56938,435.52374,641.71313,454.34088,635.3138,468.749Z" transform="translate(-121.7099 -213.76606)" fill="#536dfe"/><path d="M720.51316,460.4656l10.88792,5.63952a8.53073,8.53073,0,0,0,12.04685-4.97016v0A8.53073,8.53073,0,0,0,735.42091,450l-12.89329-.14556-39.25794-10.03556-7.26807-23.11558-15.93355,9.8886,12.39262,26.09973Z" transform="translate(-121.7099 -213.76606)" fill="#ffb8b8"/><path d="M658.61665,430.38467l21.78223-14.81217-10.23675-14.49858a9.991,9.991,0,0,0-12.46049-3.25637h0a9.991,9.991,0,0,0-5.27312,11.88256Z" transform="translate(-121.7099 -213.76606)" fill="#536dfe"/><path d="M663.5044,370.76615c6.69882-.95233,12.40412-2.67666,19.10294-3.629,1.65176-.23482,3.54807-.63485,4.31574-2.11611.70744-1.36506.10964-3.02989-.62984-4.37785a22.36731,22.36731,0,0,0-39.03484-.33182c-1.76688,3.0948-2.80577,6.62715-5.0472,9.39764a33.32292,33.32292,0,0,1-4.96838,4.52716,68.3558,68.3558,0,0,0-24.244,44.7506,28.63142,28.63142,0,0,0,.24853,9.58966,13.39457,13.39457,0,0,0,4.993,7.99673c3.88108,2.7484,9.26551,2.51851,13.63465.64046,8.36779-3.59683,13.59132-12.42352,15.10569-21.40481s-.12457-18.17812-2.15162-27.05776c-.73981-3.24078-1.52915-6.65192-.58065-9.83788,1.31757-4.42565,7.42857,2.62013,11.37642.225,1.64694-.9992,1.58525-11.86137,3.50493-11.70139s3.77067,2.14951,3.02445,3.92545Z" transform="translate(-121.7099 -213.76606)" fill="#2f2e41"/><path d="M645.66057,378.8159a2.21659,2.21659,0,0,0,.69158-3.05677l-2.82208-4.47189a2.21615,2.21615,0,0,0-3.74834,2.36544l2.82207,4.47189a2.2189,2.2189,0,0,0,3.05726.69133Z" transform="translate(-121.7099 -213.76606)" fill="#536dfe"/><circle cx="27.7901" cy="21.73394" r="8.5" fill="#e6e6e6"/><circle cx="52.4401" cy="21.73394" r="8.5" fill="#e6e6e6"/><circle cx="77.0901" cy="21.73394" r="8.5" fill="#e6e6e6"/></svg>
+                                {{-- end gbr1 --}}
+                            </div>
+                            <div class="w-full">
+                                {{-- gbr2 --}}
+                                    <svg  class="w-full rounded-md object-contain h-52" id="a568df60-cc88-4b90-b934-345dd9d3752a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="979" height="640" viewBox="0 0 979 640"><title>both_sides</title><path d="M1087,775H108V135h979Zm-977-2h975V137H110Z" transform="translate(-108 -135)" fill="#3f3d56"/><rect x="20" y="16" width="472" height="608" fill="#3f3d56"/><rect x="489" y="16" width="472" height="608" fill="#536dfe"/><path d="M730.88281,716.69141a61.7641,61.7641,0,0,1-3.07422-6.5625c-3.9375-9.84375,3.69239-17.67383,4.01954-18.00293l.29882-.29981-.00683-.42187c-.08692-5.458-2.19434-133.96485-8.51074-159.22657-5.70142-22.81091-23.34577-29.03735-27.46-30.19451l.00983-.1131-20.28931-2.60022c7.59345-50.00592,15.20294-165.635-70.75757-189.44568a55.48578,55.48578,0,0,0-9.08251-1.49854l-.18555,1.99121a54.74851,54.74851,0,0,1,8.73,1.4336c84.45129,23.39306,76.82715,137.81738,69.31122,187.26514l-30.72638-3.93781c-8.002-4.4892-17.03961-12.546-18.10047-34.165a56.4461,56.4461,0,0,0,19.769-36.69855,3.66933,3.66933,0,0,0,.43017.02552c4.44824,0,8.06641-5.20362,8.06641-11.6001s-3.61817-11.6001-8.06641-11.6001a3.44692,3.44692,0,0,0-2.43829.86987,56.393,56.393,0,0,0-45.67645-39.51489l-.28516,1.97949a54.12884,54.12884,0,0,1,0,107.13086l.28516,1.98047a55.50551,55.50551,0,0,0,25.99926-11.02868c1.37091,20.19506,9.98835,28.79833,17.36408,33.37872-8.42975,11.52838-22.08594,18.50854-40.62555,20.731-.99023.11914-1.98047.21875-2.97022.30761l.17872,1.99219c1.01025-.09082,2.02-.19238,3.02978-.31348,19.14356-2.29492,33.28906-9.55566,42.05469-21.585l.34649.04444c.06489.03576.131.07367.1955.10888l.04279-.07837,51.24237,6.56763L679.24414,674.374l-.00488.05567.001.05566c.001.00684.04,1.57715.04,4.33985v.23144l.00092.00177a418.97187,418.97187,0,0,1-2.205,45.12128c-1.65429,14.8623-4.166,26.23437-7.46679,33.82031H643.71973a23.55617,23.55617,0,0,1,1.415-6.88086l2.31543-6.63672L643.376,750.21a39.58178,39.58178,0,0,1-7.99317,7.79H597v2h39.03516l.26269-.19141a44.42668,44.42668,0,0,0,5.7793-5.03613,21.651,21.651,0,0,0-.36719,4.24707l.01856.98047H712.791l.23339-.13672c4.25586-2.49023,4.25586-7.09082,4.25586-15.44336,0-5.23926,3.51856-8.75781,7.24414-12.4834a41.375,41.375,0,0,0,5.30762-6.042C733.01367,721.12207,732.88086,720.458,730.88281,716.69141Zm-87.40332-312.625c.75684-.80957.96094-1.02686,1.77832-1.02686,3.28809,0,6.06641,4.39649,6.06641,9.6001,0,5.16894-2.74024,9.541-6,9.59961a2.24239,2.24239,0,0,0-.27191-.496c.08642-1.25983.145-2.52607.145-3.80384a55.43572,55.43572,0,0,0-1.76288-13.8255Zm42.06836,287.4873-5.972,27.87543c1.34588-14.257,1.6549-28.18457,1.70172-36.3902ZM728.168,724.78516a39.84372,39.84372,0,0,1-5.05762,5.73632c-3.84961,3.85059-7.83008,7.83106-7.83008,13.89844,0,8.19434-.11914,11.708-3.042,13.58008H671.78033c3.19556-7.71228,5.63434-18.919,7.25513-33.3504l2.1413-3.1496,6.47461-30.21387L681.28,678.58362c-.00177-2.33722-.03211-3.79572-.03876-4.09241l14.73273-170.48205c4.32556,1.2788,20.3789,7.38623,25.696,28.65295,6.08789,24.35449,8.30762,150.27832,8.44336,158.375-1.51758,1.70508-8.12305,9.93262-4.16211,19.834a63.73517,63.73517,0,0,0,3.165,6.75782C730.81055,720.82227,730.81055,720.82227,728.168,724.78516Z" transform="translate(-108 -135)" fill="#3f3d56"/><path d="M597.37,309.74V533.09l-43.65,5.09-38.8999,4.55L501.21,544.31v.01l-.63989.07s-2.25-6.89-4.02-20.63c-3.06006-23.75-4.69006-67.96,9.26-132.37C524.41992,305.42,580.51,307.16,597.37,309.74Z" transform="translate(-108 -135)" fill="#2f2e41"/><polygon points="486.37 582.85 489.37 583 489.37 623.92 350.94 623.92 353.89 612.78 357.61 598.74 374.89 581.46 378.81 577.54 486.37 582.85" fill="#2f2e41"/><path d="M597.37,363.82V471.9a55.1261,55.1261,0,1,1-10.92005-109.16,54.48287,54.48287,0,0,1,10.36011.98C597,363.75,597.17993,363.78,597.37,363.82Z" transform="translate(-108 -135)" fill="#ffb9b9"/><path d="M597.37,454.57V571.68l-43.65-33.5L528.15,518.56l20.43006-9.29c.91992-.41,1.87988-.85,2.88989-1.31,15.23-6.92,17.80005-25.61,17.75-37.73a76.88274,76.88274,0,0,0-.79-11.03Z" transform="translate(-108 -135)" fill="#ffb9b9"/><path d="M594.37,517.79c1-.09,2-.19,3-.31V758.92H581.35c-10.19007-3.09-18.22-6.1-18.22-6.1s-48.76-6.36-63.6-4.24c-.83008.12-1.81006.26-2.92.42-8.95008,1.28-25.92005,3.37-34.72-1.22-8.77-4.57-9.44-15.77,13.96-41q3.07506-3.315,6.72009-6.96S514.37,678.62,510.13,672.26s-10.6-33.92-10.6-33.92l.1-5.45,1.58-88.57v-.01l.44006-24.69,46.93006-10.35,8.18994,6.11A132.03814,132.03814,0,0,0,594.37,517.79Z" transform="translate(-108 -135)" fill="#575a89"/><path d="M508.5321,758.92126h-25.31l9.95-3.98s3.86.71,9.38,2.22C504.39215,757.66125,506.41211,758.24127,508.5321,758.92126Z" transform="translate(-108 -135)" fill="#ffb9b9"/><path d="M510.13214,623.50122c-3.27,1.23-6.85,4.65-10.5,9.39-15.32,19.85-31.9,62.69-31.9,62.69s5.59,5.59,8.12,11.2c1.29,2.86,1.79,5.73.36005,7.88-4.24,6.36,0,0,4.24,0,1.65,0,2.34.64,2.44,1.8.15,1.82-1.15,4.92-2.44,8.8-2.12,6.36,0,8.48,10.6,10.6s4.24,2.12,4.24,8.48a10.07562,10.07562,0,0,0,1.32,4.66,28.8671,28.8671,0,0,0,7.16,8.06005c-.42005.03-.82.06-1.22.1a32.50421,32.50421,0,0,0-8.31,1.76h-54.27a12.76744,12.76744,0,0,0,2.32-3.98c2.12-6.36-14.84-16.96-16.96-19.08s-2.12-10.6,0-19.08-2.12-8.48-6.36-12.72,0-10.6,4.24-16.96,4.24-4.24-2.12006-16.96,6.36005-14.84,6.36005-14.84,27.56-57.24,42.4-91.16c9.81-22.43,20.56-34.67,26.7-40.38a38.90475,38.90475,0,0,1,5.1-4.14l10.6,4.24s1.23,7.71,2.57,18.86C518.16211,570.32122,522.21216,618.97125,510.13214,623.50122Z" transform="translate(-108 -135)" fill="#575a89"/><path d="M597.37,345.71V362.8c-.18006.31-.37.61-.55994.92-11.06006,18.15-30.79,43.1-61.11011,56.71l-2.72-15.97-5.66992-33.28Z" transform="translate(-108 -135)" fill="#2f2e41"/><path d="M364.192,673.94127c.03061,63.03091-37.43,85.05421-83.6489,85.07666q-1.61039.00078-3.20524-.0344-3.21309-.06777-6.35929-.2897c-41.71555-2.93328-74.13856-26.05266-74.167-84.67127-.02946-60.663,77.46487-137.25615,83.2767-142.91949.00508,0,.00508,0,.01022-.00515.22079-.21583.33379-.32374.33379-.32374S364.16142,610.91548,364.192,673.94127Z" transform="translate(-108 -135)" fill="#536dfe"/><path d="M277.49243,749.378l30.58807-42.782-30.66285,47.47688-.07976,4.91061q-3.21309-.06777-6.35929-.2897l3.26708-63.05822-.02588-.48794.05639-.09251.31049-5.95857-30.78607-47.56516,30.87633,43.10143.07767,1.26357,2.46809-47.643-26.35908-49.15453,26.67862,40.78176,2.546-98.77764.01006-.32872.00016.32357-.39357,77.8964,26.19691-30.89382-26.3067,37.60224-.67271,42.6596L303.38856,617.412,278.8279,664.63415l-.37372,23.7209,35.50712-57.00244-35.6418,65.27752Z" transform="translate(-108 -135)" fill="#3f3d56"/><path d="M934.10059,577.12305A439.83284,439.83284,0,0,0,892.124,529.05176l-.68847-.65821-1.0459.99415c-8.55762,8.33886-83.60742,83.21679-83.57813,143.63574.03192,65.81183,40.082,82.934,74.1175,85.59186l-.00031.00579.97949.06934c2.10157.14941,4.25782.24805,6.40625.293l.00641.00006,1.00043.02045.00012-.00934c.69177.01031,1.38269.023,2.078.023h.14356c25.33691-.0127,45.4668-6.459,59.83008-19.16113,16.4834-14.5752,24.834-37.08887,24.81933-66.915C976.17578,640.1084,953.294,602.71289,934.10059,577.12305Zm-26.73536,83.36914-19.042,34.875-.88086,56.19922,7.84668-10.97559-7.86621,12.17969-.06824,4.17962c-.23211-.00665-.46356-.01507-.69549-.023q-1.51154-.0519-3.00787-.13781c-.20765-.012-.41572-.0232-.62256-.03614l3.21643-62.06567.00195-.05273-.01172-.23145.36719-6.57812L878.666,675.56348l6.03027,8.418.06055.97656,1.99707-.00977,2.46777-47.64258.01367-.27832L873.5918,607.85352l15.73144,24.04882-.459,29.18164,8.9834-15.03613-9.01563,17.334-.43457,27.56152Zm-98.55371,12.53027c-.01172-25.12988,13.19532-55.91211,39.25489-91.49316a446.63133,446.63133,0,0,1,41.96051-48.96955L887.625,625.65234l-24.9248-38.10156-1.71778,1.02051L887.21,637.48047,884.96,680.915l-29.34668-40.96582-1.65234,1.125,30.61035,47.29394L884.291,693.75l-.08692.1416.041.74512-3.21259,61.98157C847.85284,754.009,808.84247,737.26923,808.81152,673.02246ZM903.74316,594.165l-13.81543,19.74609.0918-3.5625ZM891.542,757.01758c-.73425-.002-1.46032-.01337-2.18793-.0235l.059-3.6181,30.50683-47.23731-1.65332-1.125L889.542,745.18945l.77344-49.29687L925.83887,630.832l-1.72657-1.00781-33.60156,53.94336.31348-19.88184,24.45117-47.01269-1.74512-.97364-22.54882,37.74122.60839-38.61524,26.13086-37.35156-1.582-1.21973L891.71875,605.252l.37115-73.43152c10.73133,10.64588,82.07386,83.609,82.10248,141.121C974.22559,742.39844,929.26563,756.999,891.542,757.01758Z" transform="translate(-108 -135)" fill="#3f3d56"/></svg>
+                                {{-- end gbr2 --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mb-4">
+                        <span class="px-2 py-1 font-semibold text-md italic">Belum Mengisi Nama Perusahaan</span>
+                        <span class="px-2 py-1 font-semibold text-sm rounded-md text-yellow-500 bg-yellow-200">Belum Terverifikasi</span>
+                    </div>
+                    <hr class="w-full mb-3">
+                    <div class="flex flex-col px-2">
+                        <div class="font-medium mb-2">Informasi Kontak</div>
+                        <div>
+                            <span class="text-sm text-gray-500">Alamat:</span> 
+                                <p class="text-md italic">Belum Mengisi Alamat</p>
+                            </div>
+                        <div>
+                            <span class="text-sm text-gray-500">Nomor telepon:</span> 
+                            <p class="text-md italic">Belum Mengisi Telepon</p>
+                        </div>
+                        <div>
+                            <span class="text-sm text-gray-500">Nomor telepon Alternatif:</span> 
+                            <p class="text-md italic">Belum mengisi telepon alternatif</p>
+                        </div>
+                        <!-- <div>
+                            <span class="text-sm text-gray-500">Media sosial:</span>
 
-                        <p class="text-center leading-relaxed">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi asperiores corporis repudiandae, laborum repellat voluptatum distinctio sed aliquid aliquam rerum saepe cumque velit eveniet et nostrum quo! Placeat, accusamus maiores.</p>
-                        <span class="text-center">Dari Tim</span>
-
-                        <form action="{{url('company-profile/change')}}" method="POST">
-                        @csrf
-                            <x-button class="px-24 py-4 bg-gray-900 rounded-md text-white text-sm focus:border-transparent w-full">
-                                <i class="fa fa-pencil-alt"></i> {{ __('Ubah')}}
-                            </x-button>
-                        </form>
+                        </div> -->
+                        <hr class="w-full my-2">
+                        <div>
+                            <div class="font-medium mb-2">Deskripsi Perusahaan</div> 
+                            <p class="text-md italic">Belum mengisi deksripsi perusahaan</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="w-full sm:w-1/2 xl:w-2/3">
+            <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
+                <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                        <div class="flex flex-col">
+                            <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
+                                Luas
+                            </p>
+                            <p class="font-bold italic text-md pb-4 text-red-400 dark:text-white text-center">Belum mengisi luas<sup>3<sup></p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
+                                Jumlah Produksi
+                            </p>
+                            <p class="font-bold italic text-md pb-4 text-red-400 dark:text-white text-center">Belum mengisi jumlah produksi</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">
+                                Harga Produksi
+                            </p>
+                            <p class="font-bold text-md pb-4 text-green-400 dark:text-white text-center">Belum mengisi harga produksi</p>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="mb-4 sm:ml-4 xl:mr-4">
+                <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
+                    <div class="py-8 px-4 text-gray-800 flex items-center justify-center border-b-2 border-gray-100">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Pemilik</td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td> {{Auth::user()->name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Jenis Budidaya</td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td> Belum mengisi jenis budidaya</td>
+                                </tr>
+                                <tr>
+                                    <td>Jenis Ikan</td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td> Belum mengisi data ikan</td>
+                                </tr>
+                                <tr>
+                                    <td>NPWP</td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td> Belum mengisi NPWP</td>
+                                </tr>
+                                <tr>
+                                    <td>SIUP</td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td> Belum mengisi siup</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 sm:ml-4 xl:mr-4">
+                <div class="shadow-md rounded-md bg-white dark:bg-gray-700w-full">
+                    <div class="flex flex-col py-6 px-4 text-gray-800 flex items-center justify-center">
+                        <p class="font-semibold text-md mb-4">Persentase Saham Terbeli</p>
+                        <p class="font-semibold text-sm mb-4 italic">Prensentase belum diketahui</p>
+                        <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
+                            <div class="h-full text-center text-xs text-white bg-blue-400 rounded-full" style="width: 100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+                        <div class="flex flex-col">
+                            <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">Sisa Lembar Saham</p>
+                            <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center italic">Sisa lembar belum diketahui</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">Harga per Lembar</p>
+                            <p class="font-bold text-md pb-4 text-green-400 dark:text-white text-center italic">Harga belum diketahui</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="font-semibold text-sm pt-4 px-4 text-gray-800 dark:text-white text-center">Return of Interest</p>
+                            <p class="font-bold text-md pb-4 text-red-400 dark:text-white text-center italic">ROI belum diketahui</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4 sm:ml-4 xl:mr-4">
+                <div class="shadow-md rounded-md bg-white dark:bg-gray-700w-full">
+                    <form action="{{url('company-profile/change')}}" method="POST">
+                    @csrf
+                        <x-button class="px-24 py-4 bg-blue-400 rounded-md text-white text-sm font-bold focus:border-transparent hover:bg-blue-500 w-full">
+                                {{ __('ubah profil')}} <i class="fa fa-pencil-alt"></i>
+                        </x-button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full mt-12 overflow-hidden rounded-lg shadow-sm border-1">
+            <div class="w-full overflow-x-auto">
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="text-center px-4 py-3">TABEL DATA IKAN</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        <tr class="text-gray-700 dark:text-gray-400">
+                            <td class="text-center px-4 py-3 text-sm">Belum ada data ikan yang diisi</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('companySuccess'))
+        <script>
+            swal("Berhasil", "{!! Session::get('companySuccess') !!}", "success",{
+                button: "OK",
+            })
+        </script>
+    @endif
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            
+            var table = $('#thisTable').DataTable( {
+                    responsive: true
+                } )
+                .columns.adjust()
+                .responsive.recalc();
+        } );
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                margin:10,
+                responsive:{
+                    600:{
+                        items:1
+                    }
+                }
+            });
+        });
+    </script>
 </x-app-layout>

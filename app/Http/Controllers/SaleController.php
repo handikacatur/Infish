@@ -15,51 +15,55 @@ class SaleController extends Controller
 
     public function index()
     {
+        $newGetPartner = \DB::table('partners')->where('user_id', '=', \Auth::user()->id)->whereNull('deleted_at')->first();
         try {
-            $newGetPartner = \DB::table('partners')->where('user_id', '=', \Auth::user()->id)->whereNull('deleted_at')->first();
-            $partnerUser = $newGetPartner->id;
-            $listData = \DB::table('transactions')
-            ->select('transactions.id', 'fishes.name', 'transactions.weight', 'transactions.amount', 'transactions.created_at')
-            ->join('fishes', 'transactions.partner_fish_id', '=', 'fishes.id')
-            ->where('transactions.partner_id', '=', $partnerUser)
-            ->whereNull('transactions.deleted_at')
-            ->paginate(5);
-
-            $dataFish = \DB::table('partner_fishes')
-            ->select('partner_fishes.id', 'fishes.name')
-            ->join('fishes', 'partner_fishes.fish_id', '=', 'fishes.id')
-            ->where('partner_fishes.partner_id', '=', $partnerUser)
-            ->whereNull('partner_fishes.deleted_at')
-            ->get();
-
-            $penjualanCount = Transaction::select(\DB::raw('COUNT(*) as count'))
-            ->whereYear('created_at', date('Y'))
-            ->whereNull('deleted_at')
-            ->where('partner_id', '=', $partnerUser)
-            ->groupBy(\DB::raw("Month(created_at)"))
-            ->pluck('count');
-
-            /* $penjualanCount = Transaction::select(\DB::raw('SUM(amount) as sum'))
-            ->whereYear('created_at', date('Y'))
-            ->whereNull('deleted_at')
-            ->where('partner_id', '=', $partnerUser)
-            ->groupBy(\DB::raw("Month(created_at)"))
-            ->pluck('sum'); */
-            /* dd($penjualanCount); */
-
-            $penjualanBulan = Transaction::select(\DB::raw('Month(created_at) as month'))
-            ->whereYear('created_at', date('Y'))
-            ->whereNull('deleted_at')
-            ->where('partner_id', '=', $partnerUser)
-            ->groupBy(\DB::raw("Month(created_at)"))
-            ->pluck('month');
-
-            $dataPenjualan = array(0,0,0,0,0,0,0,0,0,0,0,0);
-            foreach ($penjualanBulan as $index => $month) {
-                $dataPenjualan[$month] = $penjualanCount[$index];
+            if ($newGetPartner != NULL) {
+                $partnerUser = $newGetPartner->id;
+                $listData = \DB::table('transactions')
+                ->select('transactions.id', 'fishes.name', 'transactions.weight', 'transactions.amount', 'transactions.created_at')
+                ->join('fishes', 'transactions.partner_fish_id', '=', 'fishes.id')
+                ->where('transactions.partner_id', '=', $partnerUser)
+                ->whereNull('transactions.deleted_at')
+                ->paginate(5);
+    
+                $dataFish = \DB::table('partner_fishes')
+                ->select('partner_fishes.id', 'fishes.name')
+                ->join('fishes', 'partner_fishes.fish_id', '=', 'fishes.id')
+                ->where('partner_fishes.partner_id', '=', $partnerUser)
+                ->whereNull('partner_fishes.deleted_at')
+                ->get();
+    
+                $penjualanCount = Transaction::select(\DB::raw('COUNT(*) as count'))
+                ->whereYear('created_at', date('Y'))
+                ->whereNull('deleted_at')
+                ->where('partner_id', '=', $partnerUser)
+                ->groupBy(\DB::raw("Month(created_at)"))
+                ->pluck('count');
+    
+                /* $penjualanCount = Transaction::select(\DB::raw('SUM(amount) as sum'))
+                ->whereYear('created_at', date('Y'))
+                ->whereNull('deleted_at')
+                ->where('partner_id', '=', $partnerUser)
+                ->groupBy(\DB::raw("Month(created_at)"))
+                ->pluck('sum'); */
+                /* dd($penjualanCount); */
+    
+                $penjualanBulan = Transaction::select(\DB::raw('Month(created_at) as month'))
+                ->whereYear('created_at', date('Y'))
+                ->whereNull('deleted_at')
+                ->where('partner_id', '=', $partnerUser)
+                ->groupBy(\DB::raw("Month(created_at)"))
+                ->pluck('month');
+    
+                $dataPenjualan = array(0,0,0,0,0,0,0,0,0,0,0,0);
+                foreach ($penjualanBulan as $index => $month) {
+                    $dataPenjualan[$month] = $penjualanCount[$index];
+                }
+    
+                return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish], compact('dataPenjualan'));
+            } else {
+                return redirect('dashboard');
             }
-
-            return view('partner.sale', ['listData' => $listData, 'dataFish' => $dataFish], compact('dataPenjualan'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
         }

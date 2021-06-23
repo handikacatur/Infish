@@ -51,18 +51,8 @@
                     </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
-                            <x-label for="wide" :value="__('Luas Kolam* (Hektar) :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
+                            <x-label for="wide" :value="__('Luas Kolam* (m3) :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
                             <x-input id="wide" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="wide" :value="old('company_name')" onkeypress="return isNumber(event)" required />
-                        </div>
-                    </div>
-                    <div class="-mx-3 md:flex mb-6">
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <x-label for="production_amount" :value="__('Jumlah Produksi* (Ton) :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="production_amount" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="production_amount" :value="old('company_name')" onkeypress="return isNumber(event)" required />
-                        </div>
-                        <div class="md:w-1/2 px-3">
-                            <x-label for="production_value" :value="__('Nilai Produksi* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="production_value" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="number" name="production_value" :value="old('company_name')" onkeypress="return isNumber(event)" required />
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">

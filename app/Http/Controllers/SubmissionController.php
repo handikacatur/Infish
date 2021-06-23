@@ -14,34 +14,39 @@ class SubmissionController extends Controller
 
     public function index()
     {
+        $user = \Auth::user()->id;
+        $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
         try {
-            $user = \Auth::user()->id;
-            $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
-            $partnerUser = $newGetPartner->id;
-    
-            $getSumInvest = \DB::table('invests')
-            ->where('partner_id', $partnerUser)
-            ->where('invest_status_id', 1)
-            ->whereNull('deleted_at')
-            ->sum('amount');
-    
-            $getSubmissionDone = \DB::table('submissions')
-            ->where('partner_id', $partnerUser)
-            ->where('status_submission', 1)
-            ->whereNull('deleted_at')
-            ->sum('amount');
-    
-            $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
-            $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
-    
-            $listData = \DB::table('submissions')
-            ->select('submissions.amount', 'submissions.description', 'submission_statuses.name', 'submissions.created_at')
-            ->join('submission_statuses', 'submissions.status_submission', '=', 'submission_statuses.id')
-            ->where('submissions.partner_id', $partnerUser)
-            ->whereNull('submissions.deleted_at')
-            ->paginate(5);
-    
-            return view('partner.submission', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone]);
+            if ($newGetPartner != NULL) {
+                $partnerUser = $newGetPartner->id;
+        
+                $getSumInvest = \DB::table('invests')
+                ->where('partner_id', $partnerUser)
+                ->where('invest_status_id', 1)
+                ->whereNull('deleted_at')
+                ->sum('amount');
+        
+                $getSubmissionDone = \DB::table('submissions')
+                ->where('partner_id', $partnerUser)
+                ->where('status_submission', 1)
+                ->whereNull('deleted_at')
+                ->sum('amount');
+        
+                $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
+                $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
+        
+                $listData = \DB::table('submissions')
+                ->select('submissions.amount', 'submissions.description', 'submission_statuses.name', 'submissions.created_at')
+                ->join('submission_statuses', 'submissions.status_submission', '=', 'submission_statuses.id')
+                ->where('submissions.partner_id', $partnerUser)
+                ->whereNull('submissions.deleted_at')
+                ->paginate(5);
+        
+                return view('partner.submission', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone]);
+            } else {
+                return redirect('dashboard');
+            }
+
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
         }

@@ -19,14 +19,14 @@ class PartnerProfileController extends Controller
 
     public function index()
     {
-        try {
+        /* try { */
             $user = \Auth::user()->id;
             $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
             $getPartnerStatus = \DB::table('partners')->select('status_partner_id')->where('user_id', $user)->whereNull('deleted_at')->first();
             $getPureFish = \DB::table('fishes')->whereNull('deleted_at')->get();
-            $partnerUser = $newGetPartner->id;
             
             if ($newGetPartner != NULL){
+                $partnerUser = $newGetPartner->id;
                 $getFish = \DB::table('partner_fishes')
                 ->select('partner_fishes.id', 'fishes.name')
                 ->join('fishes', 'partner_fishes.fish_id', '=', 'fishes.id')
@@ -47,9 +47,9 @@ class PartnerProfileController extends Controller
             } else {
                 return view('partner.company-profile-empty',['statusPartner' => $getPartnerStatus]);
             }
-        } catch (\Throwable $th) {
+        /* } catch (\Throwable $th) {
             return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
-        }
+        } */
     }
 
     public function edit()
@@ -77,7 +77,7 @@ class PartnerProfileController extends Controller
         $request->validate([
             'company_name' => 'required',
             'address' => 'required',
-            'phone_number' => 'required|numeric',
+            'phone_number' => 'required',
             'culvitation' => 'required',
             'wide' => 'required|numeric',
             /* 'production_amount' => 'required|numeric',
@@ -95,7 +95,22 @@ class PartnerProfileController extends Controller
             $random = \Str::random(5);
 
             $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
-            $partnerUser = $newGetPartner->id;
+
+            if($newGetPartner == NULL)
+            {
+                $partner = new Partner();
+                $partner->user_id = $user;
+                $partner->roi = NULL;
+                $partner->lot_price = NULL;
+                $partner->lot = NULL;
+                $partner->status_partner_id = 2;
+                $partner->save();
+
+                $partnerUser = $partner->id;
+            } else {
+                $partnerUser = $newGetPartner->id;
+            }
+
             $getPartnerFishes = \DB::table('partner_fishes')->select('id')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->first();
             $getPartnerProfile = \DB::table('partner_profiles')->select('id')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->first();
 
@@ -109,14 +124,6 @@ class PartnerProfileController extends Controller
 
             if ($getPartnerProfile == NULL)
             {
-                $partner = new Partner();
-                $partner->user_id = $user;
-                $partner->roi = NULL;
-                $partner->lot_price = NULL;
-                $partner->lot = NULL;
-                $partner->status_partner_id = 2;
-                $partner->save();
-
                 $partnerProfile = new PartnerProfile();
                 $partnerProfile->partner_id = $partner->id;
                 $partnerProfile->company_name = $request->company_name;

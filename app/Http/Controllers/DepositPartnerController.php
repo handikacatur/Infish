@@ -10,42 +10,46 @@ class DepositPartnerController extends Controller
 {
     public function index()
     {
+        $user = \Auth::user()->id;
+        $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
         try {
-            $user = \Auth::user()->id;
-            $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();
-            $partnerUser = $newGetPartner->id;
-    
-            $listData = \DB::table('partner_deposits')
-            ->select('partner_deposits.*', 'partner_deposit_statuses.name')
-            ->join('partner_deposit_statuses', 'partner_deposits.status_partner_deposit_id', 'partner_deposit_statuses.id')
-            ->where('partner_deposits.partner_id', $partnerUser)
-            ->whereNull('partner_deposits.deleted_at')
-            ->paginate(5);
-    
-            $getSumInvest = \DB::table('invests')
-            ->where('partner_id', $partnerUser)
-            ->where('invest_status_id', 1)
-            ->whereNull('deleted_at')
-            ->sum('amount');
-    
-            $getSubmissionDone = \DB::table('submissions')
-            ->where('partner_id', $partnerUser)
-            ->where('status_submission', 1)
-            ->whereNull('deleted_at')
-            ->sum('amount');
-    
-            $getDepositThisMonth = \DB::table('partner_deposits')
-            ->select('partner_deposits.*', 'partner_deposit_statuses.name')
-            ->join('partner_deposit_statuses', 'partner_deposits.status_partner_deposit_id', 'partner_deposit_statuses.id')
-            ->where('partner_id', $partnerUser)
-            ->whereMonth('partner_deposits.created_at', Carbon::now()->month)
-            ->whereNull('partner_deposits.deleted_at')
-            ->first();
-    
-            $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
-            $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
-    
-            return view('partner.deposit-partner', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone, 'getDepositThisMonth' => $getDepositThisMonth]);
+            if ($newGetPartner != NULL) {
+                $partnerUser = $newGetPartner->id;
+        
+                $listData = \DB::table('partner_deposits')
+                ->select('partner_deposits.*', 'partner_deposit_statuses.name')
+                ->join('partner_deposit_statuses', 'partner_deposits.status_partner_deposit_id', 'partner_deposit_statuses.id')
+                ->where('partner_deposits.partner_id', $partnerUser)
+                ->whereNull('partner_deposits.deleted_at')
+                ->paginate(5);
+        
+                $getSumInvest = \DB::table('invests')
+                ->where('partner_id', $partnerUser)
+                ->where('invest_status_id', 1)
+                ->whereNull('deleted_at')
+                ->sum('amount');
+        
+                $getSubmissionDone = \DB::table('submissions')
+                ->where('partner_id', $partnerUser)
+                ->where('status_submission', 1)
+                ->whereNull('deleted_at')
+                ->sum('amount');
+        
+                $getDepositThisMonth = \DB::table('partner_deposits')
+                ->select('partner_deposits.*', 'partner_deposit_statuses.name')
+                ->join('partner_deposit_statuses', 'partner_deposits.status_partner_deposit_id', 'partner_deposit_statuses.id')
+                ->where('partner_id', $partnerUser)
+                ->whereMonth('partner_deposits.created_at', Carbon::now()->month)
+                ->whereNull('partner_deposits.deleted_at')
+                ->first();
+        
+                $sumInvestback = ($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest;
+                $sumInvestMonth = (($getSumInvest * $newGetPartner->roi / 100) + $getSumInvest) / 12;
+        
+                return view('partner.deposit-partner', ['listData' => $listData, 'sumInvest' => $getSumInvest, 'sumInvestBack' => $sumInvestback, 'sumInvestMonth' => $sumInvestMonth, 'sumSubmissionDone' => $getSubmissionDone, 'getDepositThisMonth' => $getDepositThisMonth]);
+            } else {
+                return redirect('dashboard');
+            }
             
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed_control', 'Terjadi Kesalahan '.$th);
