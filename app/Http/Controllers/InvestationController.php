@@ -36,7 +36,7 @@ class InvestationController extends Controller
         $partnerUser = $detail->id;
 
         $getPartner = \DB::table('partners')
-        ->select('partners.id', 'partners.roi', 'partners.lot', 'partners.lot_price', 'users.name', 'partner_profiles.company_name', 'partner_profiles.address', 'partner_profiles.phone_number', 'partner_profiles.alternate_number', 'partner_profiles.cultivation', 'partner_profiles.wide', 'partner_profiles.amount_of_production', 'partner_profiles.production_value', 'partner_profiles.npwp', 'partner_profiles.siup', 'partner_profiles.description', 'partner_profiles.image')
+        ->select('partners.id', 'partners.roi', 'partners.lot', 'partners.lot_price', 'partners.lot_first', 'users.name', 'partner_profiles.company_name', 'partner_profiles.address', 'partner_profiles.phone_number', 'partner_profiles.alternate_number', 'partner_profiles.cultivation', 'partner_profiles.wide', 'partner_profiles.amount_of_production', 'partner_profiles.production_value', 'partner_profiles.npwp', 'partner_profiles.siup', 'partner_profiles.description', 'partner_profiles.image')
         ->join('users', 'partners.user_id', '=', 'users.id')
         ->join('partner_profiles', 'partner_profiles.partner_id', '=', 'partners.id')
         ->whereNull('partners.deleted_at')
@@ -49,8 +49,10 @@ class InvestationController extends Controller
         ->whereNull('partner_fishes.deleted_at')
         ->where('partner_fishes.partner_id', '=', $partnerUser)
         ->get();
-
-        return view('investor.invest-detail', ['getPartner' => $getPartner, 'getFish' => $getFish]);
+        
+        $partnerImages = \DB::table('partner_images')->where('partner_id', '=', $partnerUser)->whereNull('deleted_at')->get();
+    
+        return view('investor.invest-detail', ['getPartner' => $getPartner, 'getFish' => $getFish, 'partnerImages' => $partnerImages]);
     }
 
     public function investCheck(Partner $check)

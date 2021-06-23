@@ -102,7 +102,7 @@
             </div>
         </div>
         
-        <div class="w-full sm:w-1/2 xl:w-2/3">
+        <div class="w-full sm:w-1/2 xl:w-3/5">
             <div class="mb-4 mx-0 sm:ml-4 xl:mr-4">
                 <div class="shadow-md rounded-md bg-white dark:bg-gray-700 w-full">
                     <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
