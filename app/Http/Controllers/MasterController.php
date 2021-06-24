@@ -30,11 +30,11 @@ class MasterController extends Controller
         $newFish->harvest = $request->harvest;
         $newFish->save();
 
-        return redirect('master-fish');
+        return redirect('master-fish')->with('success', 'Berhasil Menambahkan Data Ikan');
     }
 
     public function dropFish(Fish $fish){
         Fish::destroy('id', $fish->id);
-        return redirect('master-fish');
+        return redirect('master-fish')->with('success', 'Berhasil Menghapus Data Ikan');
     }
 }

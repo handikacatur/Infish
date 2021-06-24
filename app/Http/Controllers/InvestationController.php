@@ -101,9 +101,9 @@ class InvestationController extends Controller
             ]);
 
         } else {
-            return redirect('invest-partner');
+            return redirect('invest-partner')->with('depositFailed', 'Mohon Isi Bukti Pembayaran');
         }
-        return redirect('invest-partner');
+        return redirect('invest-partner')->with('depositSuccess', 'Berhasil Melakukan Investasi');
     }
 
     public function transaction()

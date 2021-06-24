@@ -29,10 +29,10 @@
               </div>
               <div class="w-full">
                 <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
-                  Penjualan
+                  Total Transaksi
                 </p>
                 <p class="text-md font-semibold text-gray-700 dark:text-gray-200">
-                  Rp 46,760.89
+                  @currency($getSumTransact)
                 </p>
               </div>
             </div>
@@ -43,24 +43,10 @@
               </div>
               <div class="w-full">
                 <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
-                    Perkembangan
+                    Banyak Transaksi
                 </p>
                 <p class="text-msm font-semibold text-gray-700 dark:text-gray-200">
-                    <i class="fa fa-briefcase"></i>
-                </p>
-              </div>
-            </div>
-            <!-- Card 4 -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 w-full">
-              <div class="p-3 mr-1 text-orange-500 rounded-full">
-                <i class="fas fa-chart-line fa-lg text-yellow-600 bg-yellow-100 rounded-full px-2 py-3"></i>
-              </div>
-              <div class="w-full">
-                <p class="text-base font-bold text-gray-900 dark:text-gray-400 w-full">
-                    Pengajuan Dana
-                </p>
-                <p class="text-xs font-semibold text-gray-700 dark:text-gray-200">
-                    <i class="fa fa-magic"></i>
+                    {{$getCountTransact}}
                 </p>
               </div>
             </div>

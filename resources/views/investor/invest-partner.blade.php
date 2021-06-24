@@ -62,4 +62,21 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @if (Session::has('depositSuccess'))
+        <script>
+            swal("Berhasil", "{!! Session::get('depositSuccess') !!}", "success",{
+                button: "OK",
+            })
+        </script>
+    @endif
+    @if (Session::has('depositFailed'))
+        <script>
+            swal("Gagal", "{!! Session::get('depositFailed') !!}", "error",{
+                button: "OK",
+            })
+        </script>
+    @endif
 </x-app-layout>

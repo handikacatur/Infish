@@ -20,9 +20,19 @@ class DashboardController extends Controller
         {
             return "superadmin";
         } elseif (\Auth::user()->hasRole('admin')) {
-            return view('admin.dashboard');
+            $getCount['getCountMitraConfirm'] = \DB::table('partners')->where('status_partner_id', 4)->whereNull('deleted_at')->count();
+            $getCount['getCountProgressConfirm'] = \DB::table('progress')->where('progress_statuses', 2)->whereNull('deleted_at')->count();
+            $getCount['getCountSubmissionConfirm'] = \DB::table('submissions')->where('status_submission', 2)->whereNull('deleted_at')->count();
+            $getCount['getCountDepositConfirm'] = \DB::table('partner_deposits')->where('status_partner_deposit_id', 2)->whereNull('deleted_at')->count();
+            $getCount['getCountInvestConfirm'] = \DB::table('invests')->where('invest_status_id', 2)->whereNull('deleted_at')->count();
+            $getCount['getCountFish'] = \DB::table('fishes')->whereNull('deleted_at')->count();
+
+            return view('admin.dashboard', $getCount);
         } elseif (\Auth::user()->hasRole('investor')) {
-            return view('investor.dashboard');
+
+            $data['getCountTransact'] = \DB::table('invests')->where('user_id', \Auth::user()->id)->whereNull('deleted_at')->count();
+            $data['getSumTransact'] = \DB::table('invests')->where('user_id', \Auth::user()->id)->whereNull('deleted_at')->sum('amount');
+            return view('investor.dashboard', $data);
         } elseif (\Auth::user()->hasRole('partner')) {
             $user = \Auth::user()->id;
             $newGetPartner = \DB::table('partners')->where('user_id', '=', $user)->whereNull('deleted_at')->first();

@@ -138,7 +138,7 @@ class ConfirmController extends Controller
             'status_partner_id' => $request->status
         ]);
 
-        return redirect('confirm-partner');
+        return redirect('confirm-partner')->with('success', 'Berhasil Melakukan Konfirmasi');
     }
 
     public function patchProgress(Progress $progress, Request $request){
@@ -151,7 +151,7 @@ class ConfirmController extends Controller
             'progress_statuses' => $request->status
         ]);
 
-        return redirect('confirm-progress');
+        return redirect('confirm-progress')->with('success', 'Berhasil Melakukan Konfirmasi');
     }
 
     public function patchSubmission(Submission $submission, Request $request){
@@ -166,7 +166,7 @@ class ConfirmController extends Controller
             'status_submission' => $request->status
         ]);
 
-        return redirect('confirm-submission');
+        return redirect('confirm-submission')->with('success', 'Berhasil Melakukan Konfirmasi');
     }
 
     public function patchDeposit(DepositPartner $deposit, Request $request){
@@ -174,7 +174,7 @@ class ConfirmController extends Controller
             'status_partner_deposit_id' => $request->status
         ]);
 
-        return redirect('confirm-invest');
+        return redirect('confirm-invest')->with('success', 'Berhasil Melakukan Konfirmasi');
     }
 
     public function patchInvest(Investation $invest, Request $request){
@@ -182,6 +182,6 @@ class ConfirmController extends Controller
             'invest_status_id' => $request->status
         ]);
 
-        return redirect('confirm-invest');
+        return redirect('confirm-invest')->with('success', 'Berhasil Melakukan Konfirmasi');
     }
 }
