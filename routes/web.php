@@ -57,6 +57,14 @@ Route::group(['middleware' => ['role:admin']], function(){
     Route::post('confirm-submission/{submission}/submission', [ConfirmController::class, 'actionSubmission']);
     Route::patch('confirm-submission/{submission}/patch', [ConfirmController::class, 'patchSubmission']);
 
+    Route::get('confirm-deposit', [ConfirmController::class, 'confirmDeposit'])->name('confirm-deposit');
+    Route::post('confirm-deposit/{deposit}/deposit', [ConfirmController::class, 'actionDeposit']);
+    Route::patch('confirm-deposit/{deposit}/patch', [ConfirmController::class, 'patchDeposit']);
+
+    Route::get('confirm-invest', [ConfirmController::class, 'confirmInvest']);
+    Route::post('confirm-invest/{invest}/invest', [ConfirmController::class, 'actionInvest']);
+    Route::patch('confirm-invest/{invest}/patch', [ConfirmController::class, 'patchInvest']);
+
     Route::get('detail-partner', [DetailController::class, 'detailPartner'])->name('detail-partner');
     Route::post('detail-partner/{partner}/partner', [DetailController::class, 'detailPartnerEdit']);
     Route::patch('detail-partner/{partner}/patch', [DetailController::class, 'detailPartnerPatch']);

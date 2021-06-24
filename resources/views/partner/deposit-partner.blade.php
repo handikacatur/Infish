@@ -87,7 +87,7 @@
                             <p class="mb-3">
                                 @currency($getDepositThisMonth->amount) telah disetor
                             </p>
-                            @if ($getDepositThisMonth->name == 'Terverifikasi')
+                            @if ($getDepositThisMonth->name == 'Telah Diverifikasi')
                                 <span class="px-2 py-1 font-semibold text-sm rounded-md text-green-500 bg-green-200">Terverifikasi</span>
                             @else
                                 <span class="px-2 py-1 font-semibold text-sm rounded-md text-yellow-500 bg-yellow-200">Belum Diverifikasi</span>
@@ -131,7 +131,7 @@
         {{ $listData->links() }}
     </div>
 
-    @if ($getDepositThisMonth != NULL && $getDepositThisMonth->name == 'Terverifikasi')
+    @if ($getDepositThisMonth != NULL && $getDepositThisMonth->name == 'Telah Diverifikasi')
     <!--Modal-->
     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
         <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0  transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl" role="dialog" id="modal">

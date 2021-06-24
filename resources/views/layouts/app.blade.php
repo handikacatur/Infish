@@ -133,6 +133,22 @@
                 </a>
                 </li>
               </ul>
+              <ul>
+                <li class="relative px-6 py-3">
+                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ url('/confirm-deposit') }}">
+                    <i class="fa fa-user-check"></i>
+                    <span class="ml-4">Konfirmasi Mitra - Setoran</span>
+                </a>
+                </li>
+              </ul>
+              <ul>
+                <li class="relative px-6 py-3">
+                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ url('/confirm-invest') }}">
+                    <i class="fa fa-user-check"></i>
+                    <span class="ml-4">Konfirmasi Investor - Investasi</span>
+                </a>
+                </li>
+              </ul>
               <hr class="w-52 m-auto">
               <ul>
                 <li class="relative pl-10 py-3">

@@ -16,6 +16,7 @@ class CreateInvestsTable extends Migration
         Schema::create('invests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('partner_id');
             $table->integer('bank_target_id');
             $table->integer('bank_sender_id');
             $table->string('transfer_number', 128);
