@@ -58,11 +58,11 @@
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                             <x-label for="npwp" :value="__('NPWP* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="npwp" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="npwp" :value="old('company_name')" required />
+                            <x-input id="npwp" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="npwp" :value="old('company_name')" />
                         </div>
                         <div class="md:w-1/2 px-3">
                             <x-label for="siup" :value="__('SIUP* :')" class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2"/>
-                            <x-input id="siup" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="siup" :value="old('company_name')" required />
+                            <x-input id="siup" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" type="text" name="siup" :value="old('company_name')" />
                         </div>
                     </div>
                     <hr class="py-3">
