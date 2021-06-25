@@ -86,6 +86,13 @@ class PartnerProfileController extends Controller
             'siup' => 'required',
             'description' => 'required'
         ]);
+        
+        if($request->npwp == NULL){
+            $request->npwp = NULL;
+        }
+        if($request->siup == NULL){
+            $request->siup = NULL;
+        }
 
         try {
             $user = \Auth::user()->id;
